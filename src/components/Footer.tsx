@@ -93,11 +93,11 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-white/60 text-sm">
                 <Mail size={16} />
-                hello@flowlayer.ai
+                evankoenke@gmail.com
               </li>
               <li className="flex items-center gap-3 text-white/60 text-sm">
                 <Phone size={16} />
-                (555) 123-4567
+                Contact for phone
               </li>
               <li className="flex items-start gap-3 text-white/60 text-sm">
                 <MapPin size={16} className="flex-shrink-0 mt-0.5" />
