@@ -101,7 +101,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-3 text-white/60 text-sm">
                 <MapPin size={16} className="flex-shrink-0 mt-0.5" />
-                San Francisco, CA
+                Sarasota, Florida
               </li>
             </ul>
           </div>
