@@ -2,48 +2,24 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Sparkles, Settings } from "lucide-react";
 import automationImage from "@/assets/ai-lead-follow-up-automation.png";
-import setupImage from "@/assets/ai-lead-follow-up-setup.png";
 
 const Products = () => {
-  const products = [
-    {
-      icon: Sparkles,
-      title: "AI Lead Follow-Up Automation",
-      description:
-        "Automate your sales outreach, nurture leads, and close more deals with intelligent AI workflows.",
-      price: "$2,000",
-      priceType: "recurring",
-      priceLabel: "/month",
-      image: automationImage,
-      features: [
-        "Automated lead nurturing sequences",
-        "AI-powered response generation",
-        "Multi-channel outreach (Email, SMS, Voice)",
-        "Real-time analytics dashboard",
-        "CRM integration",
-        "24/7 lead engagement",
-      ],
-      popular: true,
-    },
-    {
-      icon: Settings,
-      title: "AI Lead Follow-Up Automation Setup",
-      description:
-        "Get fully set up with personalized automation for your business and start seeing results immediately.",
-      price: "$3,500",
-      priceType: "one-time",
-      priceLabel: "one-time",
-      image: setupImage,
-      features: [
-        "Custom workflow design",
-        "Full system configuration",
-        "CRM & tool integrations",
-        "Personalized AI training",
-        "Team onboarding session",
-        "30-day support included",
-      ],
-      popular: false,
-    },
+  const setupFeatures = [
+    "Custom workflow design",
+    "Full system configuration",
+    "CRM & tool integrations",
+    "Personalized AI training",
+    "Team onboarding session",
+    "30-day support included",
+  ];
+
+  const ongoingFeatures = [
+    "Automated lead nurturing sequences",
+    "AI-powered response generation",
+    "Multi-channel outreach (Email, SMS, Voice)",
+    "Real-time analytics dashboard",
+    "CRM integration",
+    "24/7 lead engagement",
   ];
 
   return (
@@ -58,96 +34,131 @@ const Products = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Choose Your <span className="text-gradient">Solution</span>
+            Complete AI Lead <span className="text-gradient">Automation Package</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Whether you want ongoing automation or a complete setup, we have the perfect solution for your business.
+            Get fully set up with personalized automation and ongoing AI-powered lead management to grow your business.
           </p>
         </motion.div>
 
-        {/* Products Grid */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
-          {products.map((product, index) => (
-            <motion.div
-              key={product.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={`relative rounded-3xl p-1 ${
-                product.popular
-                  ? "bg-gradient-to-b from-primary/50 to-primary/10"
-                  : "bg-border"
-              }`}
-            >
-              {product.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full gradient-primary text-primary-foreground text-sm font-medium">
-                  Most Popular
-                </div>
-              )}
+        {/* Single Product Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto"
+        >
+          <div className="relative rounded-3xl p-1 bg-gradient-to-b from-primary/50 to-primary/10">
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full gradient-primary text-primary-foreground text-sm font-medium">
+              Complete Solution
+            </div>
 
-              <div className="bg-card rounded-[calc(1.5rem-4px)] p-6 lg:p-8 h-full flex flex-col">
-                {/* Product Image */}
-                <div className="mb-6 rounded-xl overflow-hidden bg-accent/50">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-auto"
-                  />
-                </div>
-
-                {/* Icon & Title */}
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center">
-                    <product.icon className="text-primary-foreground" size={24} />
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground">
-                    {product.title}
-                  </h3>
-                </div>
-
-                {/* Description */}
-                <p className="text-muted-foreground mb-6">{product.description}</p>
-
-                {/* Price */}
-                <div className="mb-6">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-bold text-foreground">
-                      {product.price}
-                    </span>
-                    <span className="text-muted-foreground">{product.priceLabel}</span>
-                  </div>
-                </div>
-
-                {/* Features */}
-                <ul className="space-y-3 mb-8 flex-grow">
-                  {product.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <div className="w-5 h-5 rounded-full bg-accent flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Check size={12} className="text-primary" />
-                      </div>
-                      <span className="text-muted-foreground">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                <Button
-                  size="lg"
-                  className={`w-full ${
-                    product.popular
-                      ? "gradient-primary shadow-medium hover:shadow-large"
-                      : ""
-                  }`}
-                  variant={product.popular ? "default" : "outline"}
-                >
-                  Get Started
-                  <ArrowRight className="ml-2" size={18} />
-                </Button>
+            <div className="bg-card rounded-[calc(1.5rem-4px)] p-6 lg:p-8">
+              {/* Product Image */}
+              <div className="mb-6 rounded-xl overflow-hidden bg-accent/50">
+                <img
+                  src={automationImage}
+                  alt="AI Lead Follow-Up Automation"
+                  className="w-full h-auto"
+                />
               </div>
-            </motion.div>
-          ))}
-        </div>
+
+              {/* Title */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center">
+                  <Sparkles className="text-primary-foreground" size={24} />
+                </div>
+                <h3 className="text-xl lg:text-2xl font-bold text-foreground">
+                  AI Lead Follow-Up Automation
+                </h3>
+              </div>
+
+              {/* Description */}
+              <p className="text-muted-foreground mb-8">
+                Get a complete, done-for-you AI automation system that nurtures your leads 24/7 and closes more deals on autopilot.
+              </p>
+
+              {/* Pricing */}
+              <div className="bg-accent/30 rounded-2xl p-6 mb-8">
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {/* Setup Fee */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
+                      <Settings size={20} className="text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">One-Time Setup</p>
+                      <p className="text-2xl font-bold text-foreground">$3,500</p>
+                    </div>
+                  </div>
+                  {/* Monthly Fee */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
+                      <Sparkles size={20} className="text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">Then Monthly</p>
+                      <p className="text-2xl font-bold text-foreground">$2,000<span className="text-base font-normal text-muted-foreground">/mo</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Features Grid */}
+              <div className="grid md:grid-cols-2 gap-8 mb-8">
+                {/* Setup Features */}
+                <div>
+                  <h4 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+                    <Settings size={18} className="text-primary" />
+                    What's Included in Setup
+                  </h4>
+                  <ul className="space-y-3">
+                    {setupFeatures.map((feature) => (
+                      <li key={feature} className="flex items-start gap-3">
+                        <div className="w-5 h-5 rounded-full bg-accent flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Check size={12} className="text-primary" />
+                        </div>
+                        <span className="text-muted-foreground text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Ongoing Features */}
+                <div>
+                  <h4 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+                    <Sparkles size={18} className="text-primary" />
+                    Ongoing Automation
+                  </h4>
+                  <ul className="space-y-3">
+                    {ongoingFeatures.map((feature) => (
+                      <li key={feature} className="flex items-start gap-3">
+                        <div className="w-5 h-5 rounded-full bg-accent flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Check size={12} className="text-primary" />
+                        </div>
+                        <span className="text-muted-foreground text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <Button
+                size="lg"
+                className="w-full gradient-primary shadow-medium hover:shadow-large"
+              >
+                Get Started Today
+                <ArrowRight className="ml-2" size={18} />
+              </Button>
+
+              <p className="text-center text-sm text-muted-foreground mt-4">
+                Start with a $3,500 setup fee, then $2,000/month for ongoing automation
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
