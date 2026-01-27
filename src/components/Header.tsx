@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
 
   const navItems = [
@@ -16,6 +17,16 @@ const Header = () => {
     { label: "Blog", href: "/blog", isAnchor: false },
     { label: "Contact", href: "#contact", isAnchor: true },
   ];
+
+  const handleAnchorClick = (href: string) => {
+    const sectionId = href.replace('#', '');
+    if (isHomePage) {
+      const element = document.getElementById(sectionId);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate(`/${href}`);
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
@@ -35,23 +46,13 @@ const Header = () => {
           <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item) =>
               item.isAnchor ? (
-                isHomePage ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors font-medium"
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    key={item.label}
-                    to={`/${item.href}`}
-                    className="text-muted-foreground hover:text-foreground transition-colors font-medium"
-                  >
-                    {item.label}
-                  </Link>
-                )
+                <button
+                  key={item.label}
+                  onClick={() => handleAnchorClick(item.href)}
+                  className="text-muted-foreground hover:text-foreground transition-colors font-medium"
+                >
+                  {item.label}
+                </button>
               ) : (
                 <Link
                   key={item.label}
@@ -96,25 +97,16 @@ const Header = () => {
             <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
               {navItems.map((item) =>
                 item.isAnchor ? (
-                  isHomePage ? (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      className="text-muted-foreground hover:text-foreground transition-colors font-medium py-2"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.label}
-                    </a>
-                  ) : (
-                    <Link
-                      key={item.label}
-                      to={`/${item.href}`}
-                      className="text-muted-foreground hover:text-foreground transition-colors font-medium py-2"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  )
+                  <button
+                    key={item.label}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      handleAnchorClick(item.href);
+                    }}
+                    className="text-left text-muted-foreground hover:text-foreground transition-colors font-medium py-2"
+                  >
+                    {item.label}
+                  </button>
                 ) : (
                   <Link
                     key={item.label}
