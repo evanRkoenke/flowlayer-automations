@@ -1,4 +1,5 @@
-import { Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Twitter, Calendar } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -37,6 +38,13 @@ const Footer = () => {
             <p className="text-white/60 mb-6 text-sm leading-relaxed">
               Your modern, reliable AI partner for businesses that want to streamline lead follow-ups and scale faster.
             </p>
+            <Button
+              className="bg-white text-primary hover:bg-white/90 mb-4"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <Calendar size={16} className="mr-2" />
+              Schedule Demo
+            </Button>
             <div className="flex gap-3">
               <a
                 href="#"
@@ -91,13 +99,23 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-3">
-              <li className="flex items-center gap-3 text-white/60 text-sm">
-                <Mail size={16} />
-                evankoenke@gmail.com
+              <li>
+                <a 
+                  href="mailto:evankoenke@gmail.com" 
+                  className="flex items-center gap-3 text-white/60 hover:text-white transition-colors text-sm"
+                >
+                  <Mail size={16} />
+                  evankoenke@gmail.com
+                </a>
               </li>
-              <li className="flex items-center gap-3 text-white/60 text-sm">
-                <Phone size={16} />
-                (941) 284-1742
+              <li>
+                <a 
+                  href="tel:+19412841742" 
+                  className="flex items-center gap-3 text-white/60 hover:text-white transition-colors text-sm"
+                >
+                  <Phone size={16} />
+                  (941) 284-1742
+                </a>
               </li>
               <li className="flex items-start gap-3 text-white/60 text-sm">
                 <MapPin size={16} className="flex-shrink-0 mt-0.5" />
