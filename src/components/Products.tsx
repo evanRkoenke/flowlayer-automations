@@ -49,14 +49,14 @@ const Products = () => {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto"
         >
-          <div className="relative rounded-3xl p-1 bg-gradient-to-b from-primary/50 to-primary/10">
+          <div className="relative rounded-3xl p-[1px] bg-gradient-to-b from-primary/50 to-primary/10">
             <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full gradient-primary text-primary-foreground text-sm font-medium">
               Complete Solution
             </div>
 
-            <div className="bg-card rounded-[calc(1.5rem-4px)] p-6 lg:p-8">
+            <div className="bg-card rounded-[calc(1.5rem-1px)] p-6 lg:p-8 border border-primary/20">
               {/* Product Image */}
-              <div className="mb-6 rounded-xl overflow-hidden bg-accent/50">
+              <div className="mb-6 rounded-xl overflow-hidden bg-secondary border border-border">
                 <img
                   src={automationImage}
                   alt="AI Lead Follow-Up Automation"
@@ -66,7 +66,7 @@ const Products = () => {
 
               {/* Title */}
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-soft">
                   <Sparkles className="text-primary-foreground" size={24} />
                 </div>
                 <h3 className="text-xl lg:text-2xl font-bold text-foreground">
@@ -80,26 +80,26 @@ const Products = () => {
               </p>
 
               {/* Pricing */}
-              <div className="bg-accent/30 rounded-2xl p-6 mb-8">
+              <div className="bg-secondary/50 rounded-2xl p-6 mb-8 border border-border">
                 <div className="grid sm:grid-cols-2 gap-6">
                   {/* Setup Fee */}
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                       <Settings size={20} className="text-primary" />
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground mb-1">One-Time Setup</p>
-                      <p className="text-2xl font-bold text-foreground">$3,500</p>
+                      <p className="text-2xl font-bold text-gradient">$3,500</p>
                     </div>
                   </div>
                   {/* Monthly Fee */}
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                       <Sparkles size={20} className="text-primary" />
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground mb-1">Then Monthly</p>
-                      <p className="text-2xl font-bold text-foreground">$2,000<span className="text-base font-normal text-muted-foreground">/mo</span></p>
+                      <p className="text-2xl font-bold text-gradient">$2,000<span className="text-base font-normal text-muted-foreground">/mo</span></p>
                     </div>
                   </div>
                 </div>
@@ -116,7 +116,7 @@ const Products = () => {
                   <ul className="space-y-3">
                     {setupFeatures.map((feature) => (
                       <li key={feature} className="flex items-start gap-3">
-                        <div className="w-5 h-5 rounded-full bg-accent flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                           <Check size={12} className="text-primary" />
                         </div>
                         <span className="text-muted-foreground text-sm">{feature}</span>
@@ -134,7 +134,7 @@ const Products = () => {
                   <ul className="space-y-3">
                     {ongoingFeatures.map((feature) => (
                       <li key={feature} className="flex items-start gap-3">
-                        <div className="w-5 h-5 rounded-full bg-accent flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                           <Check size={12} className="text-primary" />
                         </div>
                         <span className="text-muted-foreground text-sm">{feature}</span>
@@ -147,7 +147,7 @@ const Products = () => {
               {/* CTA */}
               <Button
                 size="lg"
-                className="w-full gradient-primary shadow-medium hover:shadow-large"
+                className="w-full gradient-primary shadow-cyan hover:shadow-large text-primary-foreground font-semibold"
               >
                 Get Started Today
                 <ArrowRight className="ml-2" size={18} />

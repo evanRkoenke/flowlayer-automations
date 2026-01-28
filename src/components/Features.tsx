@@ -68,7 +68,7 @@ const Features = () => {
   };
 
   return (
-    <section id="features" className="py-20 lg:py-32 bg-accent/30">
+    <section id="features" className="py-20 lg:py-32 bg-secondary/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -98,10 +98,10 @@ const Features = () => {
             <motion.div
               key={feature.title}
               variants={itemVariants}
-              className="group relative bg-card rounded-2xl p-6 lg:p-8 border border-border hover:border-primary/30 transition-all duration-300 hover:shadow-medium"
+              className="group relative bg-card rounded-2xl p-6 lg:p-8 border border-border hover:border-primary/30 transition-all duration-300 hover:shadow-cyan"
             >
               {/* Icon */}
-              <div className="w-14 h-14 rounded-2xl gradient-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-14 h-14 rounded-2xl gradient-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-soft">
                 <feature.icon className="text-primary-foreground" size={28} />
               </div>
 

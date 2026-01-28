@@ -28,6 +28,9 @@ const Blog = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
+            <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 border border-primary/20">
+              Blog
+            </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4">
               Insights & <span className="text-gradient">Resources</span>
             </h1>
@@ -47,7 +50,7 @@ const Blog = () => {
               >
                 <Link
                   to={`/blog/${post.slug}`}
-                  className="group block bg-card rounded-2xl border border-border p-8 hover:shadow-medium transition-all duration-300"
+                  className="group block bg-card rounded-2xl border border-border p-8 hover:shadow-cyan hover:border-primary/30 transition-all duration-300"
                 >
                   <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
                     <span className="flex items-center gap-1.5">

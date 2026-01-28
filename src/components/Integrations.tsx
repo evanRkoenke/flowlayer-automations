@@ -50,7 +50,7 @@ const Integrations = () => {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 border border-primary/20">
             Seamless Integration
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
@@ -76,7 +76,7 @@ const Integrations = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="px-5 py-3 bg-card rounded-lg border border-border shadow-soft hover:shadow-medium hover:border-primary/30 transition-all"
+              className="px-5 py-3 bg-card rounded-lg border border-border shadow-soft hover:shadow-cyan hover:border-primary/30 transition-all"
             >
               <span className="font-medium text-foreground">{integration}</span>
             </motion.div>
