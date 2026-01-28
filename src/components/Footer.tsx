@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin, Linkedin, Twitter, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import flowlayerLogo from "@/assets/flowlayer-logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -27,13 +28,12 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <a href="#" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center">
-                <span className="text-white font-bold text-lg">F</span>
-              </div>
-              <span className="text-xl font-bold">
-                FlowLayer <span className="text-flow-200">AI</span>
-              </span>
+            <a href="#" className="flex items-center mb-4">
+              <img 
+                src={flowlayerLogo} 
+                alt="FlowLayer AI" 
+                className="h-10 w-auto brightness-0 invert"
+              />
             </a>
             <p className="text-white/60 mb-6 text-sm leading-relaxed">
               Your modern, reliable AI partner for businesses that want to streamline lead follow-ups and scale faster.
