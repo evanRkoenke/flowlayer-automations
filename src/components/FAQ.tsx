@@ -40,7 +40,7 @@ const FAQ = () => {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 border border-primary/20">
             FAQ
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
@@ -63,9 +63,9 @@ const FAQ = () => {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-card rounded-xl border border-border px-6 shadow-soft"
+                className="bg-card rounded-xl border border-border px-6 shadow-soft data-[state=open]:border-primary/30 data-[state=open]:shadow-cyan transition-all"
               >
-                <AccordionTrigger className="text-left text-foreground hover:no-underline py-5">
+                <AccordionTrigger className="text-left text-foreground hover:no-underline hover:text-primary py-5 transition-colors">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">

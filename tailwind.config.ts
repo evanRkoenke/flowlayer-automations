@@ -51,13 +51,21 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         flow: {
-          50: "hsl(var(--flow-blue-50))",
-          100: "hsl(var(--flow-blue-100))",
-          200: "hsl(var(--flow-blue-200))",
-          500: "hsl(var(--flow-blue-500))",
-          600: "hsl(var(--flow-blue-600))",
-          700: "hsl(var(--flow-blue-700))",
-          900: "hsl(var(--flow-blue-900))",
+          navy: {
+            900: "hsl(var(--flow-navy-900))",
+            800: "hsl(var(--flow-navy-800))",
+            700: "hsl(var(--flow-navy-700))",
+            600: "hsl(var(--flow-navy-600))",
+          },
+          cyan: {
+            400: "hsl(var(--flow-cyan-400))",
+            500: "hsl(var(--flow-cyan-500))",
+            600: "hsl(var(--flow-cyan-600))",
+          },
+          blue: {
+            500: "hsl(var(--flow-blue-500))",
+            600: "hsl(var(--flow-blue-600))",
+          },
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -97,8 +105,12 @@ export default {
           "50%": { transform: "translateY(-10px)" },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(217 91% 50% / 0.2)" },
-          "50%": { boxShadow: "0 0 40px hsl(217 91% 50% / 0.4)" },
+          "0%, 100%": { boxShadow: "0 0 20px hsl(187 70% 50% / 0.2)" },
+          "50%": { boxShadow: "0 0 40px hsl(187 70% 50% / 0.4)" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.5" },
+          "50%": { opacity: "1" },
         },
       },
       animation: {
@@ -108,6 +120,7 @@ export default {
         "fade-in-up": "fade-in-up 0.8s ease-out forwards",
         "float": "float 3s ease-in-out infinite",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
       },
     },
   },

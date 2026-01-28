@@ -33,7 +33,7 @@ const HowItWorks = () => {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 border border-primary/20">
             Simple Process
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
@@ -62,9 +62,9 @@ const HowItWorks = () => {
               >
                 {/* Content */}
                 <div className={`flex-1 ${index % 2 === 0 ? "lg:text-right" : "lg:text-left"}`}>
-                  <div className="bg-card rounded-2xl p-6 shadow-soft border border-border inline-block text-left">
+                  <div className="bg-card rounded-2xl p-6 shadow-soft border border-border hover:border-primary/30 hover:shadow-cyan transition-all inline-block text-left">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center shadow-soft">
                         <step.icon className="w-5 h-5 text-primary-foreground" />
                       </div>
                       <span className="text-sm font-bold text-primary">Step {step.step}</span>
@@ -79,7 +79,7 @@ const HowItWorks = () => {
                 </div>
 
                 {/* Center dot */}
-                <div className="hidden lg:flex w-4 h-4 rounded-full bg-primary border-4 border-background shadow-md z-10" />
+                <div className="hidden lg:flex w-4 h-4 rounded-full bg-primary border-4 border-background shadow-cyan z-10" />
 
                 {/* Empty space for alignment */}
                 <div className="hidden lg:block flex-1" />

@@ -33,7 +33,7 @@ const Testimonials = () => {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 border border-primary/20">
             Success Stories
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
@@ -52,9 +52,9 @@ const Testimonials = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="bg-card rounded-2xl p-8 shadow-soft border border-border relative"
+              className="bg-card rounded-2xl p-8 shadow-soft border border-border hover:border-primary/30 hover:shadow-cyan transition-all relative"
             >
-              <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/10" />
+              <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/20" />
               
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (

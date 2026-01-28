@@ -60,7 +60,7 @@ const About = () => {
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="flex items-start gap-4"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <value.icon className="text-primary" size={20} />
                   </div>
                   <div>
@@ -87,7 +87,7 @@ const About = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-card rounded-2xl p-6 lg:p-8 border border-border text-center hover:shadow-medium transition-shadow"
+                className="bg-card rounded-2xl p-6 lg:p-8 border border-border text-center hover:shadow-cyan hover:border-primary/30 transition-all"
               >
                 <div className="text-4xl lg:text-5xl font-bold text-gradient mb-2">
                   {stat.value}

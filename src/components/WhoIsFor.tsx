@@ -35,7 +35,7 @@ const WhoIsFor = () => {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 border border-primary/20">
             Perfect Fit
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
@@ -54,9 +54,9 @@ const WhoIsFor = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-card rounded-2xl p-6 shadow-soft hover:shadow-medium transition-shadow border border-border"
+              className="bg-card rounded-2xl p-6 shadow-soft hover:shadow-cyan transition-all border border-border hover:border-primary/30"
             >
-              <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mb-4 shadow-soft">
                 <audience.icon className="w-6 h-6 text-primary-foreground" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">

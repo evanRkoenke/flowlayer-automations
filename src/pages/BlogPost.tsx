@@ -234,14 +234,14 @@ const BlogPost = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="max-w-3xl mx-auto mt-16"
           >
-            <div className="bg-card rounded-2xl border border-border p-8 text-center">
+            <div className="bg-card rounded-2xl border border-border hover:border-primary/30 p-8 text-center transition-all">
               <h3 className="text-2xl font-bold text-foreground mb-4">
                 Ready to stop the bleeding?
               </h3>
               <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
                 Schedule a demo with FlowLayer AI and we'll show you exactly how much revenue you're leaving on the table — and how to capture it.
               </p>
-              <Button size="lg" className="gradient-primary shadow-medium hover:shadow-large">
+              <Button size="lg" className="gradient-primary shadow-cyan hover:shadow-large text-primary-foreground font-semibold">
                 Schedule Your Demo
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
