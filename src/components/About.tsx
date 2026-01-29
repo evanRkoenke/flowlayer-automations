@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Target, Users, Rocket } from "lucide-react";
+import flowlayerLogo from "@/assets/flowlayer-logo.png";
 
 const About = () => {
   const stats = [
@@ -28,8 +29,18 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 lg:py-32 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-20 lg:py-32 bg-background relative overflow-hidden">
+      {/* Background logo watermark */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <img
+          src={flowlayerLogo}
+          alt=""
+          aria-hidden="true"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] lg:w-[700px] opacity-[0.03]"
+        />
+      </div>
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Content */}
           <motion.div

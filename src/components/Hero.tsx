@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, Zap } from "lucide-react";
 import automationImage from "@/assets/ai-lead-follow-up-automation.png";
+import flowlayerLogo from "@/assets/flowlayer-logo.png";
 
 const Hero = () => {
   return (
@@ -11,6 +12,16 @@ const Hero = () => {
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] gradient-glow" />
+        {/* Subtle logo watermark */}
+        <motion.img
+          src={flowlayerLogo}
+          alt=""
+          aria-hidden="true"
+          className="absolute top-1/4 right-0 w-64 lg:w-96 opacity-5 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.05 }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+        />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
