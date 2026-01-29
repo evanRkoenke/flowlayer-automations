@@ -38,7 +38,7 @@ const Header = () => {
             <img 
               src={flowlayerLogo} 
               alt="FlowLayer AI" 
-              className="h-12 lg:h-14 w-auto"
+              className="h-14 lg:h-20 w-auto"
             />
           </Link>
 
