@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Sparkles, Settings } from "lucide-react";
 import automationImage from "@/assets/ai-lead-follow-up-automation.png";
-import flowlayerLogo from "@/assets/flowlayer-logo.png";
 
 const Products = () => {
   const setupFeatures = [
@@ -67,8 +66,8 @@ const Products = () => {
 
               {/* Title */}
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-soft overflow-hidden">
-                  <img src={flowlayerLogo} alt="FlowLayer AI" className="w-10 h-10 object-contain" />
+                <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-soft">
+                  <Sparkles className="text-primary-foreground" size={24} />
                 </div>
                 <h3 className="text-xl lg:text-2xl font-bold text-foreground">
                   AI Lead Follow-Up Automation
