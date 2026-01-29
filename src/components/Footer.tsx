@@ -32,7 +32,7 @@ const Footer = () => {
               <img 
                 src={flowlayerLogo} 
                 alt="FlowLayer AI" 
-                className="h-10 w-auto"
+                className="h-12 w-auto"
               />
             </a>
             <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
