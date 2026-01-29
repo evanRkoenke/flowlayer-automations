@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Calendar, ArrowRight } from "lucide-react";
+import flowlayerLogo from "@/assets/flowlayer-logo.png";
 
 const CTA = () => {
   return (
@@ -13,6 +14,19 @@ const CTA = () => {
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl" />
+        {/* Logo watermark */}
+        <img
+          src={flowlayerLogo}
+          alt=""
+          aria-hidden="true"
+          className="absolute -bottom-16 -left-16 w-64 lg:w-80 opacity-10 rotate-12"
+        />
+        <img
+          src={flowlayerLogo}
+          alt=""
+          aria-hidden="true"
+          className="absolute -top-16 -right-16 w-64 lg:w-80 opacity-10 -rotate-12"
+        />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
