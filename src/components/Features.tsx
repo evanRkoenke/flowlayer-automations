@@ -12,64 +12,55 @@ const Features = () => {
   const features = [
     {
       icon: Zap,
-      title: "Lightning Fast Efficiency",
+      title: "Lightning Fast Response",
       description:
-        "Respond to leads in seconds, not hours. Our AI ensures no opportunity slips through the cracks.",
+        "Respond to leads in under 30 seconds, not hours. Our AI ensures no opportunity slips through the cracks.",
+      highlight: "<30 sec",
     },
     {
       icon: Clock,
-      title: "24/7 Time Savings",
+      title: "24/7 Automation",
       description:
         "Let AI handle repetitive follow-ups while you focus on closing deals and growing your business.",
+      highlight: "Always On",
     },
     {
       icon: Bot,
-      title: "Smart Automation",
+      title: "Smart Personalization",
       description:
         "Intelligent workflows that adapt to lead behavior, sending the right message at the perfect time.",
+      highlight: "AI-Powered",
     },
     {
       icon: BarChart3,
       title: "Advanced Analytics",
       description:
         "Get deep insights into your funnel performance with real-time dashboards and detailed reports.",
+      highlight: "Real-Time",
     },
     {
       icon: Brain,
-      title: "AI Intelligence",
+      title: "Machine Learning",
       description:
-        "Machine learning algorithms that continuously improve response quality and conversion rates.",
+        "Algorithms that continuously improve response quality and conversion rates over time.",
+      highlight: "Self-Improving",
     },
     {
       icon: Shield,
       title: "Enterprise Security",
       description:
         "Bank-level encryption and compliance with industry standards to keep your data safe.",
+      highlight: "SOC 2",
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
-
   return (
-    <section id="features" className="py-20 lg:py-32 bg-secondary/30">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="features" className="py-24 lg:py-36 bg-secondary/20 relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 bg-grid opacity-20" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[200px]" />
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -78,8 +69,11 @@ const Features = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
+          <span className="inline-block px-4 py-2 rounded-full glass border-glow-subtle text-primary text-sm font-medium mb-6 uppercase tracking-wider">
+            Platform Capabilities
+          </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Powerful <span className="text-gradient">Features</span>
+            Powerful <span className="text-gradient-premium">Features</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Everything you need to automate your lead follow-up and scale your business efficiently.
@@ -87,22 +81,24 @@ const Features = () => {
         </motion.div>
 
         {/* Features Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-        >
-          {features.map((feature) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {features.map((feature, index) => (
             <motion.div
               key={feature.title}
-              variants={itemVariants}
-              className="group relative bg-card rounded-2xl p-6 lg:p-8 border border-border hover:border-primary/30 transition-all duration-300 hover:shadow-cyan"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group card-premium p-8"
             >
-              {/* Icon */}
-              <div className="w-14 h-14 rounded-2xl gradient-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-soft">
-                <feature.icon className="text-primary-foreground" size={28} />
+              {/* Header */}
+              <div className="flex items-start justify-between mb-6">
+                <div className="w-16 h-16 rounded-2xl gradient-premium flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-medium">
+                  <feature.icon className="text-primary-foreground" size={28} />
+                </div>
+                <span className="text-xs font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-full">
+                  {feature.highlight}
+                </span>
               </div>
 
               {/* Content */}
@@ -112,12 +108,9 @@ const Features = () => {
               <p className="text-muted-foreground leading-relaxed">
                 {feature.description}
               </p>
-
-              {/* Hover glow effect */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

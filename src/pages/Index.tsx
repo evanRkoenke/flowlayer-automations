@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import TrustedBy from "@/components/TrustedBy";
 import WhoIsFor from "@/components/WhoIsFor";
 import Products from "@/components/Products";
 import WhatsIncluded from "@/components/WhatsIncluded";
@@ -32,6 +33,7 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
+        <TrustedBy />
         <WhoIsFor />
         <Products />
         <WhatsIncluded />

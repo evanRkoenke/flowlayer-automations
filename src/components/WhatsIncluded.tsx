@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, MessageSquare, UserCheck, Calendar, Plug, BarChart3, Settings } from "lucide-react";
+import { Mail, MessageSquare, UserCheck, Calendar, Plug, BarChart3, Settings, ArrowUpRight } from "lucide-react";
 
 const deliverables = [
   {
@@ -19,7 +19,7 @@ const deliverables = [
   },
   {
     icon: Calendar,
-    title: "Appointment Booking Automation",
+    title: "Appointment Booking",
     description: "Let qualified leads book directly on your calendar without back-and-forth.",
   },
   {
@@ -29,39 +29,43 @@ const deliverables = [
   },
   {
     icon: BarChart3,
-    title: "Analytics & Performance Tracking",
+    title: "Analytics Dashboard",
     description: "Real-time dashboards showing conversion rates and ROI metrics.",
   },
   {
     icon: Settings,
-    title: "Ongoing Optimization & Support",
+    title: "Ongoing Optimization",
     description: "Continuous improvement and dedicated support to maximize results.",
   },
 ];
 
 const WhatsIncluded = () => {
   return (
-    <section className="py-20 lg:py-28 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 lg:py-36 bg-background relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 gradient-mesh opacity-30" />
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 border border-primary/20">
+          <span className="inline-block px-4 py-2 rounded-full glass border-glow-subtle text-primary text-sm font-medium mb-6 uppercase tracking-wider">
             Full Package
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            What's <span className="text-gradient">Included</span>
+            Everything You Need,{" "}
+            <span className="text-gradient-premium">Nothing You Don't</span>
           </h2>
           <p className="text-lg text-muted-foreground">
-            Everything you need to capture, nurture, and convert leads automatically.
+            A complete system to capture, nurture, and convert leads automatically.
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {deliverables.map((item, index) => (
             <motion.div
               key={item.title}
@@ -69,19 +73,20 @@ const WhatsIncluded = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="flex items-start gap-4 p-5 rounded-xl bg-card border border-border hover:border-primary/30 transition-all hover:shadow-soft"
+              className="group card-premium p-6 flex flex-col"
             >
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <item.icon className="w-5 h-5 text-primary" />
+              <div className="flex items-start justify-between mb-4">
+                <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-soft group-hover:shadow-cyan transition-shadow">
+                  <item.icon className="w-6 h-6 text-primary-foreground" />
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <div>
-                <h3 className="font-semibold text-foreground mb-1">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
+              <h3 className="font-bold text-foreground mb-2">
+                {item.title}
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed flex-grow">
+                {item.description}
+              </p>
             </motion.div>
           ))}
         </div>
