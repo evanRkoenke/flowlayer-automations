@@ -27,24 +27,32 @@ const faqs = [
     question: "How do we measure results?",
     answer: "You get access to a real-time dashboard showing key metrics: response rates, conversion rates, appointments booked, and revenue attributed to automation. We also provide monthly performance reports with optimization recommendations.",
   },
+  {
+    question: "What if it doesn't work for my business?",
+    answer: "We offer a 30-day money-back guarantee. If you're not seeing measurable improvements in your lead follow-up within the first 30 days, we'll refund your setup fee—no questions asked.",
+  },
 ];
 
 const FAQ = () => {
   return (
-    <section className="py-20 lg:py-28 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 lg:py-36 bg-background relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 gradient-mesh opacity-30" />
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 border border-primary/20">
+          <span className="inline-block px-4 py-2 rounded-full glass border-glow-subtle text-primary text-sm font-medium mb-6 uppercase tracking-wider">
             FAQ
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Frequently Asked <span className="text-gradient">Questions</span>
+            Frequently Asked{" "}
+            <span className="text-gradient-premium">Questions</span>
           </h2>
           <p className="text-lg text-muted-foreground">
             Everything you need to know about getting started with FlowLayer AI.
@@ -55,7 +63,7 @@ const FAQ = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-3xl mx-auto"
         >
           <Accordion type="single" collapsible className="space-y-4">
@@ -63,12 +71,12 @@ const FAQ = () => {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-card rounded-xl border border-border px-6 shadow-soft data-[state=open]:border-primary/30 data-[state=open]:shadow-cyan transition-all"
+                className="glass rounded-2xl border border-border px-6 data-[state=open]:border-primary/40 data-[state=open]:shadow-cyan transition-all duration-300"
               >
-                <AccordionTrigger className="text-left text-foreground hover:no-underline hover:text-primary py-5 transition-colors">
+                <AccordionTrigger className="text-left text-foreground hover:no-underline hover:text-primary py-6 transition-colors font-semibold text-lg">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+                <AccordionContent className="text-muted-foreground pb-6 leading-relaxed text-base">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
