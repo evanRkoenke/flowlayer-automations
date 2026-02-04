@@ -82,13 +82,16 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground hover:bg-primary/10 font-medium">
-              Log In
-            </Button>
-            <Button className="gradient-premium shadow-medium hover:shadow-cyan transition-all text-primary-foreground font-semibold group px-6">
-              Get Started
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <a
+              href="https://calendly.com/evankoenke/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="gradient-premium shadow-medium hover:shadow-cyan transition-all text-primary-foreground font-semibold group px-6">
+                Book a 30-Minute Call
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
