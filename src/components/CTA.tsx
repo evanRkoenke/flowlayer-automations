@@ -73,21 +73,29 @@ const CTA = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
-            <Button
-              size="lg"
-              className="bg-white text-flow-navy-900 hover:bg-white/90 shadow-large text-lg px-10 py-7 font-bold group"
+            <a
+              href="https://calendly.com/evankoenke/30min"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <Calendar className="mr-2" size={22} />
-              Book Your Free Call
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-2 border-white/40 text-white hover:bg-white/10 hover:border-white/60 text-lg px-10 py-7 font-semibold"
-            >
-              Contact Sales
-            </Button>
+              <Button
+                size="lg"
+                className="bg-white text-flow-navy-900 hover:bg-white/90 shadow-large text-lg px-10 py-7 font-bold group"
+              >
+                <Calendar className="mr-2" size={22} />
+                Book Your Free Call
+                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+              </Button>
+            </a>
+            <a href="mailto:evankoenke@gmail.com">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-white/40 text-white hover:bg-white/10 hover:border-white/60 text-lg px-10 py-7 font-semibold"
+              >
+                Contact Sales
+              </Button>
+            </a>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-white/60">

@@ -46,11 +46,17 @@ const Footer = () => {
               </p>
               <Button
                 className="gradient-premium text-primary-foreground font-semibold shadow-medium hover:shadow-cyan transition-all mb-6 group"
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                asChild
               >
-                <Calendar size={18} className="mr-2" />
-                Schedule Demo
-                <ArrowUpRight className="ml-1 w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <a
+                  href="https://calendly.com/evankoenke/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Calendar size={18} className="mr-2" />
+                  Schedule Demo
+                  <ArrowUpRight className="ml-1 w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
               </Button>
               <div className="flex gap-3">
                 <a

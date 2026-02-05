@@ -118,20 +118,27 @@ const Hero = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
-              <Button
-                size="lg"
-                className="gradient-premium shadow-premium hover:shadow-glow transition-all duration-300 text-lg px-8 py-7 text-primary-foreground font-semibold group"
+              <a
+                href="https://calendly.com/evankoenke/30min"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Start Automating
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-              </Button>
+                <Button
+                  size="lg"
+                  className="gradient-premium shadow-premium hover:shadow-glow transition-all duration-300 text-lg px-8 py-7 text-primary-foreground font-semibold group"
+                >
+                  Start Automating
+                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                </Button>
+              </a>
               <Button
                 size="lg"
                 variant="outline"
                 className="border-2 border-primary/30 text-foreground hover:bg-primary/10 hover:border-primary/50 text-lg px-8 py-7 group"
+                onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 <Play className="mr-2 group-hover:scale-110 transition-transform" size={18} />
-                Watch Demo
+                See How It Works
               </Button>
             </div>
 
