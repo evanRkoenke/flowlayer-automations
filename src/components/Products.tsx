@@ -170,13 +170,20 @@ const Products = () => {
               </div>
 
               {/* CTA */}
-              <Button
-                size="lg"
-                className="w-full gradient-premium shadow-premium hover:shadow-glow text-primary-foreground font-semibold text-lg py-7 group"
+              <a
+                href="https://calendly.com/evankoenke/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
               >
-                Get Started Today
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-              </Button>
+                <Button
+                  size="lg"
+                  className="w-full gradient-premium shadow-premium hover:shadow-glow text-primary-foreground font-semibold text-lg py-7 group"
+                >
+                  Get Started Today
+                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                </Button>
+              </a>
 
               <p className="text-center text-sm text-muted-foreground mt-4">
                 Book a free strategy call to see if we're a fit

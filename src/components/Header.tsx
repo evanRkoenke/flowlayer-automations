@@ -138,13 +138,16 @@ const Header = () => {
                 )
               )}
               <div className="flex flex-col gap-3 pt-4 mt-2 border-t border-border">
-                <Button variant="ghost" className="justify-start hover:bg-primary/10">
-                  Log In
-                </Button>
-                <Button className="gradient-premium text-primary-foreground font-semibold">
-                  Get Started
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
+                <a
+                  href="https://calendly.com/evankoenke/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button className="w-full gradient-premium text-primary-foreground font-semibold">
+                    Book a 30-Minute Call
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </a>
               </div>
             </nav>
           </motion.div>
