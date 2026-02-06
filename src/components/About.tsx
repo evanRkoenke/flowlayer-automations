@@ -74,25 +74,22 @@ const About = () => {
             {/* Glowing border card */}
             <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-r from-primary/50 via-flow-blue-500/40 to-primary/50 opacity-60 blur-sm" />
             <div className="relative rounded-3xl bg-card border border-border overflow-hidden">
-              <div className="grid lg:grid-cols-5 gap-0">
+              <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 p-8 sm:p-10 lg:p-14 items-center">
                 {/* Photo Column */}
-                <div className="lg:col-span-2 relative">
-                  <div className="relative h-full min-h-[400px] lg:min-h-[560px]">
-                    {/* Gradient overlay on photo */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent z-10 lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-card" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-card/30 to-transparent z-10 lg:from-transparent" />
+                <div className="relative flex justify-center">
+                  <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-2xl overflow-hidden border border-border shadow-large">
                     <img
                       src={evanPhoto}
                       alt="Evan Koenke — Founder of FlowLayer AI"
                       className="w-full h-full object-cover object-center"
                     />
-                    {/* Subtle cyan glow behind photo */}
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-primary/10 blur-[80px] rounded-full z-0" />
                   </div>
+                  {/* Subtle cyan glow behind photo */}
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-primary/10 blur-[80px] rounded-full z-0" />
                 </div>
 
                 {/* Bio Column */}
-                <div className="lg:col-span-3 p-8 sm:p-10 lg:p-14 flex flex-col justify-center">
+                <div className="flex flex-col justify-center">
                   <motion.div
                     initial={{ opacity: 0, x: 30 }}
                     whileInView={{ opacity: 1, x: 0 }}
