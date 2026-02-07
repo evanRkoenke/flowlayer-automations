@@ -14,7 +14,7 @@ import About from "@/components/About";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-
+import Chatbot from "@/components/Chatbot";
 const Index = () => {
   const location = useLocation();
 
@@ -46,6 +46,7 @@ const Index = () => {
         <CTA />
       </main>
       <Footer />
+      <Chatbot />
     </div>
   );
 };
