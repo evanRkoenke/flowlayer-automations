@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Linkedin, Twitter, Calendar, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Twitter, Instagram, Calendar, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import flowlayerLogo from "@/assets/flowlayer-logo.png";
 
@@ -141,6 +141,19 @@ const Footer = () => {
                     <MapPin size={16} className="text-primary" />
                   </div>
                   <span>Sarasota, Florida</span>
+                </li>
+                <li>
+                  <a 
+                    href="https://instagram.com/evankoenke_24" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <Instagram size={16} className="text-primary" />
+                    </div>
+                    <span>@evankoenke_24</span>
+                  </a>
                 </li>
               </ul>
             </div>
