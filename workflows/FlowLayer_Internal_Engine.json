@@ -1,0 +1,151 @@
+{
+  "name": "FlowLayer Internal Engine",
+  "nodes": [
+    {
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [240, 320],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "flowlayer-internal-engine",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "normalize-input",
+      "name": "Fuzzy Logic & Clean Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 320],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const incoming = $input.item.json.body || $input.item.json;\nconst headers = $input.item.json.headers || {};\n\nfunction toTitleCase(s) {\n  return (s || '').toString().trim().replace(/\\s+/g, ' ').toLowerCase().replace(/(^|\\s|-)([a-z])/g, function(_, p, c) { return p + c.toUpperCase(); });\n}\nfunction cleanEmail(e) {\n  return (e || '').toString().trim().toLowerCase().replace(/@@+/g, '@').replace(/gmail\\.con$/, 'gmail.com');\n}\nfunction cleanPhone(p) {\n  const d = (p || '').toString().replace(/\\D/g, '');\n  if (d.length === 10) return '+1 (' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6);\n  if (d.length === 11 && d.charAt(0) === '1') return '+1 (' + d.slice(1,4) + ') ' + d.slice(4,7) + '-' + d.slice(7);\n  return p || '';\n}\nfunction stripJunk(s) { return (s || '').toString().trim().replace(/\\s+/g, ' '); }\n\nconst result = {\n  name: toTitleCase(incoming.name),\n  business: stripJunk(incoming.business),\n  email: cleanEmail(incoming.email),\n  phone: cleanPhone(incoming.phone),\n  message: stripJunk(incoming.message),\n  source: incoming.source || 'flowlayerai.com',\n  submitted_at: incoming.submitted_at || new Date().toISOString(),\n  user_agent: headers['user-agent'] || null,\n  referer: headers.referer || null\n};\n\nreturn { json: result };"
+      }
+    },
+    {
+      "id": "ai-categorize",
+      "name": "AI Categorize",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.1,
+      "position": [720, 320],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "resource": "chat",
+        "operation": "complete",
+        "modelId": { "__rl": true, "value": "gpt-4o-mini", "mode": "list" },
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are FlowLayer AI's lead categorization engine. The form supplies name, business, email, phone, message. Classify the lead by Industry and Automation Pain Point, and assign a numeric Lead Score 1-100.\n\nReturn STRICT JSON with these EXACT keys:\n- industry_category: one of [Roofing, Solar, HVAC, Plumbing, Electrical, General Contracting, Pest Control, Landscaping, Home Services - Other, Unknown]. Infer from the message + business name.\n- automation_pain_point: one of [Slow Lead Follow-Up, Missed Calls / Voicemails, Manual Lead Qualification, Disorganized CRM / Spreadsheets, No Booking System, Wasted Ad Spend, Inconsistent Quoting, Reactivating Old Leads, Internal Reporting, Other / Unclear]. Pick the closest match based on the message.\n- pain_point_reason: short string explaining why this pain point fits.\n- urgency: one of [IMMEDIATE, HIGH, MEDIUM, LOW]\n- urgency_reason: short string explaining the urgency tag.\n- lead_score: integer 1-100. Higher for: clear pain expressed, budget mentioned, timeline mentioned, business email (not gmail), specific volume/dollar figures, urgency signals. Lower for: vague exploration, free email + no business context.\n- summary: one-sentence summary of the lead and what they need.\n- suggested_next_action: one short imperative for the sales rep.\n\nUrgency rules: IMMEDIATE = asap/urgent/today/emergency or competitor quote in hand. HIGH = within 30 days, ready to buy, budget mentioned. MEDIUM = 1-3 months, evaluating. LOW = exploring/curious, no timeline."
+            },
+            {
+              "role": "user",
+              "content": "={{ JSON.stringify({ name: $json.name, business: $json.business, email: $json.email, phone: $json.phone, message: $json.message }) }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      }
+    },
+    {
+      "id": "merge-lead-ai",
+      "name": "Merge Lead AI",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [960, 320],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const lead = $('Fuzzy Logic & Clean Data').item.json;\nconst raw = $input.item.json.message && $input.item.json.message.content ? $input.item.json.message.content : ($input.item.json.content || $input.item.json);\nlet ai = raw;\nif (typeof raw === 'string') {\n  try { ai = JSON.parse(raw); } catch (e) { ai = {}; }\n}\nconst score = parseInt(ai.lead_score, 10);\nconst merged = Object.assign({}, lead, {\n  industry_category: ai.industry_category || 'Unknown',\n  automation_pain_point: ai.automation_pain_point || 'Other / Unclear',\n  pain_point_reason: ai.pain_point_reason || '',\n  urgency: ai.urgency || 'MEDIUM',\n  urgency_reason: ai.urgency_reason || '',\n  lead_score: Number.isFinite(score) ? score : 50,\n  summary: ai.summary || '',\n  suggested_next_action: ai.suggested_next_action || ''\n});\nreturn { json: merged };"
+      }
+    },
+    {
+      "id": "sheets-append",
+      "name": "Append to Lead Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1200, 320],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "resource": "sheet",
+        "operation": "append",
+        "documentId": { "__rl": true, "value": "1qsE1yne6hPDz_Cbdu5wOeua3u0i1JglfOBjIF4StVoI", "mode": "id" },
+        "sheetName": { "__rl": true, "value": "Sheet1", "mode": "name" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Lead Name": "={{ $json.name }}",
+            "Business Name": "={{ $json.business }}",
+            "Email Address": "={{ $json.email }}",
+            "Phone Number": "={{ $json.phone }}",
+            "Industry": "={{ $json.industry_category }}",
+            "Automation Need": "={{ $json.automation_pain_point }} — {{ $json.message }}",
+            "Lead Score": "={{ $json.lead_score }}",
+            "Urgency": "={{ $json.urgency }}",
+            "Notes": "={{ $json.summary }}",
+            "Submitted At": "={{ $json.submitted_at }}"
+          },
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "gmail-alert",
+      "name": "Gmail Alert",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [1440, 320],
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "evankoenke@gmail.com",
+        "subject": "=🔥 NEW FLOWLAYER LEAD — {{ $json.name }} · {{ $json.industry_category }} · {{ $json.automation_pain_point }} ({{ $json.lead_score }}/100)",
+        "emailType": "html",
+        "message": "(rich HTML body lives in deployed workflow on n8n — id DEFN0i6LmpUMdX41)",
+        "options": {}
+      }
+    },
+    {
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1680, 320],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'received', industry: $json.industry_category, pain_point: $json.automation_pain_point, score: $json.lead_score }) }}"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Fuzzy Logic & Clean Data", "type": "main", "index": 0 }]] },
+    "Fuzzy Logic & Clean Data": { "main": [[{ "node": "AI Categorize", "type": "main", "index": 0 }]] },
+    "AI Categorize": { "main": [[{ "node": "Merge Lead AI", "type": "main", "index": 0 }]] },
+    "Merge Lead AI": { "main": [[{ "node": "Append to Lead Sheet", "type": "main", "index": 0 }]] },
+    "Append to Lead Sheet": { "main": [[{ "node": "Gmail Alert", "type": "main", "index": 0 }]] },
+    "Gmail Alert": { "main": [[{ "node": "Respond", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "meta": {
+    "purpose": "Core internal lead-intake engine for flowlayerai.com",
+    "trigger": "POST Webhook bound to flowlayerai.com Get-a-Quote form",
+    "alert_recipient": "evankoenke@gmail.com",
+    "form_keys": ["name", "business", "email", "phone", "message"],
+    "live_webhook": "https://flowlayerai.app.n8n.cloud/webhook/flowlayer-internal-engine",
+    "categorization": "Industry + Automation Pain Point (with Urgency + Lead Score)",
+    "sheet_id": "1qsE1yne6hPDz_Cbdu5wOeua3u0i1JglfOBjIF4StVoI",
+    "n8n_workflow_id": "DEFN0i6LmpUMdX41"
+  },
+  "tags": [
+    { "name": "production" },
+    { "name": "internal" },
+    { "name": "flowlayerai.com" }
+  ]
+}

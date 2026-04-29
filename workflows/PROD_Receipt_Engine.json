@@ -1,0 +1,130 @@
+{
+  "name": "PROD_Receipt_Engine",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "prod-receipt-engine",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook (POST)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 320],
+      "webhookId": "{{CLIENT_DATA_PLACEHOLDER}}"
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = items[0].json;\n\nreturn [{\n  json: {\n    receipt_image_url: incoming.image_url || incoming.body?.image_url || null,\n    raw_text: incoming.text || incoming.body?.text || null,\n    submitted_by: incoming.user || incoming.body?.user || 'unknown',\n    submitted_at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "normalize-input",
+      "name": "Normalize Webhook Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 320]
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "operation": "create",
+        "modelId": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Extract receipt data and return strict JSON: vendor, total, currency, date, line_items[]"
+            },
+            {
+              "role": "user",
+              "content": "={{ $json.raw_text || $json.receipt_image_url }}"
+            }
+          ]
+        },
+        "options": {
+          "responseFormat": "json_object"
+        }
+      },
+      "id": "ai-extract",
+      "name": "AI Receipt Parser",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.5,
+      "position": [720, 320],
+      "credentials": {
+        "openAiApi": {
+          "id": "{{CLIENT_DATA_PLACEHOLDER}}",
+          "name": "{{CLIENT_DATA_PLACEHOLDER}}"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "{{CLIENT_DATA_PLACEHOLDER}}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "{{CLIENT_DATA_PLACEHOLDER}}",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "sheets-append",
+      "name": "Append to Client Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [960, 320],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "{{CLIENT_DATA_PLACEHOLDER}}",
+          "name": "{{CLIENT_DATA_PLACEHOLDER}}"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { status: 'ok', vendor: $json.vendor, total: $json.total } }}"
+      },
+      "id": "respond",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1200, 320]
+    }
+  ],
+  "connections": {
+    "Webhook (POST)": {
+      "main": [[{ "node": "Normalize Webhook Payload", "type": "main", "index": 0 }]]
+    },
+    "Normalize Webhook Payload": {
+      "main": [[{ "node": "AI Receipt Parser", "type": "main", "index": 0 }]]
+    },
+    "AI Receipt Parser": {
+      "main": [[{ "node": "Append to Client Sheet", "type": "main", "index": 0 }]]
+    },
+    "Append to Client Sheet": {
+      "main": [[{ "node": "Webhook Response", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "source": "Refactored from TEST_Build_1_Telegram",
+    "trigger": "POST Webhook",
+    "credentials": "All client-specific values use {{CLIENT_DATA_PLACEHOLDER}}"
+  },
+  "tags": [
+    { "name": "production" },
+    { "name": "receipt-engine" }
+  ]
+}

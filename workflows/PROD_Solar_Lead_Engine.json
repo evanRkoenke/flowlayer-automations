@@ -1,0 +1,155 @@
+{
+  "name": "PROD_Solar_Lead_Engine",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "prod-solar-lead-engine",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook (POST)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 320],
+      "webhookId": "{{CLIENT_DATA_PLACEHOLDER}}"
+    },
+    {
+      "parameters": {
+        "jsCode": "const lead = items[0].json.body || items[0].json;\n\nreturn [{\n  json: {\n    name: lead.name || null,\n    email: lead.email || null,\n    phone: lead.phone || null,\n    address: lead.address || null,\n    monthly_bill: lead.monthly_bill || null,\n    roof_type: lead.roof_type || null,\n    timeline: lead.timeline || null,\n    source: lead.source || 'flowlayerai.com',\n    received_at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "normalize-lead",
+      "name": "Normalize Lead Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 320]
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "operation": "create",
+        "modelId": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are a solar lead qualification engine. Score the lead 1-100 based on bill, roof, timeline, and intent. Return strict JSON: { score, tier (HOT|WARM|COLD), summary, next_action }"
+            },
+            {
+              "role": "user",
+              "content": "={{ JSON.stringify($json) }}"
+            }
+          ]
+        },
+        "options": {
+          "responseFormat": "json_object"
+        }
+      },
+      "id": "ai-score",
+      "name": "AI Lead Qualifier",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.5,
+      "position": [720, 320],
+      "credentials": {
+        "openAiApi": {
+          "id": "{{CLIENT_DATA_PLACEHOLDER}}",
+          "name": "{{CLIENT_DATA_PLACEHOLDER}}"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "{{CLIENT_DATA_PLACEHOLDER}}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "{{CLIENT_DATA_PLACEHOLDER}}",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "sheets-append",
+      "name": "Append to Client CRM Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [960, 220],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "{{CLIENT_DATA_PLACEHOLDER}}",
+          "name": "{{CLIENT_DATA_PLACEHOLDER}}"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "{{CLIENT_DATA_PLACEHOLDER}}",
+        "toEmail": "{{CLIENT_DATA_PLACEHOLDER}}",
+        "subject": "=New Solar Lead — {{ $json.tier }} ({{ $json.score }})",
+        "emailType": "html",
+        "message": "=<h2>New Solar Lead</h2><p><b>Tier:</b> {{ $json.tier }}</p><p><b>Score:</b> {{ $json.score }}</p><p><b>Summary:</b> {{ $json.summary }}</p><p><b>Next Action:</b> {{ $json.next_action }}</p>"
+      },
+      "id": "notify-team",
+      "name": "Notify Sales Team",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [960, 420],
+      "credentials": {
+        "smtp": {
+          "id": "{{CLIENT_DATA_PLACEHOLDER}}",
+          "name": "{{CLIENT_DATA_PLACEHOLDER}}"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { status: 'received', tier: $json.tier, score: $json.score } }}"
+      },
+      "id": "respond",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1200, 320]
+    }
+  ],
+  "connections": {
+    "Webhook (POST)": {
+      "main": [[{ "node": "Normalize Lead Payload", "type": "main", "index": 0 }]]
+    },
+    "Normalize Lead Payload": {
+      "main": [[{ "node": "AI Lead Qualifier", "type": "main", "index": 0 }]]
+    },
+    "AI Lead Qualifier": {
+      "main": [
+        [
+          { "node": "Append to Client CRM Sheet", "type": "main", "index": 0 },
+          { "node": "Notify Sales Team", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Append to Client CRM Sheet": {
+      "main": [[{ "node": "Webhook Response", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "source": "Refactored from TEST_Build_2_Solar",
+    "trigger": "POST Webhook",
+    "credentials": "All client-specific values use {{CLIENT_DATA_PLACEHOLDER}}"
+  },
+  "tags": [
+    { "name": "production" },
+    { "name": "solar-lead-engine" }
+  ]
+}

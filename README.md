@@ -1,73 +1,80 @@
-# Welcome to your Lovable project
+# FlowLayer AI
 
-## Project info
+**FlowLayer AI** is a high-performance automation agency for local service contractors — solar installers, roofers, HVAC, plumbing, electrical, and home-services operators who can't afford to miss a lead.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+We build done-for-you AI lead follow-up systems that run 24/7 on autopilot, qualify inbound leads in seconds, and hand off hot opportunities to the sales team while they're still warm.
 
-## How can I edit this code?
+- **Website:** [flowlayerai.com](https://flowlayerai.com)
+- **Founder:** Evan Koenke — Sarasota, FL
+- **Book a call:** [calendly.com/evankoenke/30min](https://calendly.com/evankoenke/30min)
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## What's in this repo
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+flowlayer-automations/
+├── src/                       # Vite + React + TypeScript marketing site
+│   ├── components/            # Hero, Features, Pricing, FAQ, Chatbot, etc.
+│   ├── pages/                 # Index, Blog, BlogPost, NotFound
+│   ├── integrations/supabase/ # Supabase client (chat assistant)
+│   └── config/site.ts         # Brand + domain config
+├── supabase/functions/chat/   # Edge function backing the on-site chatbot
+├── workflows/            # Live n8n workflow JSON exports
+│   ├── PROD_Receipt_Engine.json
+│   └── PROD_Solar_Lead_Engine.json
+├── DEPLOYMENT_KEYS.md         # Wiring diagram: forms → n8n webhooks
+└── public/                    # Static assets
 ```
 
-**Edit a file directly in GitHub**
+The marketing site deploys to **Vercel** at flowlayerai.com. The AI workflows in `workflows/` run on a self-hosted **n8n** instance and are triggered via POST webhooks from the website forms.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## Local development
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Requires **Node 18+** (or Bun) and npm.
 
-## What technologies are used for this project?
+```sh
+git clone https://github.com/evanRkoenke/flowlayer-automations.git
+cd flowlayer-automations
+npm install
+cp .env.example .env   # fill in Supabase + webhook URLs
+npm run dev            # http://localhost:8080
+```
 
-This project is built with:
+Other scripts:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```sh
+npm run build       # production build
+npm run preview     # serve the production build locally
+npm run lint        # eslint
+npm test            # vitest
+```
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## Deployment
 
-## Can I connect a custom domain to my Lovable project?
+The site is deployed to **Vercel** with the `flowlayerai.com` apex domain.
 
-Yes, you can!
+1. Push to `main` → Vercel auto-builds.
+2. Environment variables are set in the Vercel dashboard (see `DEPLOYMENT_KEYS.md`).
+3. The n8n production workflows live on the n8n host; their webhook URLs are wired into the site through the `VITE_*_WEBHOOK_URL` env vars.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+See **`DEPLOYMENT_KEYS.md`** for the full wiring diagram between the website forms and the AI workflows.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+## Stack
+
+- **Frontend:** Vite, React 18, TypeScript, Tailwind CSS, shadcn-ui, Framer Motion
+- **Backend:** Supabase (auth + edge function chatbot)
+- **Automation:** n8n (POST-webhook-triggered AI workflows)
+- **Hosting:** Vercel (web), self-hosted n8n (workflows)
+
+---
+
+## License
+
+Proprietary © FlowLayer AI. All rights reserved.

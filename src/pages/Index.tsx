@@ -8,7 +8,6 @@ import Products from "@/components/Products";
 import WhatsIncluded from "@/components/WhatsIncluded";
 import HowItWorks from "@/components/HowItWorks";
 import Features from "@/components/Features";
-import Testimonials from "@/components/Testimonials";
 import Integrations from "@/components/Integrations";
 import About from "@/components/About";
 import FAQ from "@/components/FAQ";
@@ -39,7 +38,6 @@ const Index = () => {
         <WhatsIncluded />
         <HowItWorks />
         <Features />
-        <Testimonials />
         <Integrations />
         <About />
         <FAQ />
