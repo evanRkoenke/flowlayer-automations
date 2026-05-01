@@ -27,7 +27,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
 
@@ -37,15 +37,21 @@
           extend: {
             fontFamily: {
               sans: ['Inter', 'ui-sans-serif', 'system-ui'],
-              display: ['Inter Tight', 'Inter', 'ui-sans-serif', 'system-ui'],
+              display: ['Inter', 'ui-sans-serif', 'system-ui'],
             },
             colors: {
               ink: { 950: '#06070b', 900: '#0a0c12', 800: '#11141c', 700: '#1a1f2b', 600: '#252b3a' },
               brand: { 300: '#a5f3fc', 400: '#5eead4', 500: '#22d3ee', 600: '#06b6d4', 700: '#0891b2' },
+              flow: {
+                navy: { 900: '#070b14', 800: '#0a1020', 700: '#11192c', 600: '#1c2540' },
+                cyan: { 400: '#3ddcef', 500: '#22d3ee', 600: '#06b6d4' },
+              },
             },
             boxShadow: {
               glow: '0 0 0 1px rgba(34,211,238,0.15), 0 30px 80px -20px rgba(34,211,238,0.35)',
               'inner-card': 'inset 0 1px 0 0 rgba(255,255,255,0.06)',
+              cyan: '0 0 40px rgba(34,211,238,0.35)',
+              premium: '0 20px 80px -20px rgba(34,211,238,0.4)',
             },
           },
         },
@@ -60,7 +66,50 @@
         color: #e6e8ee;
         -webkit-font-smoothing: antialiased;
       }
-      .display { font-family: 'Inter Tight', 'Inter', sans-serif; letter-spacing: -0.02em; }
+      .display { font-family: 'Inter', sans-serif; letter-spacing: -0.02em; }
+      h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; letter-spacing: -0.015em; }
+
+      /* ---- Lovable design tokens (additive — use where wanted) ---- */
+      .gradient-mesh {
+        background:
+          radial-gradient(at 40% 20%, rgba(34,211,238,0.15) 0px, transparent 50%),
+          radial-gradient(at 80% 0%, rgba(99,102,241,0.10) 0px, transparent 50%),
+          radial-gradient(at 0% 50%, rgba(34,211,238,0.10) 0px, transparent 50%),
+          radial-gradient(at 80% 50%, rgba(99,102,241,0.05) 0px, transparent 50%),
+          radial-gradient(at 0% 100%, rgba(34,211,238,0.10) 0px, transparent 50%);
+      }
+      .gradient-premium {
+        background: linear-gradient(135deg, #06b6d4 0%, #38bdf8 50%, #6366f1 100%);
+      }
+      .text-gradient-premium {
+        background: linear-gradient(135deg, #22d3ee 0%, #38bdf8 50%, #818cf8 100%);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+      }
+      .glass {
+        background: rgba(17,20,28,0.6);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(34,211,238,0.10);
+      }
+      .glass-strong {
+        background: rgba(11,14,20,0.8);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(34,211,238,0.15);
+      }
+      .border-glow { border: 1px solid rgba(34,211,238,0.4); }
+      .border-glow-subtle { border: 1px solid rgba(34,211,238,0.2); }
+      .card-premium {
+        border-radius: 1.25rem;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+        transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+      }
+      .card-premium:hover {
+        transform: translateY(-4px);
+        border-color: rgba(34,211,238,0.40);
+        box-shadow: 0 0 40px rgba(34,211,238,0.35);
+      }
 
       .ambience { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
       .ambience::before, .ambience::after {
@@ -136,7 +185,8 @@
         height: auto;
         border-radius: 22px;
         object-fit: cover;
-        aspect-ratio: 1 / 1;
+        object-position: 50% 50%;
+        aspect-ratio: 4 / 5;
         image-rendering: -webkit-optimize-contrast;
         image-rendering: crisp-edges;
         backface-visibility: hidden;
@@ -146,9 +196,14 @@
       .product-shot {
         border: 1px solid rgba(255,255,255,0.08);
         border-radius: 18px;
-        background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+        background: #0a0c12;
         box-shadow: 0 22px 60px -28px rgba(34,211,238,0.35);
         overflow: hidden;
+        aspect-ratio: 16 / 9;
+        min-height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
       }
       .product-shot:hover {
@@ -156,7 +211,7 @@
         border-color: rgba(34,211,238,0.25);
         box-shadow: 0 32px 80px -28px rgba(34,211,238,0.55);
       }
-      .product-shot img { display: block; width: 100%; height: auto; }
+      .product-shot img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; }
 
       .pulse-dot { animation: pulse 2s infinite; }
       @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
@@ -177,6 +232,81 @@
 
       input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.30); }
       select option { background: #11141c; color: #e6e8ee; }
+
+      /* Blog typography */
+      .blog-prose { color: #cbd5e1; font-size: 16.5px; line-height: 1.75; }
+      .blog-prose p { margin: 0 0 1.15em; }
+      .blog-prose .lead {
+        font-size: 19px;
+        color: #e6e8ee;
+        line-height: 1.6;
+        font-weight: 500;
+        margin-bottom: 1.6em;
+      }
+      .blog-prose h3 {
+        font-family: 'Inter', sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        color: #fff;
+        margin: 2em 0 0.7em;
+        line-height: 1.25;
+      }
+      .blog-prose h3::before {
+        content: '';
+        display: block;
+        width: 40px; height: 3px;
+        margin-bottom: 14px;
+        background: linear-gradient(90deg, #5eead4, #6366f1);
+        border-radius: 3px;
+      }
+      .blog-prose ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.4em;
+        display: grid;
+        gap: 12px;
+      }
+      .blog-prose ul li {
+        position: relative;
+        padding: 14px 16px 14px 44px;
+        background: rgba(255,255,255,0.025);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px;
+        color: #cbd5e1;
+        font-size: 15.5px;
+        line-height: 1.55;
+      }
+      .blog-prose ul li::before {
+        content: '';
+        position: absolute;
+        left: 16px; top: 18px;
+        width: 14px; height: 14px;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #22d3ee, #6366f1);
+        box-shadow: 0 0 0 4px rgba(34,211,238,0.10);
+      }
+      .blog-prose strong { color: #fff; font-weight: 700; }
+      .blog-prose em.callout {
+        display: block;
+        font-style: normal;
+        font-family: 'Inter', sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(180deg, rgba(34,211,238,0.06), rgba(99,102,241,0.06));
+        border: 1px solid rgba(34,211,238,0.18);
+        border-left: 3px solid #22d3ee;
+        padding: 18px 22px;
+        margin: 1.4em 0;
+        border-radius: 10px;
+        line-height: 1.45;
+      }
+      .blog-prose em.callout .stat {
+        background: linear-gradient(90deg, #5eead4 0%, #22d3ee 50%, #818cf8 100%);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+        font-weight: 800;
+      }
 
       /* Chat widget */
       .chat-launcher {
@@ -241,36 +371,97 @@
         display: flex; align-items: center; justify-content: center;
         color: #06070b; font-weight: 800;
       }
-      .chat-bubble {
-        margin: 16px 18px;
+      .chat-thread {
+        padding: 14px 18px 6px;
+        max-height: 360px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .chat-thread::-webkit-scrollbar { width: 6px; }
+      .chat-thread::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.10); border-radius: 3px; }
+      .chat-msg {
+        max-width: 85%;
+        padding: 10px 14px;
+        border-radius: 14px;
+        font-size: 13.5px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+      .chat-msg.bot {
+        align-self: flex-start;
         background: rgba(255,255,255,0.04);
         border: 1px solid rgba(255,255,255,0.07);
-        border-radius: 14px;
-        padding: 14px 16px;
-        font-size: 14px;
         color: #cbd5e1;
-        line-height: 1.55;
+        border-bottom-left-radius: 4px;
       }
-      .chat-actions { padding: 0 18px 18px; display: grid; gap: 8px; }
-      .chat-action {
-        display: flex; align-items: center; justify-content: space-between; gap: 10px;
-        padding: 11px 14px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 10px;
-        color: #e6e8ee;
-        font-size: 13.5px; font-weight: 600;
+      .chat-msg.user {
+        align-self: flex-end;
+        background: linear-gradient(135deg, rgba(34,211,238,0.18), rgba(99,102,241,0.18));
+        border: 1px solid rgba(34,211,238,0.30);
+        color: #fff;
+        border-bottom-right-radius: 4px;
+      }
+      .chat-msg.bot .quick-row {
+        margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px;
+      }
+      .chat-msg.bot .quick {
+        display: inline-flex; align-items: center; gap: 4px;
+        padding: 5px 10px; border-radius: 999px;
+        background: rgba(34,211,238,0.10); border: 1px solid rgba(34,211,238,0.25);
+        color: #5eead4; font-size: 11.5px; font-weight: 600;
         text-decoration: none;
         transition: all .15s ease;
       }
-      .chat-action:hover { background: rgba(34,211,238,0.10); border-color: rgba(34,211,238,0.30); color: #fff; }
-      .chat-action .arrow { color: #5eead4; }
+      .chat-msg.bot .quick:hover { background: rgba(34,211,238,0.20); color: #fff; }
+      .chat-typing {
+        align-self: flex-start;
+        display: inline-flex; gap: 4px;
+        padding: 12px 14px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 14px;
+        border-bottom-left-radius: 4px;
+      }
+      .chat-typing span {
+        width: 6px; height: 6px; border-radius: 9999px; background: #64748b;
+        animation: typing 1.2s infinite ease-in-out;
+      }
+      .chat-typing span:nth-child(2) { animation-delay: .15s; }
+      .chat-typing span:nth-child(3) { animation-delay: .30s; }
+      @keyframes typing { 0%, 80%, 100% { opacity: .35; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+
+      .chat-input-row {
+        display: flex; gap: 8px; align-items: center;
+        padding: 12px 14px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        background: rgba(0,0,0,0.20);
+      }
+      .chat-input {
+        flex: 1; background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 10px;
+        padding: 10px 12px; font-size: 13.5px; color: #fff;
+        outline: none; transition: border-color .15s ease;
+      }
+      .chat-input:focus { border-color: rgba(34,211,238,0.5); }
+      .chat-send {
+        width: 38px; height: 38px; border-radius: 10px;
+        background: linear-gradient(135deg, #22d3ee 0%, #6366f1 100%);
+        color: #06070b; font-weight: 800; border: 0; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        transition: filter .15s ease, transform .15s ease;
+      }
+      .chat-send:hover { filter: brightness(1.1); transform: translateY(-1px); }
+      .chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
       .chat-close {
         position: absolute; top: 10px; right: 10px;
         width: 28px; height: 28px; border-radius: 9999px;
         background: rgba(255,255,255,0.06);
         color: #cbd5e1; border: 0; cursor: pointer;
         display: flex; align-items: center; justify-content: center;
+        z-index: 1;
       }
       .chat-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
     </style>
@@ -294,98 +485,124 @@
           <a href="#features" class="hover:text-white transition">Features</a>
           <a href="#how" class="hover:text-white transition">How it works</a>
           <a href="#engine" class="hover:text-white transition">Pricing</a>
+          <a href="#case-study" class="hover:text-white transition">Case Study</a>
+          <a href="blog.html" class="hover:text-white transition">Blog</a>
+          <a href="#about" class="hover:text-white transition">About</a>
         </nav>
 
         <div class="flex items-center gap-3">
-          <a href="https://calendly.com/evankoenke/30min" target="_blank" rel="noopener" class="hidden sm:inline-block text-sm text-white/80 hover:text-white">Book a call</a>
-          <a href="#quote" class="btn-primary text-ink-950 font-bold text-sm px-4 py-2 rounded-lg">Get a Quote</a>
+          <a href="https://calendly.com/evankoenke/30min" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-1.5 btn-primary text-white font-semibold text-sm px-5 py-2.5 rounded-lg">
+            Book a 30-Minute Call
+          </a>
         </div>
       </div>
     </header>
 
     <!-- ============ HERO ============ -->
-    <section class="relative pt-20 pb-28 overflow-hidden">
-      <div class="ambience"></div>
-      <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+    <section class="relative pt-28 pb-24 overflow-hidden">
+      <!-- Background effects -->
+      <div class="gradient-mesh absolute inset-0 opacity-60 pointer-events-none"></div>
+      <div class="absolute inset-0 bg-grid opacity-30 pointer-events-none"></div>
+      <div class="absolute top-16 left-8 w-96 h-96 rounded-full bg-brand-500/20 blur-[120px] pointer-events-none"></div>
+      <div class="absolute bottom-0 right-0 w-[520px] h-[520px] rounded-full bg-indigo-500/15 blur-[150px] pointer-events-none"></div>
 
-      <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-14 items-center">
-        <!-- Left: copy + CTAs -->
-        <div class="lg:col-span-7">
-          <div class="label-eyebrow">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span>
-            AI Lead Response · Built for High-Ticket Contractors
+      <div class="relative max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+          <!-- Left: copy + CTAs -->
+          <div class="text-center lg:text-left reveal">
+            <!-- Animated badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-glow-subtle text-brand-300 text-sm font-medium mb-8">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-400"></span>
+              </span>
+              AI-Powered Lead Automation
+            </div>
+
+            <h1 class="display text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] mb-6">
+              Never Lose<br />
+              <span class="text-gradient">Another Lead</span><br />
+              Again
+            </h1>
+
+            <p class="text-lg sm:text-xl text-white/65 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              Transform your sales pipeline with intelligent AI workflows that respond instantly, nurture persistently, and convert consistently — 24/7.
+            </p>
+
+            <!-- Trust markers -->
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 mb-8 text-sm text-white/60">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Setup in 2 weeks
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                No contracts
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                ROI guaranteed
+              </div>
+            </div>
+
+            <!-- CTAs -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
+              <a href="#quote" class="btn-primary text-white font-bold px-8 py-3.5 rounded-xl text-base text-center inline-flex items-center justify-center gap-2">
+                Start Automating
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+              <a href="#how" class="btn-ghost px-8 py-3.5 rounded-xl text-white/90 font-semibold text-base text-center inline-flex items-center justify-center gap-2">
+                <svg class="w-5 h-5 text-brand-400" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                See How It Works
+              </a>
+            </div>
+
           </div>
 
-          <h1 class="display mt-7 text-5xl md:text-7xl font-extrabold leading-[1.02]">
-            Automate Your Lead Response.
-            <br />
-            <span class="text-gradient">Dominate Your Local Market.</span>
-          </h1>
+          <!-- Right: hero graphic + floating badges -->
+          <div class="relative reveal">
+            <!-- Glow behind image -->
+            <div class="absolute inset-0 -m-8 bg-brand-500/10 blur-3xl rounded-full pointer-events-none"></div>
 
-          <p class="mt-7 text-lg md:text-xl text-white/65 max-w-2xl leading-relaxed">
-            AI-powered lead capture, cleaning, and instant routing for high-ticket contractors.
-            Every inbound lead — qualified, scored, and on the closer's phone in under 60 seconds.
-          </p>
-
-          <div class="mt-9 flex flex-col sm:flex-row gap-3">
-            <a href="#quote" class="btn-primary text-ink-950 font-bold px-7 py-3.5 rounded-xl text-base text-center">Get a Custom Quote &nbsp;→</a>
-            <a href="#how" class="btn-ghost px-7 py-3.5 rounded-xl text-white/90 font-semibold text-base text-center">See How It Works</a>
-          </div>
-
-          <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white/50">
-            <div class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Done-for-you build</div>
-            <div class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 14-day deployment</div>
-            <div class="flex items-center gap-2"><span class="text-emerald-400">✓</span> $3,500 setup · $2,000/mo</div>
-          </div>
-        </div>
-
-        <!-- Right: founder headshot + bio -->
-        <div class="lg:col-span-5">
-          <div class="max-w-md mx-auto">
-            <div class="headshot-frame">
+            <!-- Main image card -->
+            <div class="relative rounded-2xl overflow-hidden shadow-glow border border-brand-500/20 glass aspect-video">
               <img
-                src="public/Screenshot%202026-04-13%20021751.png"
-                alt="Evan Koenke — Founder of FlowLayer AI"
-                width="512"
-                height="512"
-                decoding="async"
-                fetchpriority="high"
+                src="public/automation-flow.png"
+                alt="FlowLayer AI automation dashboard"
+                class="w-full h-full object-cover object-top"
+                loading="eager"
               />
             </div>
 
-            <div class="mt-7 text-center">
-              <div class="display text-xl font-bold">Evan Koenke</div>
-              <div class="text-sm text-brand-300 font-medium tracking-wide">Founder · FlowLayer AI</div>
+            <!-- Floating: Response Time badge (top-left) -->
+            <div class="absolute -top-4 -left-4 lg:top-8 lg:-left-8 glass-strong rounded-xl p-4 shadow-glow border border-brand-500/20 flex items-center gap-3 z-10">
+              <div class="w-10 h-10 rounded-lg gradient-premium flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-white leading-tight">Response Time</div>
+                <div class="display text-lg font-extrabold text-gradient leading-tight">&lt; 30 seconds</div>
+              </div>
             </div>
 
-            <blockquote class="mt-5 text-white/75 text-base leading-relaxed text-center italic">
-              "I'm Evan Koenke, founder of FlowLayer AI. I build high-performance AI engines that ensure your business never misses a lead again."
-            </blockquote>
+            <!-- Floating: Starting price badge (bottom-right) -->
+            <div class="absolute -bottom-4 -right-4 lg:bottom-8 lg:-right-8 glass-strong rounded-2xl p-5 shadow-glow border border-brand-500/30 text-center z-10">
+              <div class="text-xs text-white/55 mb-1 uppercase tracking-wider">Starting at</div>
+              <div class="display text-4xl font-extrabold text-gradient">$2,000</div>
+              <div class="text-sm text-brand-300 font-semibold">/month</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Logos / stack strip -->
-      <div class="relative max-w-7xl mx-auto px-6 mt-20">
+      <!-- Logo / stack marquee -->
+      <div class="relative max-w-7xl mx-auto px-6 mt-24">
         <p class="text-center text-xs text-white/40 uppercase tracking-widest mb-6">Built on the stack you already trust</p>
         <div class="overflow-hidden">
           <div class="flex items-center gap-12 scroll-marquee whitespace-nowrap text-white/35 font-semibold">
-            <span class="text-base">⚡ n8n</span>
-            <span class="text-base">◆ Supabase</span>
-            <span class="text-base">▲ Vercel</span>
-            <span class="text-base">✦ OpenAI</span>
-            <span class="text-base">◉ Twilio</span>
-            <span class="text-base">▤ Google Sheets</span>
-            <span class="text-base">✉ Gmail API</span>
-            <span class="text-base">◈ HubSpot</span>
-            <span class="text-base">⚡ n8n</span>
-            <span class="text-base">◆ Supabase</span>
-            <span class="text-base">▲ Vercel</span>
-            <span class="text-base">✦ OpenAI</span>
-            <span class="text-base">◉ Twilio</span>
-            <span class="text-base">▤ Google Sheets</span>
-            <span class="text-base">✉ Gmail API</span>
-            <span class="text-base">◈ HubSpot</span>
+            <span class="text-base">⚡ n8n</span><span class="text-base">◆ Supabase</span><span class="text-base">▲ Vercel</span><span class="text-base">✦ OpenAI</span><span class="text-base">◉ Twilio</span><span class="text-base">▤ Google Sheets</span><span class="text-base">✉ Gmail API</span><span class="text-base">◈ HubSpot</span>
+            <span class="text-base">⚡ n8n</span><span class="text-base">◆ Supabase</span><span class="text-base">▲ Vercel</span><span class="text-base">✦ OpenAI</span><span class="text-base">◉ Twilio</span><span class="text-base">▤ Google Sheets</span><span class="text-base">✉ Gmail API</span><span class="text-base">◈ HubSpot</span>
           </div>
         </div>
       </div>
@@ -518,6 +735,351 @@
 
     <div class="divider"></div>
 
+    <!-- ============ CASE STUDY ============ -->
+    <section id="case-study" class="relative py-24 overflow-hidden">
+      <div class="gradient-mesh absolute inset-0 opacity-30 pointer-events-none"></div>
+
+      <div class="relative max-w-5xl mx-auto px-6">
+        <div class="text-center mb-12 reveal">
+          <div class="label-eyebrow">✅ Real Work · Real Client</div>
+          <h2 class="display mt-5 text-4xl md:text-5xl font-extrabold leading-tight">
+            First Build. <span class="text-gradient">Deployed &amp; Running.</span>
+          </h2>
+          <p class="mt-4 text-white/60 text-lg max-w-2xl mx-auto">
+            Here's exactly what was built, how it works, and what problem it solved.
+          </p>
+        </div>
+
+        <!-- Case study card -->
+        <div class="card rounded-3xl overflow-hidden reveal shadow-glow">
+
+          <!-- Client header bar -->
+          <div class="bg-gradient-to-r from-brand-500/10 to-indigo-500/10 border-b border-white/[0.08] px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-400 to-indigo-500 flex items-center justify-center text-ink-950 font-extrabold text-lg display flex-shrink-0">JR</div>
+              <div>
+                <div class="font-bold text-white text-lg display">Jeff's Roofing</div>
+                <div class="text-sm text-white/55">Ft. Lauderdale, FL · Roofing Contractor</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 text-emerald-400 text-sm font-semibold">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot flex-shrink-0"></span>
+              Live &amp; Running
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div class="p-8 md:p-12 grid lg:grid-cols-2 gap-10">
+
+            <!-- Left: problem + what was built -->
+            <div>
+              <h3 class="display text-xl font-bold text-white mb-3">The Problem</h3>
+              <p class="text-white/65 text-[15px] leading-relaxed mb-8">
+                Roofing contractors spend most of the day on job sites, not at a desk. When a lead submitted the contact form, it sat in an inbox until Jeff had time to check it. By then, the homeowner had already called someone else.
+              </p>
+
+              <h3 class="display text-xl font-bold text-white mb-4">What Was Built</h3>
+              <ul class="space-y-3">
+                <li class="flex items-start gap-3 text-[15px] text-white/70">
+                  <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-500/20 border border-brand-500/40 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3 h-3 text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                  Custom contact form connected to an n8n automation workflow
+                </li>
+                <li class="flex items-start gap-3 text-[15px] text-white/70">
+                  <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-500/20 border border-brand-500/40 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3 h-3 text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                  Instant email notification with full lead details — name, phone, email, message
+                </li>
+                <li class="flex items-start gap-3 text-[15px] text-white/70">
+                  <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-500/20 border border-brand-500/40 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3 h-3 text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                  Every lead auto-logged to Google Sheets — no manual entry, nothing falls through
+                </li>
+              </ul>
+            </div>
+
+            <!-- Right: before / after -->
+            <div class="flex flex-col gap-4">
+              <div class="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                <div class="text-xs uppercase tracking-widest text-white/40 font-semibold mb-4">Before</div>
+                <ul class="space-y-3">
+                  <li class="flex items-start gap-3 text-[15px] text-white/55">
+                    <span class="text-rose-400 flex-shrink-0 mt-0.5">✕</span>
+                    Leads sat in email for hours — sometimes days
+                  </li>
+                  <li class="flex items-start gap-3 text-[15px] text-white/55">
+                    <span class="text-rose-400 flex-shrink-0 mt-0.5">✕</span>
+                    No central record of who had contacted the business
+                  </li>
+                  <li class="flex items-start gap-3 text-[15px] text-white/55">
+                    <span class="text-rose-400 flex-shrink-0 mt-0.5">✕</span>
+                    Follow-up depended entirely on remembering to check email
+                  </li>
+                </ul>
+              </div>
+
+              <div class="rounded-2xl border border-brand-500/30 bg-brand-500/[0.04] p-6">
+                <div class="text-xs uppercase tracking-widest text-brand-400 font-semibold mb-4">After</div>
+                <ul class="space-y-3">
+                  <li class="flex items-start gap-3 text-[15px] text-white/80">
+                    <span class="text-brand-400 flex-shrink-0 mt-0.5">✓</span>
+                    Email notification fires in under 60 seconds — visible on any phone, on any job site
+                  </li>
+                  <li class="flex items-start gap-3 text-[15px] text-white/80">
+                    <span class="text-brand-400 flex-shrink-0 mt-0.5">✓</span>
+                    Every lead captured in Google Sheets automatically — full history, always current
+                  </li>
+                  <li class="flex items-start gap-3 text-[15px] text-white/80">
+                    <span class="text-brand-400 flex-shrink-0 mt-0.5">✓</span>
+                    Zero missed contacts since the system went live
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Workflow badge -->
+              <div class="rounded-xl border border-white/8 bg-white/[0.02] px-5 py-4 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-500/15 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-4 h-4 text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <p class="text-sm text-white/60">
+                  Powered by <span class="text-white font-semibold">RoofDesk AI</span> — a custom n8n workflow built specifically for roofing contractors
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer CTA -->
+          <div class="border-t border-white/[0.08] px-8 py-6 bg-white/[0.01] flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-white/55 text-sm">The same system, set up for your roofing business in 14 days.</p>
+            <a href="#quote" class="btn-primary text-white font-bold px-6 py-3 rounded-xl text-sm inline-flex items-center gap-2 whitespace-nowrap">
+              Get This For Your Business
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="relative py-24 overflow-hidden">
+      <div class="ambience"></div>
+      <div class="absolute inset-0 grid-bg pointer-events-none opacity-40"></div>
+
+      <div class="relative max-w-5xl mx-auto px-6">
+        <div class="text-center mb-14 reveal">
+          <div class="label-eyebrow">👤 About FlowLayer AI</div>
+          <h2 class="display mt-5 text-4xl md:text-5xl font-extrabold leading-tight">
+            Meet the Mind Behind <span class="text-gradient">FlowLayer AI.</span>
+          </h2>
+        </div>
+
+        <!-- Founder card -->
+        <div class="card card-hover rounded-3xl overflow-hidden reveal">
+          <div class="grid lg:grid-cols-2 gap-0">
+
+            <!-- Photo column -->
+            <div class="relative bg-ink-900 flex items-center justify-center p-8 lg:p-12">
+              <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(circle at 60% 40%, rgba(34,211,238,0.12) 0%, transparent 70%)"></div>
+              <div class="headshot-frame relative z-10 w-full max-w-xs mx-auto">
+                <img
+                  src="public/Screenshot%202026-04-13%20021751.png"
+                  alt="Evan Koenke — Founder &amp; CEO of FlowLayer AI"
+                  width="640"
+                  height="800"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <!-- Bio column -->
+            <div class="p-8 lg:p-12 flex flex-col justify-center">
+              <div class="text-xs uppercase tracking-widest text-brand-300 font-semibold mb-2">Founder &amp; CEO</div>
+              <h3 class="display text-3xl md:text-4xl font-extrabold mb-6">Evan Koenke</h3>
+
+              <div class="space-y-4 text-white/70 text-[15px] leading-relaxed mb-8">
+                <p>
+                  Evan is the builder behind <strong class="text-white font-semibold">FlowLayer AI</strong> — a custom AI lead-response consultancy for high-ticket contractors. With a deep focus on n8n automation and AI-powered workflows, he designs every engine personally around each client's existing tools and sales process.
+                </p>
+                <p>
+                  His approach is <strong class="text-white font-semibold">hands-on and results-driven</strong>: from discovery call to live engine in 14 days, every integration wired, tested, and running 24/7 on autopilot.
+                </p>
+                <blockquote class="border-l-2 border-brand-500/60 pl-5 italic text-white/60">
+                  "I believe every contractor deserves enterprise-level AI — not just the Fortune 500. FlowLayer exists to make that real."
+                </blockquote>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="https://calendly.com/evankoenke/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-primary text-white font-bold px-6 py-3 rounded-xl text-sm inline-flex items-center justify-center gap-2"
+                >
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  Book a Call with Evan
+                </a>
+                <a
+                  href="mailto:evankoenke@gmail.com"
+                  class="btn-ghost px-6 py-3 rounded-xl text-white/80 font-semibold text-sm inline-flex items-center justify-center gap-2"
+                >
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  Email Evan
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick facts strip -->
+        <div class="mt-8 grid sm:grid-cols-3 gap-4 reveal">
+          <div class="card rounded-xl p-5 text-center">
+            <div class="display text-2xl font-extrabold text-gradient">Sarasota, FL</div>
+            <div class="text-xs text-white/55 mt-1">Founded &amp; based</div>
+          </div>
+          <div class="card rounded-xl p-5 text-center">
+            <div class="display text-2xl font-extrabold text-gradient">Hands-on</div>
+            <div class="text-xs text-white/55 mt-1">Every build, every client</div>
+          </div>
+          <div class="card rounded-xl p-5 text-center">
+            <div class="display text-2xl font-extrabold text-gradient">14 days</div>
+            <div class="text-xs text-white/55 mt-1">Kickoff to live engine</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ============ BLOG ============ -->
+    <section id="blog" class="relative py-24">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto reveal">
+          <div class="label-eyebrow">📝 From the Lab</div>
+          <h2 class="display mt-5 text-4xl md:text-5xl font-extrabold leading-tight">
+            The case for <span class="text-gradient">automated follow-up.</span>
+          </h2>
+        </div>
+
+        <!-- Blog teaser card — full article lives at blog.html -->
+        <a href="blog.html" class="group block mt-14 card card-hover rounded-3xl p-8 md:p-12 reveal no-underline">
+          <div class="flex items-center gap-3 text-xs text-white/55 mb-5">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-indigo-500 flex items-center justify-center text-ink-950 font-bold text-[11px]">EK</div>
+            <span class="font-semibold text-white/80">Evan Koenke</span>
+            <span class="text-white/30">·</span>
+            <span>6 min read</span>
+          </div>
+          <h3 class="display text-2xl md:text-3xl font-extrabold leading-[1.2] text-white mb-4 group-hover:text-brand-300 transition-colors">
+            Why Most Businesses Bleed Leads <span class="text-white/55 font-bold">(And How Smart Automation Stops It)</span>
+          </h3>
+          <p class="text-white/65 text-[15px] leading-relaxed mb-6 max-w-2xl">
+            The average business takes 47 hours to follow up with a web lead. By then, your prospect has already talked to three competitors. Here's what to do instead.
+          </p>
+          <div class="inline-flex items-center gap-2 text-sm font-semibold text-brand-300 group-hover:text-brand-400 transition-colors">
+            Read the full article
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- BLOG ARTICLE PLACEHOLDER (kept in DOM for SEO/link compat, hidden visually) -->
+    <div style="display:none" aria-hidden="true"><article class="mt-14 card rounded-3xl p-8 md:p-12 reveal">
+          <header class="mb-8 pb-8 border-b border-white/8">
+            <div class="flex items-center gap-3 text-xs text-white/55 mb-5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-indigo-500 flex items-center justify-center text-ink-950 font-bold text-[11px]">EK</div>
+              <span class="font-semibold text-white/80">Evan Koenke</span>
+              <span class="text-white/30">·</span>
+              <span>6 min read</span>
+            </div>
+            <h1 class="display text-3xl md:text-4xl font-extrabold leading-[1.15] text-white">
+              Why Most Businesses Bleed Leads <span class="text-white/55 font-bold">(And How Smart Automation Stops It)</span>
+            </h1>
+          </header>
+
+          <div class="blog-prose">
+            <p class="lead">Here's a painful truth: right now, someone who could become your best customer is slipping through your fingers.</p>
+            <p>Not because they don't want what you're selling. Not because your competitor is better. But because by the time you follow up, they've already moved on.</p>
+
+            <h3>The Silent Killer of Revenue</h3>
+            <p>Picture this: A lead fills out your form at 3 PM on a Tuesday. They're interested. Ready to buy. Maybe even excited.</p>
+            <p>Your sales rep sees the notification… eventually. Between meetings, lunch, and fifty other tasks. By the time they reach out Wednesday morning, that hot lead has gone cold. They've already talked to three competitors. The moment has passed.</p>
+            <p>This isn't a failure of effort. It's a failure of infrastructure.</p>
+            <p>The brutal reality? <strong>The average business takes 47 hours to follow up with a web lead.</strong> In that same timeframe, your prospect has already made a decision. Just not with you.</p>
+
+            <h3>Why Manual Follow-Up Is Losing You Money</h3>
+            <p>Even your best salespeople can't:</p>
+            <ul>
+              <li>Respond to leads at 11 PM on a Sunday</li>
+              <li>Remember to follow up exactly 3 days later with every prospect</li>
+              <li>Personalize messages at scale without burning out</li>
+              <li>Track which follow-up sequences actually work</li>
+            </ul>
+            <p>They're juggling too much. And every dropped ball is revenue walking out the door.</p>
+            <p>The cost isn't just the lost sale. It's the wasted ad spend. The marketing dollars that generated a lead nobody captured. The compounding effect of hundreds of "almosts" that never converted.</p>
+
+            <h3>What If Every Lead Got Your Best Response, Every Time?</h3>
+            <p>This is where AI follow-up automation fundamentally changes the equation.</p>
+            <p>Imagine: A lead comes in at 2 AM. Within 60 seconds, they receive a personalized text acknowledging their interest. By morning, a tailored email is waiting with exactly the information they need. Three days later, if they haven't responded, a strategic check-in lands in their inbox.</p>
+            <p>No human coordination required. No leads forgotten. No opportunities lost to timing.</p>
+            <p>Here's what modern AI automation actually handles:</p>
+            <ul>
+              <li><strong>Instant response</strong> — every lead gets contacted in seconds, not hours. When interest is highest.</li>
+              <li><strong>Intelligent personalization</strong> — messages adapt based on lead source, interest level, and behavior. Not generic templates.</li>
+              <li><strong>Perfect persistence</strong> — the system knows exactly when to follow up, how many times, and when to stop (so you never seem desperate or spammy).</li>
+              <li><strong>Seamless handoffs</strong> — hot leads get routed to the right salesperson instantly. Your team jumps in only when it matters.</li>
+              <li><strong>Continuous optimization</strong> — track open rates, response rates, and conversions. Know what's working. Double down on it.</li>
+            </ul>
+
+            <h3>The Numbers Don't Lie</h3>
+            <em class="callout">Companies that contact leads within 5 minutes are <span class="stat">100×</span> more likely to connect than those who wait 30 minutes.</em>
+            <p>Businesses using automated follow-up see conversion rates jump by <strong>30–50% on average</strong>.</p>
+            <p>The difference? They're there when the prospect is ready. Every single time.</p>
+
+            <h3>Beyond Tools: Building a System That Actually Works</h3>
+            <p>Here's what most businesses get wrong about automation: they bolt on a generic tool and expect magic.</p>
+            <p>Real results come from <strong>custom workflows designed around how your business actually sells</strong>.</p>
+            <p>At FlowLayer AI, we don't hand you software and wish you luck. We architect intelligent systems that:</p>
+            <ul>
+              <li><strong>Capture and qualify</strong> — automatically identify which leads deserve immediate attention.</li>
+              <li><strong>Communicate intelligently</strong> — send the right message, on the right channel, at the right time.</li>
+              <li><strong>Convert seamlessly</strong> — book appointments, answer questions, and move prospects forward without manual work.</li>
+              <li><strong>Deliver insights</strong> — show you exactly where leads convert and where they drop off.</li>
+            </ul>
+            <p>Your CRM, your lead sources, your sales process — everything works together as one unified machine.</p>
+
+            <h3>What This Actually Means for Your Business</h3>
+            <p>Your sales team stops playing catch-up and starts having real conversations with qualified prospects who are actually ready to talk.</p>
+            <p>Your marketing dollars work harder because leads don't evaporate before someone reaches them.</p>
+            <p>Your revenue becomes more predictable because your follow-up process is consistent, measurable, and optimized.</p>
+
+            <h3>The Choice Is Simple</h3>
+            <p>You can keep relying on spreadsheets, good intentions, and hoping your team remembers to follow up.</p>
+            <p>Or you can build a system where every lead gets your best shot. Automatically. Consistently. Profitably.</p>
+            <p>The businesses winning in 2026 aren't working harder. They're working smarter. They've stopped treating follow-up like a chore and started treating it like the revenue engine it actually is.</p>
+            <p><strong>AI-powered automation doesn't replace your sales team. It makes every person on it 10× more effective.</strong></p>
+            <p>And in a market where speed and consistency are everything, that's not just an advantage. It's survival.</p>
+          </div>
+
+          <footer class="mt-12 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-white/55">
+              Want this dialed in for your business?
+            </div>
+            <a href="#quote" class="btn-primary text-ink-950 font-bold px-6 py-3 rounded-xl text-sm">
+              Get a Custom Quote →
+            </a>
+          </footer>
+        </article></div><!-- end hidden blog article -->
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
     <!-- ============ QUOTE / CTA ============ -->
     <section id="quote" class="relative py-24">
       <div class="max-w-4xl mx-auto px-6 reveal">
@@ -528,29 +1090,28 @@
             <p class="mt-5 text-white/65 text-lg">Tell us about your business. You'll hear back within 24 hours with a custom build plan and timeline.</p>
           </div>
 
-          <form id="quote-form" class="mt-10 grid md:grid-cols-2 gap-5 text-left" data-engine="flowlayer">
+          <form id="quote-form" class="mt-10 grid md:grid-cols-2 gap-5 text-left" data-engine="flowlayer" novalidate>
             <div>
               <label for="quote-name" class="block text-sm font-semibold text-white/85 mb-2">
-                Name <span class="text-rose-400">*</span>
+                Lead Name <span class="text-rose-400">*</span>
               </label>
               <input
                 id="quote-name"
                 name="name"
                 required
-                placeholder="Your full name"
+                placeholder="evan koenke"
                 class="w-full bg-ink-800/60 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
               />
             </div>
 
             <div>
               <label for="quote-business" class="block text-sm font-semibold text-white/85 mb-2">
-                Business <span class="text-rose-400">*</span>
+                Business Name <span class="text-white/40 font-normal">(optional)</span>
               </label>
               <input
                 id="quote-business"
                 name="business"
-                required
-                placeholder="Company name"
+                placeholder="Company name (defaults to 'Not Provided')"
                 class="w-full bg-ink-800/60 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
               />
             </div>
@@ -564,23 +1125,46 @@
                 type="email"
                 name="email"
                 required
-                placeholder="you@business.com"
+                placeholder="YOU@business.com"
                 class="w-full bg-ink-800/60 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
               />
             </div>
 
             <div>
               <label for="quote-phone" class="block text-sm font-semibold text-white/85 mb-2">
-                Phone <span class="text-rose-400">*</span>
+                Phone Number <span class="text-rose-400">*</span>
               </label>
               <input
                 id="quote-phone"
                 type="tel"
                 name="phone"
                 required
-                placeholder="(555) 123-4567"
+                placeholder="+1 5551234567 / 555-123-4567 / etc."
                 class="w-full bg-ink-800/60 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
               />
+            </div>
+
+            <div class="md:col-span-2">
+              <label for="quote-industry" class="block text-sm font-semibold text-white/85 mb-2">
+                Industry <span class="text-rose-400">*</span>
+              </label>
+              <select
+                id="quote-industry"
+                name="industry"
+                required
+                class="w-full bg-ink-800/60 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
+              >
+                <option value="" disabled selected>Choose your industry…</option>
+                <option value="Roofing">Roofing</option>
+                <option value="Solar">Solar</option>
+                <option value="HVAC">HVAC</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="Electrical">Electrical</option>
+                <option value="General Contracting">General Contracting</option>
+                <option value="Pest Control">Pest Control</option>
+                <option value="Landscaping">Landscaping</option>
+                <option value="Home Services - Other">Home Services — Other</option>
+              </select>
             </div>
 
             <div class="md:col-span-2">
@@ -592,7 +1176,7 @@
                 name="message"
                 rows="5"
                 required
-                placeholder="Tell us about your business — current lead volume, biggest bottleneck, what 'better' looks like."
+                placeholder="Tell us about your business — current lead volume, biggest bottleneck, what you'd want automated."
                 class="w-full bg-ink-800/60 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition resize-none"
               ></textarea>
             </div>
@@ -605,7 +1189,8 @@
             </button>
 
             <p class="md:col-span-2 text-xs text-white/40 text-center">
-              Submitting fires a Gmail alert to <code class="text-brand-300/80">evankoenke@gmail.com</code> in under 5 seconds.
+              Submitting writes a row to <code class="text-brand-300/80">FlowLayer_Sales_Pipeline</code> and emails <code class="text-brand-300/80">evankoenke@gmail.com</code> in &lt; 5 seconds.
+              <br />Lead Score, Urgency, Notes, and Submitted At are filled by the AI engine on the server.
             </p>
           </form>
         </div>
@@ -625,6 +1210,8 @@
             <li><a href="#features" class="hover:text-white">Features</a></li>
             <li><a href="#how" class="hover:text-white">How it works</a></li>
             <li><a href="#engine" class="hover:text-white">Pricing</a></li>
+            <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+            <li><a href="#about" class="hover:text-white">About</a></li>
             <li><a href="#quote" class="hover:text-white">Get a Quote</a></li>
           </ul>
         </div>
@@ -649,24 +1236,17 @@
       <div class="chat-header">
         <div class="chat-avatar">EK</div>
         <div>
-          <div class="display font-bold text-white text-[15px] leading-tight">Evan @ FlowLayer</div>
-          <div class="text-[11px] text-emerald-300 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span>Usually replies in &lt; 1 hr</div>
+          <div class="display font-bold text-white text-[15px] leading-tight">FlowLayer Concierge</div>
+          <div class="text-[11px] text-emerald-300 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span>Online · ask anything</div>
         </div>
       </div>
-      <div class="chat-bubble">
-        Hey 👋 — thanks for stopping by. Want to talk about a custom AI lead engine for your business? Pick the fastest path:
-      </div>
-      <div class="chat-actions">
-        <a class="chat-action" href="https://calendly.com/evankoenke/30min" target="_blank" rel="noopener">
-          <span>📅 Book a 30-min call</span><span class="arrow">→</span>
-        </a>
-        <a class="chat-action" href="#quote">
-          <span>📝 Get a custom quote</span><span class="arrow">→</span>
-        </a>
-        <a class="chat-action" href="mailto:evankoenke@gmail.com?subject=FlowLayer%20AI%20%E2%80%94%20Inquiry">
-          <span>✉️ Email Evan directly</span><span class="arrow">→</span>
-        </a>
-      </div>
+      <div id="chat-thread" class="chat-thread" aria-live="polite"></div>
+      <form id="chat-input-form" class="chat-input-row" autocomplete="off">
+        <input id="chat-input" class="chat-input" type="text" placeholder="Ask about pricing, timeline, integrations…" aria-label="Type a message" />
+        <button id="chat-send" type="submit" class="chat-send" aria-label="Send">
+          <svg viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor"><path d="M3.4 20.4l17.45-7.48a1 1 0 0 0 0-1.84L3.4 3.6a1 1 0 0 0-1.4 1.07L4 11l8 1-8 1-2 6.33a1 1 0 0 0 1.4 1.07z"/></svg>
+        </button>
+      </form>
     </div>
 
     <button id="chat-launcher" class="chat-launcher" aria-label="Open chat">
@@ -689,12 +1269,10 @@
     </div>
 
     <script>
-      // === CONFIG: replace with your live n8n production webhook URL ===
-      // (See DEPLOYMENT_KEYS.md for the wiring diagram.)
       const WEBHOOKS = {
-        // Get a Quote → FlowLayer Internal Engine (Gmail alert to evankoenke@gmail.com)
         flowlayer: 'https://flowlayerai.app.n8n.cloud/webhook/flowlayer-internal-engine',
       };
+      console.log('[FlowLayer] Webhook → PROD:', WEBHOOKS.flowlayer);
 
       const overlay = document.getElementById('success-overlay');
       const successMessage = document.getElementById('success-message');
@@ -712,6 +1290,33 @@
       successClose.addEventListener('click', hideSuccess);
       overlay.addEventListener('click', (e) => { if (e.target === overlay) hideSuccess(); });
 
+      // ---- Universal data normalizers ----
+      function normalizeName(raw) {
+        const trimmed = (raw || '').toString().trim().replace(/\s+/g, ' ');
+        if (!trimmed) return '';
+        // Title-case every word, including those after hyphens or apostrophes (O'Neil, Smith-Jones).
+        return trimmed
+          .toLowerCase()
+          .replace(/(^|[\s\-'])([a-z])/g, (_, sep, c) => sep + c.toUpperCase());
+      }
+      function normalizeEmail(raw) {
+        return (raw || '').toString().trim().toLowerCase();
+      }
+      function normalizePhone(raw) {
+        // Strip everything that isn't a digit; drop a leading "1" so we always end up with 10.
+        let digits = (raw || '').toString().replace(/\D/g, '');
+        if (digits.length === 11 && digits.startsWith('1')) digits = digits.slice(1);
+        if (digits.length !== 10) return (raw || '').toString().trim(); // give up gracefully
+        return '(' + digits.slice(0, 3) + ') ' + digits.slice(3, 6) + '-' + digits.slice(6);
+      }
+      function normalizeBusiness(raw) {
+        const trimmed = (raw || '').toString().trim();
+        return trimmed === '' ? 'Not Provided' : trimmed;
+      }
+      function normalizeMessage(raw) {
+        return (raw || '').toString().trim();
+      }
+
       function bindForm(formId, engine) {
         const form = document.getElementById(formId);
         if (!form) return;
@@ -722,25 +1327,52 @@
           submitBtn.disabled = true;
           submitBtn.textContent = 'Submitting…';
 
-          const payload = Object.fromEntries(new FormData(form).entries());
-          payload.source = 'flowlayerai.com';
-          payload.engine = engine;
-          payload.submitted_at = new Date().toISOString();
+          // STRICT payload — exactly these 6 keys, normalized regardless of how the user typed them.
+          const data = new FormData(form);
+          const payload = {
+            name:     normalizeName(data.get('name')),
+            business: normalizeBusiness(data.get('business')),
+            email:    normalizeEmail(data.get('email')),
+            phone:    normalizePhone(data.get('phone')),
+            industry: (data.get('industry') || '').toString().trim(),
+            message:  normalizeMessage(data.get('message')),
+          };
 
+          console.log('[FlowLayer] POST payload →', WEBHOOKS[engine], payload);
+
+          // Minimal client-side guard — server still gets a chance to score even partial leads.
+          if (!payload.name || !payload.email || !payload.phone || !payload.industry || !payload.message) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+            alert('Please fill out Name, Email, Phone, Industry, and Message before submitting.');
+            return;
+          }
+
+          let ok = false;
           try {
-            await fetch(WEBHOOKS[engine], {
+            const res = await fetch(WEBHOOKS[engine], {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(payload),
-              mode: 'no-cors',
             });
+            console.log('[FlowLayer] Response status:', res.status);
+            ok = res.ok; // true only on 200–299
           } catch (err) {
-            console.warn('Webhook post failed (likely placeholder URL):', err);
-          } finally {
+            console.error('[FlowLayer] Webhook post failed:', err);
+          }
+
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+
+          if (ok) {
             form.reset();
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
             showSuccess("Thanks — Evan just got pinged. Expect a reply within 24 hours.");
+          } else {
+            // Don't reset the form — the user can retry without retyping.
+            showSuccess(
+              "We couldn't reach the lead engine just now. Please email evankoenke@gmail.com directly, " +
+              "or try again in a moment."
+            );
           }
         });
       }
@@ -756,17 +1388,208 @@
       document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
       // Chat widget
-      const chatPanel = document.getElementById('chat-panel');
+      const chatPanel    = document.getElementById('chat-panel');
       const chatLauncher = document.getElementById('chat-launcher');
-      const chatClose = document.getElementById('chat-close');
-      const openChat = () => { chatPanel.classList.add('open'); chatPanel.setAttribute('aria-hidden', 'false'); };
-      const closeChat = () => { chatPanel.classList.remove('open'); chatPanel.setAttribute('aria-hidden', 'true'); };
+      const chatClose    = document.getElementById('chat-close');
+      const chatThread   = document.getElementById('chat-thread');
+      const chatForm     = document.getElementById('chat-input-form');
+      const chatInput    = document.getElementById('chat-input');
+
+      // ---- Knowledge base for the rule-based responder ----
+      const FAQ = [
+        {
+          test: /(price|pricing|cost|how much|fee|rate|charge|investment)/i,
+          answer:
+            "$3,500 one-time setup + $2,000/month retainer. The setup covers the custom n8n engine, AI scoring tuned to your offer, and every integration wired and tested. The retainer covers monitoring, tuning, and new feature builds.",
+          quick: [
+            { label: '📝 Get a quote', href: '#quote' },
+            { label: '📅 Book a call', href: 'https://calendly.com/evankoenke/30min' },
+          ],
+        },
+        {
+          test: /(timeline|how long|when|deploy|launch|build time|fast|delivery)/i,
+          answer:
+            "14 days from kickoff to live engine. Day 1–2 discovery, Day 3–7 build, Day 8–11 launch + monitor first 100 leads, Day 12+ optimize.",
+          quick: [{ label: '📅 Book a call', href: 'https://calendly.com/evankoenke/30min' }],
+        },
+        {
+          test: /(what (do|does|is)|who (are|is)|about|flowlayer|service|offer|provide)/i,
+          answer:
+            "FlowLayer AI builds custom AI lead-response engines for high-ticket contractors. We capture every inbound lead — forms, ads, missed calls — clean it with AI, score it 1–100, classify the pain point, and route HOT leads to your closer's phone in under 60 seconds.",
+          quick: [{ label: '📝 Get a quote', href: '#quote' }],
+        },
+        {
+          test: /(evan|founder|who built|who runs|owner|background)/i,
+          answer:
+            "Evan Koenke — founder, based in Sarasota, FL. He builds and tunes every engine personally. You'll have a direct line to him after kickoff.",
+          quick: [{ label: '📅 Book with Evan', href: 'https://calendly.com/evankoenke/30min' }],
+        },
+        {
+          test: /(integrate|integration|stack|connect|tool|crm|hubspot|sheet|sheets|gmail|twilio|calendly|n8n|supabase|api)/i,
+          answer:
+            "We work with your existing stack — Google Sheets, HubSpot, Salesforce, Twilio (SMS), Gmail/Outlook, Calendly, your phone system, and any tool with a REST API or webhook. No rip-and-replace, no new logins for your team.",
+          quick: [{ label: '📝 Talk integrations', href: '#quote' }],
+        },
+        {
+          test: /(industry|industries|who do you serve|who is this for|fit|qualify|right for me|contractor|roof|solar|hvac|plumb|electrical|landscap|pest)/i,
+          answer:
+            "Built specifically for high-ticket local-service contractors: roofing, solar, HVAC, plumbing, electrical, general contracting, pest control, landscaping, and other home services. The engine assumes your jobs are $5k+ — anything smaller and the unit economics don't make sense.",
+          quick: [{ label: '📝 Check fit', href: '#quote' }],
+        },
+        {
+          test: /(book|schedule|call|demo|meeting|appointment|talk|chat with you)/i,
+          answer:
+            "Easiest way is to grab 30 minutes on Evan's Calendly. He'll walk through your current funnel and tell you straight up whether FlowLayer is a fit.",
+          quick: [{ label: '📅 Book 30 min', href: 'https://calendly.com/evankoenke/30min' }],
+        },
+        {
+          test: /(hot lead|score|scoring|qualify|qualification|how does ai|model|gpt)/i,
+          answer:
+            "Every lead gets a 1–100 score from GPT-4o-mini. Higher score = clearer pain expressed, budget mentioned, timeline, business email, urgency signals. We tag HOT/WARM/COLD and route accordingly. You can tune the scoring rules for your offer during the build.",
+          quick: [],
+        },
+        {
+          test: /(refund|guarantee|risk|cancel|month to month|contract)/i,
+          answer:
+            "14-day deployment guarantee. Monthly retainer is month-to-month — cancel anytime. No long contracts.",
+          quick: [{ label: '📅 Book a call', href: 'https://calendly.com/evankoenke/30min' }],
+        },
+        {
+          test: /(email|contact|reach|how to reach|reply|gmail)/i,
+          answer:
+            "evankoenke@gmail.com or (941) 284-1742. Or fill out the quote form and Evan will reply within 24 hours.",
+          quick: [
+            { label: '✉️ Email Evan', href: 'mailto:evankoenke@gmail.com?subject=FlowLayer%20AI%20%E2%80%94%20Inquiry' },
+            { label: '📝 Quote form', href: '#quote' },
+          ],
+        },
+        {
+          test: /(thanks|thank you|cool|great|awesome|ok|okay|sounds good|got it)/i,
+          answer: "Anytime 🙏 — drop another question, or jump in when you're ready.",
+          quick: [
+            { label: '📝 Get a quote', href: '#quote' },
+            { label: '📅 Book a call', href: 'https://calendly.com/evankoenke/30min' },
+          ],
+        },
+        {
+          test: /(hi|hello|hey|yo|sup|good morning|good afternoon|good evening)/i,
+          answer:
+            "Hey 👋 — I'm the FlowLayer concierge. Ask me about pricing, timeline, integrations, fit, or anything else. Or jump straight to a quote.",
+          quick: [
+            { label: '💰 Pricing', text: 'How much does it cost?' },
+            { label: '⏱ Timeline', text: 'How long to deploy?' },
+            { label: '📝 Get a quote', href: '#quote' },
+          ],
+        },
+      ];
+
+      const FALLBACK = {
+        answer:
+          "Good question — I'd rather have Evan answer that one directly so nothing gets lost. Easiest path is to either drop your details in the quote form (he'll reply within 24 hours) or grab a 30-min Calendly slot.",
+        quick: [
+          { label: '📝 Get a quote', href: '#quote' },
+          { label: '📅 Book a call', href: 'https://calendly.com/evankoenke/30min' },
+          { label: '✉️ Email Evan', href: 'mailto:evankoenke@gmail.com?subject=FlowLayer%20AI%20%E2%80%94%20Inquiry' },
+        ],
+      };
+
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+      }
+
+      function appendMsg(role, html) {
+        const div = document.createElement('div');
+        div.className = 'chat-msg ' + role;
+        div.innerHTML = html;
+        chatThread.appendChild(div);
+        chatThread.scrollTop = chatThread.scrollHeight;
+        return div;
+      }
+
+      function renderQuickActions(quick) {
+        if (!quick || !quick.length) return '';
+        const links = quick.map((q) => {
+          if (q.href) {
+            const isExternal = /^https?:/.test(q.href) || q.href.startsWith('mailto:');
+            const target = isExternal && !q.href.startsWith('mailto:') ? ' target="_blank" rel="noopener"' : '';
+            return `<a class="quick" href="${escapeHtml(q.href)}"${target}>${escapeHtml(q.label)}</a>`;
+          }
+          return `<button class="quick" type="button" data-prefill="${escapeHtml(q.text || q.label)}">${escapeHtml(q.label)}</button>`;
+        }).join('');
+        return `<div class="quick-row">${links}</div>`;
+      }
+
+      function answerFor(text) {
+        for (const f of FAQ) if (f.test.test(text)) return f;
+        return FALLBACK;
+      }
+
+      function botReply(userText) {
+        const typing = document.createElement('div');
+        typing.className = 'chat-typing';
+        typing.innerHTML = '<span></span><span></span><span></span>';
+        chatThread.appendChild(typing);
+        chatThread.scrollTop = chatThread.scrollHeight;
+
+        setTimeout(() => {
+          typing.remove();
+          const a = answerFor(userText);
+          appendMsg('bot', escapeHtml(a.answer) + renderQuickActions(a.quick));
+        }, 600 + Math.random() * 400);
+      }
+
+      function sendUserMessage(text) {
+        const trimmed = text.trim();
+        if (!trimmed) return;
+        appendMsg('user', escapeHtml(trimmed));
+        chatInput.value = '';
+        botReply(trimmed);
+      }
+
+      // Greeting on first open
+      let greeted = false;
+      const openChat = () => {
+        chatPanel.classList.add('open');
+        chatPanel.setAttribute('aria-hidden', 'false');
+        if (!greeted) {
+          const intro = FAQ.find((f) => /(hi|hello)/i.test('hi'));
+          appendMsg(
+            'bot',
+            "Hey 👋 — I'm the FlowLayer concierge. Ask me about pricing, timeline, integrations, fit, or anything else. Or jump straight to a quote."
+              + renderQuickActions([
+                { label: '💰 Pricing', text: 'How much does it cost?' },
+                { label: '⏱ Timeline', text: 'How long to deploy?' },
+                { label: '🔌 Integrations', text: 'What does it integrate with?' },
+                { label: '📝 Get a quote', href: '#quote' },
+              ])
+          );
+          greeted = true;
+        }
+        setTimeout(() => chatInput.focus(), 250);
+      };
+      const closeChat = () => {
+        chatPanel.classList.remove('open');
+        chatPanel.setAttribute('aria-hidden', 'true');
+      };
+
       chatLauncher.addEventListener('click', () => {
         chatPanel.classList.contains('open') ? closeChat() : openChat();
       });
       chatClose.addEventListener('click', closeChat);
-      chatPanel.querySelectorAll('.chat-action').forEach((a) => a.addEventListener('click', closeChat));
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeChat(); });
+
+      chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        sendUserMessage(chatInput.value);
+      });
+
+      // Quick-reply buttons (inside thread, dynamically inserted)
+      chatThread.addEventListener('click', (e) => {
+        const btn = e.target.closest('button.quick[data-prefill]');
+        if (btn) sendUserMessage(btn.getAttribute('data-prefill'));
+      });
     </script>
   </body>
 </html>

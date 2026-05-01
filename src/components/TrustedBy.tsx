@@ -36,7 +36,7 @@ const TrustedBy = () => {
                 <span
                   key={`${company}-${index}`}
                   className="text-xl lg:text-2xl font-bold text-muted-foreground/40 hover:text-primary/60 transition-colors duration-300 cursor-default"
-                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                  style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   {company}
                 </span>

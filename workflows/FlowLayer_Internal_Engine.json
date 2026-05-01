@@ -23,35 +23,27 @@
       "position": [480, 320],
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const incoming = $input.item.json.body || $input.item.json;\nconst headers = $input.item.json.headers || {};\n\nfunction toTitleCase(s) {\n  return (s || '').toString().trim().replace(/\\s+/g, ' ').toLowerCase().replace(/(^|\\s|-)([a-z])/g, function(_, p, c) { return p + c.toUpperCase(); });\n}\nfunction cleanEmail(e) {\n  return (e || '').toString().trim().toLowerCase().replace(/@@+/g, '@').replace(/gmail\\.con$/, 'gmail.com');\n}\nfunction cleanPhone(p) {\n  const d = (p || '').toString().replace(/\\D/g, '');\n  if (d.length === 10) return '+1 (' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6);\n  if (d.length === 11 && d.charAt(0) === '1') return '+1 (' + d.slice(1,4) + ') ' + d.slice(4,7) + '-' + d.slice(7);\n  return p || '';\n}\nfunction stripJunk(s) { return (s || '').toString().trim().replace(/\\s+/g, ' '); }\n\nconst result = {\n  name: toTitleCase(incoming.name),\n  business: stripJunk(incoming.business),\n  email: cleanEmail(incoming.email),\n  phone: cleanPhone(incoming.phone),\n  message: stripJunk(incoming.message),\n  source: incoming.source || 'flowlayerai.com',\n  submitted_at: incoming.submitted_at || new Date().toISOString(),\n  user_agent: headers['user-agent'] || null,\n  referer: headers.referer || null\n};\n\nreturn { json: result };"
+        "jsCode": "const raw = $input.item.json.body || $input.item.json;\n\nfunction clean(text) {\n  return (text || 'Not Provided').toString().trim();\n}\n\nconst cleanData = {\n  name: clean(raw.name),\n  business: clean(raw.business),\n  email: clean(raw.email).toLowerCase(),\n  phone: clean(raw.phone),\n  industry: clean(raw.industry),\n  message: clean(raw.message),\n  submitted_at: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })\n};\n\nreturn { json: cleanData };"
       }
     },
     {
-      "id": "ai-categorize",
-      "name": "AI Categorize",
-      "type": "n8n-nodes-base.openAi",
-      "typeVersion": 1.1,
-      "position": [720, 320],
-      "onError": "continueRegularOutput",
+      "id": "ai-lead-analyzer",
+      "name": "AI Lead Analyzer",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [688, 320],
       "parameters": {
-        "resource": "chat",
-        "operation": "complete",
-        "modelId": { "__rl": true, "value": "gpt-4o-mini", "mode": "list" },
-        "messages": {
-          "values": [
-            {
-              "role": "system",
-              "content": "You are FlowLayer AI's lead categorization engine. The form supplies name, business, email, phone, message. Classify the lead by Industry and Automation Pain Point, and assign a numeric Lead Score 1-100.\n\nReturn STRICT JSON with these EXACT keys:\n- industry_category: one of [Roofing, Solar, HVAC, Plumbing, Electrical, General Contracting, Pest Control, Landscaping, Home Services - Other, Unknown]. Infer from the message + business name.\n- automation_pain_point: one of [Slow Lead Follow-Up, Missed Calls / Voicemails, Manual Lead Qualification, Disorganized CRM / Spreadsheets, No Booking System, Wasted Ad Spend, Inconsistent Quoting, Reactivating Old Leads, Internal Reporting, Other / Unclear]. Pick the closest match based on the message.\n- pain_point_reason: short string explaining why this pain point fits.\n- urgency: one of [IMMEDIATE, HIGH, MEDIUM, LOW]\n- urgency_reason: short string explaining the urgency tag.\n- lead_score: integer 1-100. Higher for: clear pain expressed, budget mentioned, timeline mentioned, business email (not gmail), specific volume/dollar figures, urgency signals. Lower for: vague exploration, free email + no business context.\n- summary: one-sentence summary of the lead and what they need.\n- suggested_next_action: one short imperative for the sales rep.\n\nUrgency rules: IMMEDIATE = asap/urgent/today/emergency or competitor quote in hand. HIGH = within 30 days, ready to buy, budget mentioned. MEDIUM = 1-3 months, evaluating. LOW = exploring/curious, no timeline."
-            },
-            {
-              "role": "user",
-              "content": "={{ JSON.stringify({ name: $json.name, business: $json.business, email: $json.email, phone: $json.phone, message: $json.message }) }}"
-            }
-          ]
-        },
-        "jsonOutput": true,
-        "options": {}
+        "promptType": "define",
+        "text": "=Analyze the following lead message and reply with a short summary covering three things: the likely Industry, the Urgency level (Low, Medium, High, or Emergency — use Emergency for words like leak, broken, urgent, asap), and a Lead Score from 1 to 100 based on intent and detail.\n\nMessage: {{ $json.message }}\n\nReply in plain text using exactly this format:\nIndustry: [industry]\nUrgency: [level]\nLead Score: [score]/100\nSummary: [one sentence about the lead]"
       }
+    },
+    {
+      "id": "gemini-model",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [656, 528],
+      "parameters": { "options": {} }
     },
     {
       "id": "merge-lead-ai",
@@ -60,8 +52,7 @@
       "typeVersion": 2,
       "position": [960, 320],
       "parameters": {
-        "mode": "runOnceForEachItem",
-        "jsCode": "const lead = $('Fuzzy Logic & Clean Data').item.json;\nconst raw = $input.item.json.message && $input.item.json.message.content ? $input.item.json.message.content : ($input.item.json.content || $input.item.json);\nlet ai = raw;\nif (typeof raw === 'string') {\n  try { ai = JSON.parse(raw); } catch (e) { ai = {}; }\n}\nconst score = parseInt(ai.lead_score, 10);\nconst merged = Object.assign({}, lead, {\n  industry_category: ai.industry_category || 'Unknown',\n  automation_pain_point: ai.automation_pain_point || 'Other / Unclear',\n  pain_point_reason: ai.pain_point_reason || '',\n  urgency: ai.urgency || 'MEDIUM',\n  urgency_reason: ai.urgency_reason || '',\n  lead_score: Number.isFinite(score) ? score : 50,\n  summary: ai.summary || '',\n  suggested_next_action: ai.suggested_next_action || ''\n});\nreturn { json: merged };"
+        "jsCode": "// 1. Cleaned form data from Fuzzy Logic & Clean Data\nconst originalData = $('Fuzzy Logic & Clean Data').item.json;\n\n// 2. Raw AI text output from Basic LLM Chain\nconst aiAnalysis = $input.item.json.text || $input.item.json.output || 'Analysis unavailable';\n\n// 3. Merge — carry all form fields + attach AI analysis as plain text\nconst merged = {\n  name:         originalData.name,\n  business:     originalData.business,\n  email:        originalData.email,\n  phone:        originalData.phone,\n  industry:     originalData.industry,\n  message:      originalData.message,\n  submitted_at: originalData.submitted_at,\n  ai_analysis:  aiAnalysis,\n};\n\nreturn { json: merged };"
       }
     },
     {
@@ -72,26 +63,21 @@
       "position": [1200, 320],
       "onError": "continueRegularOutput",
       "parameters": {
-        "resource": "sheet",
         "operation": "append",
         "documentId": { "__rl": true, "value": "1qsE1yne6hPDz_Cbdu5wOeua3u0i1JglfOBjIF4StVoI", "mode": "id" },
-        "sheetName": { "__rl": true, "value": "Sheet1", "mode": "name" },
+        "sheetName": { "__rl": true, "value": "FlowLayer_Sales_Pipeline", "mode": "name" },
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Lead Name": "={{ $json.name }}",
-            "Business Name": "={{ $json.business }}",
-            "Email Address": "={{ $json.email }}",
+            "Lead Name":    "={{ $json.name }}",
+            "Business Name":"={{ $json.business }}",
+            "Email":        "={{ $json.email }}",
             "Phone Number": "={{ $json.phone }}",
-            "Industry": "={{ $json.industry_category }}",
-            "Automation Need": "={{ $json.automation_pain_point }} — {{ $json.message }}",
-            "Lead Score": "={{ $json.lead_score }}",
-            "Urgency": "={{ $json.urgency }}",
-            "Notes": "={{ $json.summary }}",
+            "Industry":     "={{ $json.industry }}",
+            "Message":      "={{ $json.message }}",
+            "AI Analysis":  "={{ $json.ai_analysis }}",
             "Submitted At": "={{ $json.submitted_at }}"
-          },
-          "matchingColumns": [],
-          "schema": []
+          }
         },
         "options": {}
       }
@@ -103,13 +89,12 @@
       "typeVersion": 2.2,
       "position": [1440, 320],
       "parameters": {
-        "resource": "message",
-        "operation": "send",
         "sendTo": "evankoenke@gmail.com",
-        "subject": "=🔥 NEW FLOWLAYER LEAD — {{ $json.name }} · {{ $json.industry_category }} · {{ $json.automation_pain_point }} ({{ $json.lead_score }}/100)",
-        "emailType": "html",
-        "message": "(rich HTML body lives in deployed workflow on n8n — id DEFN0i6LmpUMdX41)",
-        "options": {}
+        "subject": "=🔥 New FlowLayer Lead | {{ $('Merge Lead AI').item.json.industry }} | {{ $('Merge Lead AI').item.json.business }}",
+        "message": "=<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0c12; color: #e6e8ee; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);\">\n\n  <div style=\"background: linear-gradient(135deg, #22d3ee, #6366f1); padding: 24px 32px;\">\n    <h1 style=\"margin: 0; font-size: 20px; color: #06070b; font-weight: 800;\">🔥 New FlowLayer Lead</h1>\n    <p style=\"margin: 6px 0 0; font-size: 13px; color: rgba(6,7,11,0.65);\">{{ $('Merge Lead AI').item.json.submitted_at }}</p>\n  </div>\n\n  <div style=\"padding: 24px 32px;\">\n    <table style=\"width: 100%; border-collapse: collapse;\">\n      <tr>\n        <td style=\"padding: 10px 0; color: rgba(255,255,255,0.4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; width: 120px; vertical-align: top;\">Name</td>\n        <td style=\"padding: 10px 0; color: #fff; font-size: 15px; font-weight: 600;\">{{ $('Merge Lead AI').item.json.name }}</td>\n      </tr>\n      <tr style=\"border-top: 1px solid rgba(255,255,255,0.07);\">\n        <td style=\"padding: 10px 0; color: rgba(255,255,255,0.4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; vertical-align: top;\">Business</td>\n        <td style=\"padding: 10px 0; color: #fff; font-size: 15px; font-weight: 600;\">{{ $('Merge Lead AI').item.json.business }}</td>\n      </tr>\n      <tr style=\"border-top: 1px solid rgba(255,255,255,0.07);\">\n        <td style=\"padding: 10px 0; color: rgba(255,255,255,0.4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; vertical-align: top;\">Email</td>\n        <td style=\"padding: 10px 0; font-size: 15px; font-weight: 600;\"><a href=\"mailto:{{ $('Merge Lead AI').item.json.email }}\" style=\"color: #22d3ee; text-decoration: none;\">{{ $('Merge Lead AI').item.json.email }}</a></td>\n      </tr>\n      <tr style=\"border-top: 1px solid rgba(255,255,255,0.07);\">\n        <td style=\"padding: 10px 0; color: rgba(255,255,255,0.4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; vertical-align: top;\">Phone</td>\n        <td style=\"padding: 10px 0; font-size: 15px; font-weight: 600;\"><a href=\"tel:{{ $('Merge Lead AI').item.json.phone }}\" style=\"color: #22d3ee; text-decoration: none;\">{{ $('Merge Lead AI').item.json.phone }}</a></td>\n      </tr>\n      <tr style=\"border-top: 1px solid rgba(255,255,255,0.07);\">\n        <td style=\"padding: 10px 0; color: rgba(255,255,255,0.4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; vertical-align: top;\">Industry</td>\n        <td style=\"padding: 10px 0; color: #fff; font-size: 15px;\">{{ $('Merge Lead AI').item.json.industry }}</td>\n      </tr>\n    </table>\n\n    <div style=\"margin-top: 20px; padding: 16px 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;\">\n      <p style=\"margin: 0 0 8px; color: rgba(255,255,255,0.4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;\">Message</p>\n      <p style=\"margin: 0; color: #cbd5e1; font-size: 15px; line-height: 1.65;\">{{ $('Merge Lead AI').item.json.message }}</p>\n    </div>\n\n    <div style=\"margin-top: 16px; padding: 16px 20px; background: rgba(34,211,238,0.05); border: 1px solid rgba(34,211,238,0.2); border-radius: 10px;\">\n      <p style=\"margin: 0 0 8px; color: #22d3ee; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700;\">⚡ AI Analysis</p>\n      <p style=\"margin: 0; color: #e6e8ee; font-size: 14px; line-height: 1.7; white-space: pre-line;\">{{ $('Merge Lead AI').item.json.ai_analysis }}</p>\n    </div>\n  </div>\n\n  <div style=\"padding: 20px 32px; border-top: 1px solid rgba(255,255,255,0.07); text-align: center;\">\n    <a href=\"mailto:{{ $('Merge Lead AI').item.json.email }}\" style=\"display: inline-block; background: linear-gradient(135deg, #22d3ee, #6366f1); color: #06070b; font-weight: 800; font-size: 14px; padding: 12px 28px; border-radius: 8px; text-decoration: none;\">Reply to {{ $('Merge Lead AI').item.json.name }} →</a>\n  </div>\n\n</div>",
+        "options": {
+          "appendAttribution": false
+        }
       }
     },
     {
@@ -120,28 +105,48 @@
       "position": [1680, 320],
       "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ JSON.stringify({ status: 'received', industry: $json.industry_category, pain_point: $json.automation_pain_point, score: $json.lead_score }) }}"
+        "responseBody": "={{ JSON.stringify({ status: 'received', name: $json.name, industry: $json.industry }) }}",
+        "options": {}
       }
     }
   ],
   "connections": {
-    "Webhook": { "main": [[{ "node": "Fuzzy Logic & Clean Data", "type": "main", "index": 0 }]] },
-    "Fuzzy Logic & Clean Data": { "main": [[{ "node": "AI Categorize", "type": "main", "index": 0 }]] },
-    "AI Categorize": { "main": [[{ "node": "Merge Lead AI", "type": "main", "index": 0 }]] },
-    "Merge Lead AI": { "main": [[{ "node": "Append to Lead Sheet", "type": "main", "index": 0 }]] },
-    "Append to Lead Sheet": { "main": [[{ "node": "Gmail Alert", "type": "main", "index": 0 }]] },
-    "Gmail Alert": { "main": [[{ "node": "Respond", "type": "main", "index": 0 }]] }
+    "Webhook": {
+      "main": [[{ "node": "Fuzzy Logic & Clean Data", "type": "main", "index": 0 }]]
+    },
+    "Fuzzy Logic & Clean Data": {
+      "main": [[{ "node": "AI Lead Analyzer", "type": "main", "index": 0 }]]
+    },
+    "AI Lead Analyzer": {
+      "main": [[{ "node": "Merge Lead AI", "type": "main", "index": 0 }]]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [[{ "node": "AI Lead Analyzer", "type": "ai_languageModel", "index": 0 }]]
+    },
+    "Merge Lead AI": {
+      "main": [[{ "node": "Append to Lead Sheet", "type": "main", "index": 0 }]]
+    },
+    "Append to Lead Sheet": {
+      "main": [[{ "node": "Gmail Alert", "type": "main", "index": 0 }]]
+    },
+    "Gmail Alert": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
   },
-  "settings": { "executionOrder": "v1" },
+  "settings": { "executionOrder": "v1", "binaryMode": "separate" },
   "meta": {
-    "purpose": "Core internal lead-intake engine for flowlayerai.com",
-    "trigger": "POST Webhook bound to flowlayerai.com Get-a-Quote form",
+    "purpose": "Internal lead-intake engine for flowlayerai.com",
     "alert_recipient": "evankoenke@gmail.com",
-    "form_keys": ["name", "business", "email", "phone", "message"],
+    "form_keys": ["name", "business", "email", "phone", "industry", "message"],
+    "sheet_columns": ["Lead Name", "Business Name", "Email", "Phone Number", "Industry", "Message", "AI Analysis", "Submitted At"],
+    "ai_node": "Basic LLM Chain — outputs raw text to ai_analysis field",
+    "ai_output_key": "text",
     "live_webhook": "https://flowlayerai.app.n8n.cloud/webhook/flowlayer-internal-engine",
-    "categorization": "Industry + Automation Pain Point (with Urgency + Lead Score)",
+    "test_webhook": "https://flowlayerai.app.n8n.cloud/webhook-test/flowlayer-internal-engine",
     "sheet_id": "1qsE1yne6hPDz_Cbdu5wOeua3u0i1JglfOBjIF4StVoI",
-    "n8n_workflow_id": "DEFN0i6LmpUMdX41"
+    "sheet_tab": "FlowLayer_Sales_Pipeline",
+    "n8n_workflow_id": "DEFN0i6LmpUMdX41",
+    "ai_model": "Google Gemini via @n8n/n8n-nodes-langchain.chainLlm"
   },
   "tags": [
     { "name": "production" },
