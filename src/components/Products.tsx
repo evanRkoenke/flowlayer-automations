@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Check, ArrowRight, Sparkles, Settings, Shield, Zap } from "lucide-react";
+import { Check, ArrowRight, Sparkles, Settings, Shield } from "lucide-react";
 import automationImage from "@/assets/ai-lead-follow-up-automation.png";
 
 const Products = () => {
@@ -92,33 +92,6 @@ const Products = () => {
                 </div>
               </div>
 
-              {/* Pricing */}
-              <div className="glass rounded-2xl p-8 mb-10 border border-primary/20">
-                <div className="grid sm:grid-cols-2 gap-8">
-                  {/* Setup Fee */}
-                  <div className="flex items-start gap-5">
-                    <div className="w-14 h-14 rounded-xl gradient-primary flex items-center justify-center flex-shrink-0 shadow-medium">
-                      <Settings size={24} className="text-primary-foreground" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1 uppercase tracking-wider">One-Time Setup</p>
-                      <p className="text-4xl font-bold text-gradient-premium">$3,500</p>
-                      <p className="text-xs text-muted-foreground mt-1">Custom build + integration</p>
-                    </div>
-                  </div>
-                  {/* Monthly Fee */}
-                  <div className="flex items-start gap-5">
-                    <div className="w-14 h-14 rounded-xl gradient-premium flex items-center justify-center flex-shrink-0 shadow-medium">
-                      <Zap size={24} className="text-primary-foreground" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1 uppercase tracking-wider">Then Monthly</p>
-                      <p className="text-4xl font-bold text-gradient-premium">$2,000<span className="text-lg font-normal text-muted-foreground">/mo</span></p>
-                      <p className="text-xs text-muted-foreground mt-1">Full automation + support</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
               {/* Features Grid */}
               <div className="grid md:grid-cols-2 gap-10 mb-10">
@@ -180,14 +153,10 @@ const Products = () => {
                   size="lg"
                   className="w-full gradient-premium shadow-premium hover:shadow-glow text-primary-foreground font-semibold text-lg py-7 group"
                 >
-                  Get Started Today
+                  Book a Free Demo
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                 </Button>
               </a>
-
-              <p className="text-center text-sm text-muted-foreground mt-4">
-                Book a free strategy call to see if we're a fit
-              </p>
             </div>
           </div>
         </motion.div>

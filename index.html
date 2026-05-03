@@ -574,12 +574,6 @@
               </div>
             </div>
 
-            <!-- Floating: Starting price badge (bottom-right) -->
-            <div class="absolute -bottom-4 -right-4 lg:bottom-8 lg:-right-8 glass-strong rounded-2xl p-5 shadow-glow border border-brand-500/30 text-center z-10">
-              <div class="text-xs text-white/55 mb-1 uppercase tracking-wider">Starting at</div>
-              <div class="display text-4xl font-extrabold text-gradient">$2,000</div>
-              <div class="text-sm text-brand-300 font-semibold">/month</div>
-            </div>
           </div>
         </div>
       </div>
@@ -691,24 +685,14 @@
 
     <div class="divider"></div>
 
-    <!-- ============ PRICING / VALUE ============ -->
+    <!-- ============ DEMO CTA ============ -->
     <section id="engine" class="relative py-24">
-      <div class="max-w-5xl mx-auto px-6 text-center reveal">
-        <div class="label-eyebrow">💼 Investment</div>
-        <h2 class="display mt-5 text-4xl md:text-5xl font-extrabold">One package. <span class="text-gradient">Built once. Compounds forever.</span></h2>
+      <div class="max-w-3xl mx-auto px-6 text-center reveal">
+        <div class="label-eyebrow">💼 Let's Talk</div>
+        <h2 class="display mt-5 text-4xl md:text-5xl font-extrabold">See it work <span class="text-gradient">before you decide.</span></h2>
+        <p class="mt-6 text-lg text-white/60 max-w-xl mx-auto">Book a free 30-minute demo and watch the system capture, qualify, and log leads in real time — built around your business.</p>
         <div class="mt-12 card rounded-3xl p-10 md:p-14 shadow-glow">
-          <div class="flex flex-col md:flex-row items-center justify-around gap-10">
-            <div>
-              <div class="text-xs uppercase tracking-widest text-white/45">One-time setup</div>
-              <div class="display text-6xl font-extrabold text-gradient mt-2">$3,500</div>
-            </div>
-            <div class="hidden md:block w-px h-20 bg-white/10"></div>
-            <div>
-              <div class="text-xs uppercase tracking-widest text-white/45">Monthly retainer</div>
-              <div class="display text-6xl font-extrabold text-gradient mt-2">$2,000<span class="text-2xl text-white/40">/mo</span></div>
-            </div>
-          </div>
-          <div class="mt-10 grid sm:grid-cols-2 gap-3 text-left max-w-2xl mx-auto text-sm text-white/75">
+          <div class="mt-4 grid sm:grid-cols-2 gap-3 text-left max-w-2xl mx-auto text-sm text-white/75">
             <div class="flex gap-2"><span class="text-emerald-400">✓</span> Custom AI scoring tuned to your offer</div>
             <div class="flex gap-2"><span class="text-emerald-400">✓</span> Unlimited lead sources wired in</div>
             <div class="flex gap-2"><span class="text-emerald-400">✓</span> 14-day deployment guarantee</div>
@@ -716,7 +700,7 @@
             <div class="flex gap-2"><span class="text-emerald-400">✓</span> White-glove monitoring</div>
             <div class="flex gap-2"><span class="text-emerald-400">✓</span> Direct line to founder (Evan)</div>
           </div>
-          <a href="#quote" class="inline-block mt-10 btn-primary text-ink-950 font-bold px-8 py-3.5 rounded-xl text-base">Claim a Q2 Slot →</a>
+          <a href="https://calendly.com/evankoenke/30min" target="_blank" rel="noopener noreferrer" class="inline-block mt-10 btn-primary text-ink-950 font-bold px-8 py-3.5 rounded-xl text-base">Book a Free Demo →</a>
         </div>
       </div>
     </section>
@@ -1257,7 +1241,7 @@
       </div>
       <div id="chat-thread" class="chat-thread" aria-live="polite"></div>
       <form id="chat-input-form" class="chat-input-row" autocomplete="off">
-        <input id="chat-input" class="chat-input" type="text" placeholder="Ask about pricing, timeline, integrations…" aria-label="Type a message" />
+        <input id="chat-input" class="chat-input" type="text" placeholder="Ask about timeline, integrations, how it works…" aria-label="Type a message" />
         <button id="chat-send" type="submit" class="chat-send" aria-label="Send">
           <svg viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor"><path d="M3.4 20.4l17.45-7.48a1 1 0 0 0 0-1.84L3.4 3.6a1 1 0 0 0-1.4 1.07L4 11l8 1-8 1-2 6.33a1 1 0 0 0 1.4 1.07z"/></svg>
         </button>
@@ -1414,10 +1398,9 @@
         {
           test: /(price|pricing|cost|how much|fee|rate|charge|investment)/i,
           answer:
-            "$3,500 one-time setup + $2,000/month retainer. The setup covers the custom n8n engine, AI scoring tuned to your offer, and every integration wired and tested. The retainer covers monitoring, tuning, and new feature builds.",
+            "Pricing is custom based on your business and what you need automated. Book a free demo and we'll put together a build scoped to you.",
           quick: [
-            { label: '📝 Get a quote', href: '#quote' },
-            { label: '📅 Book a call', href: 'https://calendly.com/evankoenke/30min' },
+            { label: '📅 Book a Free Demo', href: 'https://calendly.com/evankoenke/30min' },
           ],
         },
         {
@@ -1488,9 +1471,9 @@
         {
           test: /(hi|hello|hey|yo|sup|good morning|good afternoon|good evening)/i,
           answer:
-            "Hey 👋 — I'm the FlowLayer concierge. Ask me about pricing, timeline, integrations, fit, or anything else. Or jump straight to a quote.",
+            "Hey 👋 — I'm the FlowLayer concierge. Ask me about timeline, integrations, fit, or anything else. Or book a free demo to see it in action.",
           quick: [
-            { label: '💰 Pricing', text: 'How much does it cost?' },
+            { label: '📅 Book a Demo', href: 'https://calendly.com/evankoenke/30min' },
             { label: '⏱ Timeline', text: 'How long to deploy?' },
             { label: '📝 Get a quote', href: '#quote' },
           ],
@@ -1571,9 +1554,9 @@
           const intro = FAQ.find((f) => /(hi|hello)/i.test('hi'));
           appendMsg(
             'bot',
-            "Hey 👋 — I'm the FlowLayer concierge. Ask me about pricing, timeline, integrations, fit, or anything else. Or jump straight to a quote."
+            "Hey 👋 — I'm the FlowLayer concierge. Ask me about timeline, integrations, fit, or anything else. Or book a free demo to see it in action."
               + renderQuickActions([
-                { label: '💰 Pricing', text: 'How much does it cost?' },
+                { label: '📅 Book a Demo', href: 'https://calendly.com/evankoenke/30min' },
                 { label: '⏱ Timeline', text: 'How long to deploy?' },
                 { label: '🔌 Integrations', text: 'What does it integrate with?' },
                 { label: '📝 Get a quote', href: '#quote' },

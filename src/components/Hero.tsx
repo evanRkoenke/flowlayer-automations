@@ -189,18 +189,6 @@ const Hero = () => {
               />
             </div>
             
-            {/* Floating price badge */}
-            <motion.div
-              initial={{ opacity: 0, x: 30, y: 30 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="absolute -bottom-6 -right-6 lg:bottom-8 lg:-right-10 glass-strong rounded-2xl p-5 shadow-premium border border-primary/30"
-            >
-              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Starting at</div>
-              <div className="text-4xl font-bold text-gradient-premium">$2,000</div>
-              <div className="text-sm text-primary font-semibold">/month</div>
-            </motion.div>
-
             {/* Floating stats badge */}
             <motion.div
               initial={{ opacity: 0, x: -30, y: -30 }}
