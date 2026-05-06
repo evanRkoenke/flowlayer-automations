@@ -10,6 +10,7 @@ import HowItWorks from "@/components/HowItWorks";
 import Features from "@/components/Features";
 import Integrations from "@/components/Integrations";
 import About from "@/components/About";
+import ROISection from "@/components/ROISection";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
@@ -40,6 +41,7 @@ const Index = () => {
         <Features />
         <Integrations />
         <About />
+        <ROISection />
         <FAQ />
         <CTA />
       </main>

@@ -24,7 +24,7 @@ const Header = () => {
     { label: "Products", href: "#products", isAnchor: true },
     { label: "Features", href: "#features", isAnchor: true },
     { label: "About", href: "#about", isAnchor: true },
-    { label: "ROI", href: "/roi", isAnchor: false },
+    { label: "ROI", href: "#roi", isAnchor: true },
     { label: "Blog", href: "/blog", isAnchor: false },
     { label: "Contact", href: "#contact", isAnchor: true },
   ];
