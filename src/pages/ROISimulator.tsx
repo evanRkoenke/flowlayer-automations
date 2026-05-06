@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import type { LucideIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { TrendingUp, DollarSign, Clock, BarChart3, ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -69,7 +70,7 @@ interface StatCardProps {
   label: string;
   value: string;
   sub: string;
-  icon: React.ElementType;
+  icon: LucideIcon;
   color: "cyan" | "red" | "green" | "blue";
   delay: number;
 }
