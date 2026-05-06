@@ -476,6 +476,7 @@
           <a href="#case-study" class="hover:text-white transition">Case Study</a>
           <a href="blog.html" class="hover:text-white transition">Blog</a>
           <a href="#about" class="hover:text-white transition">About</a>
+          <a href="#roi" class="hover:text-white transition">ROI</a>
         </nav>
 
         <div class="flex items-center gap-3">
@@ -932,6 +933,172 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ============ ROI SIMULATOR ============ -->
+    <section id="roi" class="relative py-24 overflow-hidden">
+      <div class="absolute inset-0 bg-grid opacity-30 pointer-events-none"></div>
+      <div class="max-w-5xl mx-auto px-6 relative">
+
+        <!-- Header -->
+        <div class="text-center mb-14 reveal">
+          <div class="label-eyebrow">⚡ Free ROI Calculator</div>
+          <h2 class="display mt-5 text-4xl md:text-5xl font-extrabold leading-tight">
+            How Much Is Your Business <span class="text-gradient">Bleeding</span> Without Automation?
+          </h2>
+          <p class="mt-4 text-white/60 max-w-2xl mx-auto text-lg">Adjust the sliders to see exactly how much revenue you're losing — and how fast Flowlayer AI pays for itself.</p>
+        </div>
+
+        <!-- Stat Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 reveal">
+          <div class="card rounded-2xl p-5 text-center">
+            <div class="text-xs font-bold text-white/50 uppercase tracking-widest mb-2">Lost Revenue</div>
+            <div id="roi-lost" class="display text-2xl font-extrabold text-red-400">$0</div>
+            <div class="text-xs text-white/40 mt-1">Annual missed leads</div>
+          </div>
+          <div class="card rounded-2xl p-5 text-center">
+            <div class="text-xs font-bold text-white/50 uppercase tracking-widest mb-2">Time Wasted</div>
+            <div id="roi-time" class="display text-2xl font-extrabold text-blue-400">$0</div>
+            <div class="text-xs text-white/40 mt-1">Annual admin cost</div>
+          </div>
+          <div class="card rounded-2xl p-5 text-center">
+            <div class="text-xs font-bold text-white/50 uppercase tracking-widest mb-2">Total Leakage</div>
+            <div id="roi-leakage" class="display text-2xl font-extrabold text-white">$0</div>
+            <div class="text-xs text-white/40 mt-1">Revenue + time lost</div>
+          </div>
+          <div class="card rounded-2xl p-5 text-center">
+            <div class="text-xs font-bold text-white/50 uppercase tracking-widest mb-2">Potential ROI</div>
+            <div id="roi-pct" class="display text-2xl font-extrabold text-gradient">0%</div>
+            <div class="text-xs text-white/40 mt-1">Return on investment</div>
+          </div>
+        </div>
+
+        <!-- Sliders + Investment -->
+        <div class="grid md:grid-cols-2 gap-6 mb-6 reveal">
+
+          <!-- Sliders -->
+          <div class="card rounded-2xl p-7">
+            <div class="text-xs font-bold text-brand-400 uppercase tracking-widest mb-6">Your Business Metrics</div>
+
+            <div class="mb-5">
+              <div class="flex justify-between text-sm mb-2"><span class="text-white/60">Average Job Value</span><span id="lbl-job" class="font-bold text-white">$15,000</span></div>
+              <input type="range" id="sl-job" min="1000" max="50000" step="500" value="15000" oninput="roiCalc()" class="roi-slider w-full">
+            </div>
+            <div class="mb-5">
+              <div class="flex justify-between text-sm mb-2"><span class="text-white/60">Close Rate</span><span id="lbl-close" class="font-bold text-white">10%</span></div>
+              <input type="range" id="sl-close" min="5" max="80" step="5" value="10" oninput="roiCalc()" class="roi-slider w-full">
+            </div>
+            <div class="mb-5">
+              <div class="flex justify-between text-sm mb-2"><span class="text-white/60">Monthly Missed Leads</span><span id="lbl-leads" class="font-bold text-white">15</span></div>
+              <input type="range" id="sl-leads" min="1" max="100" step="1" value="15" oninput="roiCalc()" class="roi-slider w-full">
+            </div>
+            <div class="mb-5">
+              <div class="flex justify-between text-sm mb-2"><span class="text-white/60">Monthly Admin Hours</span><span id="lbl-hours" class="font-bold text-white">40 hrs</span></div>
+              <input type="range" id="sl-hours" min="1" max="160" step="1" value="40" oninput="roiCalc()" class="roi-slider w-full">
+            </div>
+            <div class="mb-5">
+              <div class="flex justify-between text-sm mb-2"><span class="text-white/60">Admin Hourly Rate</span><span id="lbl-rate" class="font-bold text-white">$25/hr</span></div>
+              <input type="range" id="sl-rate" min="10" max="100" step="5" value="25" oninput="roiCalc()" class="roi-slider w-full">
+            </div>
+            <button onclick="roiReset()" class="w-full mt-2 py-2.5 text-xs font-bold text-white/40 uppercase tracking-widest border border-white/10 rounded-xl hover:border-brand-500/40 hover:text-brand-400 transition-all">↺ Reset</button>
+          </div>
+
+          <!-- Investment -->
+          <div class="card rounded-2xl p-7">
+            <div class="text-xs font-bold text-brand-400 uppercase tracking-widest mb-6">Flowlayer AI Investment</div>
+            <div class="space-y-0">
+              <div class="flex justify-between py-3 border-b border-white/8 text-sm"><span class="text-white/60">One-Time Setup Fee</span><span class="font-bold text-white">$3,500</span></div>
+              <div class="flex justify-between py-3 border-b border-white/8 text-sm"><span class="text-white/60">Monthly Retainer</span><span class="font-bold text-white">$2,000/mo</span></div>
+              <div class="flex justify-between py-3 border-b border-white/8 text-sm"><span class="text-white/60">Annual Retainer</span><span class="font-bold text-white">$24,000</span></div>
+              <div class="flex justify-between py-3 border-b border-white/8 text-sm"><span class="text-white/60">AI Voice Receptionist</span><span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">Included</span></div>
+              <div class="flex justify-between py-3 border-b border-white/8 text-sm"><span class="text-white/60">Lead Tracker</span><span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">Included</span></div>
+              <div class="flex justify-between py-3 border-b border-white/8 text-sm"><span class="text-white/60">Expense Tracker</span><span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">Included</span></div>
+              <div class="flex justify-between py-3 text-sm"><span class="text-white/60">Full Setup by Flowlayer</span><span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">Included</span></div>
+            </div>
+            <div class="flex justify-between items-center mt-5 pt-4 border-t border-brand-500/20">
+              <span class="font-bold text-white">Year 1 Total</span>
+              <span class="display text-2xl font-extrabold text-gradient">$27,500</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bar Chart -->
+        <div class="card rounded-2xl p-7 mb-6 reveal">
+          <div class="text-xs font-bold text-brand-400 uppercase tracking-widest mb-6">Financial Impact Comparison</div>
+          <div class="mb-5">
+            <div class="flex justify-between text-sm mb-2"><span class="text-white/60">Current Annual Leakage</span><span id="bar-leakage-lbl" class="font-bold text-white">$0</span></div>
+            <div class="h-3 rounded-full bg-white/8 overflow-hidden"><div id="bar-leakage" class="h-full rounded-full bg-gradient-to-r from-red-600 to-red-400 transition-all duration-500" style="width:0%"></div></div>
+          </div>
+          <div class="mb-5">
+            <div class="flex justify-between text-sm mb-2"><span class="text-white/60">Flowlayer AI Year 1 Investment</span><span class="font-bold text-white">$27,500</span></div>
+            <div class="h-3 rounded-full bg-white/8 overflow-hidden"><div id="bar-invest" class="h-full rounded-full bg-gradient-to-r from-blue-600 to-brand-400 transition-all duration-500" style="width:0%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2"><span class="text-white/60">Net Annual Gain With Flowlayer AI</span><span id="bar-gain-lbl" class="font-bold text-white">$0</span></div>
+            <div class="h-3 rounded-full bg-white/8 overflow-hidden"><div id="bar-gain" class="h-full rounded-full bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-500" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <!-- Breakeven -->
+        <div class="card rounded-2xl p-10 mb-6 text-center reveal" style="border:1px solid rgba(34,211,238,0.2)">
+          <div class="label-eyebrow">Break-Even Point</div>
+          <div id="roi-breakeven" class="display text-4xl font-extrabold text-gradient mt-4 mb-3">0 jobs saved/year</div>
+          <p id="roi-breakeven-sub" class="text-white/55 max-w-lg mx-auto text-sm leading-relaxed"></p>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center reveal">
+          <a href="https://calendly.com/evankoenke/30min" target="_blank" rel="noopener" class="btn-primary inline-flex items-center gap-2 text-white font-bold text-base px-8 py-4 rounded-xl">
+            Book Your Free Call
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+      </div>
+
+      <style>
+        .roi-slider { -webkit-appearance:none; appearance:none; height:4px; border-radius:4px; background:rgba(255,255,255,0.1); outline:none; cursor:pointer; }
+        .roi-slider::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:linear-gradient(135deg,#3ddcef,#06b6d4); cursor:pointer; box-shadow:0 0 10px rgba(34,211,238,0.4); }
+      </style>
+
+      <script>
+        const INVEST = 27500;
+        function fmt(n){ if(n>=1e6) return '$'+(n/1e6).toFixed(1)+'M'; if(n>=1e3) return '$'+Math.round(n).toLocaleString(); return '$'+Math.round(n); }
+        function roiCalc(){
+          const job=+document.getElementById('sl-job').value;
+          const cr=+document.getElementById('sl-close').value/100;
+          const leads=+document.getElementById('sl-leads').value;
+          const hrs=+document.getElementById('sl-hours').value;
+          const rate=+document.getElementById('sl-rate').value;
+          document.getElementById('lbl-job').textContent='$'+job.toLocaleString();
+          document.getElementById('lbl-close').textContent=Math.round(cr*100)+'%';
+          document.getElementById('lbl-leads').textContent=leads;
+          document.getElementById('lbl-hours').textContent=hrs+' hrs';
+          document.getElementById('lbl-rate').textContent='$'+rate+'/hr';
+          const lost=leads*12*cr*job;
+          const time=hrs*rate*12;
+          const leak=lost+time;
+          const gain=leak-INVEST;
+          const roi=(gain/INVEST)*100;
+          const be=Math.ceil((INVEST/(job*cr))*10)/10;
+          const max=Math.max(leak,INVEST,1);
+          document.getElementById('roi-lost').textContent=fmt(lost);
+          document.getElementById('roi-time').textContent=fmt(time);
+          document.getElementById('roi-leakage').textContent=fmt(leak);
+          document.getElementById('roi-pct').textContent=roi>0?Math.round(roi)+'%':'0%';
+          document.getElementById('bar-leakage').style.width=Math.min(leak/max*100,100)+'%';
+          document.getElementById('bar-invest').style.width=Math.min(INVEST/max*100,100)+'%';
+          document.getElementById('bar-gain').style.width=gain>0?Math.min(gain/max*100,100)+'%':'0%';
+          document.getElementById('bar-leakage-lbl').textContent=fmt(leak);
+          document.getElementById('bar-gain-lbl').textContent=gain>0?fmt(gain):'$0';
+          document.getElementById('roi-breakeven').textContent=be+' jobs saved per year';
+          document.getElementById('roi-breakeven-sub').textContent='At $'+job.toLocaleString()+' per job and a '+(cr*100)+'% close rate, saving just '+be+' jobs per year covers your entire Flowlayer AI investment.';
+        }
+        function roiReset(){ document.getElementById('sl-job').value=15000; document.getElementById('sl-close').value=10; document.getElementById('sl-leads').value=15; document.getElementById('sl-hours').value=40; document.getElementById('sl-rate').value=25; roiCalc(); }
+        roiCalc();
+      </script>
     </section>
 
     <div class="divider"></div>
