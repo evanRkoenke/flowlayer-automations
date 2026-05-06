@@ -24,7 +24,7 @@ const Header = () => {
     { label: "Products", href: "#products", isAnchor: true,  isStatic: false },
     { label: "Features", href: "#features", isAnchor: true,  isStatic: false },
     { label: "About",    href: "#about",    isAnchor: true,  isStatic: false },
-    { label: "ROI",      href: "/flowlayer_roi_simulator.html", isAnchor: false, isStatic: true },
+    { label: "ROI",      href: "#roi",    isAnchor: true,  isStatic: false },
     { label: "Blog",     href: "/blog",     isAnchor: false, isStatic: false },
     { label: "Contact",  href: "#contact",  isAnchor: true,  isStatic: false },
   ];
