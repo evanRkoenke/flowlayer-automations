@@ -21,12 +21,12 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { label: "Products", href: "#products", isAnchor: true },
-    { label: "Features", href: "#features", isAnchor: true },
-    { label: "About", href: "#about", isAnchor: true },
-    { label: "ROI", href: "#roi", isAnchor: true },
-    { label: "Blog", href: "/blog", isAnchor: false },
-    { label: "Contact", href: "#contact", isAnchor: true },
+    { label: "Products", href: "#products", isAnchor: true,  isStatic: false },
+    { label: "Features", href: "#features", isAnchor: true,  isStatic: false },
+    { label: "About",    href: "#about",    isAnchor: true,  isStatic: false },
+    { label: "ROI",      href: "/flowlayer_roi_simulator.html", isAnchor: false, isStatic: true },
+    { label: "Blog",     href: "/blog",     isAnchor: false, isStatic: false },
+    { label: "Contact",  href: "#contact",  isAnchor: true,  isStatic: false },
   ];
 
   const handleAnchorClick = (href: string) => {
@@ -61,7 +61,15 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-10">
             {navItems.map((item) =>
-              item.isAnchor ? (
+              item.isStatic ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-muted-foreground hover:text-primary transition-colors font-medium link-underline"
+                >
+                  {item.label}
+                </a>
+              ) : item.isAnchor ? (
                 <button
                   key={item.label}
                   onClick={() => handleAnchorClick(item.href)}
@@ -116,7 +124,16 @@ const Header = () => {
           >
             <nav className="container mx-auto px-4 py-6 flex flex-col gap-2">
               {navItems.map((item) =>
-                item.isAnchor ? (
+                item.isStatic ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="text-muted-foreground hover:text-primary transition-colors font-medium py-3 px-4 rounded-lg hover:bg-primary/10"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                ) : item.isAnchor ? (
                   <button
                     key={item.label}
                     onClick={() => {
