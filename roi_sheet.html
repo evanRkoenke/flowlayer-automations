@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flowlayer AI — ROI Sheet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #0a0c12;
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    @media print {
+      @page { size: 8.5in 11in; margin: 0; }
+      body { width: 8.5in; margin: 0; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .no-print { display: none; }
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(135deg, #06070b 0%, #0a1020 50%, #0d1a2e 100%);
+      padding: 0.32in 0.5in 0.28in;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(34,211,238,0.15) 0%, transparent 70%);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-dot {
+      width: 108px; height: 108px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(34,211,238,0.45);
+    }
+    .brand-dot img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .brand-name { font-size: 32px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+    .brand-name span { color: #22d3ee; }
+    .header-right { text-align: right; }
+    .header-right p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+    .header-right a { color: #22d3ee; font-weight: 600; text-decoration: none; }
+
+    .accent-bar {
+      background: linear-gradient(90deg, #22d3ee, #06b6d4);
+      padding: 8px 0.5in;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .accent-bar p { font-size: 20px; font-weight: 700; color: #06070b; }
+    .accent-bar span { font-size: 17px; font-weight: 500; color: rgba(6,7,11,0.85); }
+
+    /* ── BODY ── */
+    .body { padding: 0.28in 0.5in 0.22in; }
+
+    /* ── HERO STATEMENT ── */
+    .hero { text-align: center; margin-bottom: 0.22in; }
+    .hero h2 {
+      font-size: 36px; font-weight: 900; color: #06070b;
+      letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 7px;
+    }
+    .hero h2 span { color: #0891b2; }
+    .hero p { font-size: 19px; color: #111827; max-width: 5.5in; margin: 0 auto; line-height: 1.6; }
+
+    /* ── FORMULA ── */
+    .formula-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 0.24in;
+      background: #f9fafb;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px 20px;
+    }
+    .formula-box {
+      text-align: center;
+      flex: 1;
+    }
+    .formula-box .val {
+      font-size: 17px; font-weight: 800; color: #06070b;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .formula-box .desc { font-size: 14px; color: #374151; font-weight: 500; margin-top: 2px; }
+    .formula-op { font-size: 25px; font-weight: 800; color: #9ca3af; flex-shrink: 0; }
+    .formula-box.result { background: #06070b; border-radius: 8px; padding: 8px 14px; }
+    .formula-box.result .val { color: #22d3ee; font-size: 16px; }
+    .formula-box.result .desc { color: rgba(255,255,255,0.5); }
+
+    /* ── SCENARIO TABLE ── */
+    .section-title {
+      font-size: 15px; font-weight: 800; color: #374151;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+
+    .scenarios { margin-bottom: 0.2in; }
+
+    .scenario-card {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .scenario-header {
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .s1 .scenario-header { background: linear-gradient(90deg, #ecfeff, #f0fdfa); border-bottom: 1.5px solid #a5f3fc; }
+    .s2 .scenario-header { background: linear-gradient(90deg, #f0fdf4, #f7fee7); border-bottom: 1.5px solid #bbf7d0; }
+    .s3 .scenario-header { background: linear-gradient(90deg, #faf5ff, #fdf4ff); border-bottom: 1.5px solid #ddd6fe; }
+    .s4 .scenario-header { background: linear-gradient(90deg, #fff7ed, #fef9c3); border-bottom: 1.5px solid #fed7aa; }
+
+    .scenario-title { font-size: 21px; font-weight: 800; color: #06070b; }
+    .scenario-sub { font-size: 15px; color: #374151; font-weight: 500; margin-top: 1px; }
+    .scenario-roi {
+      font-size: 27px; font-weight: 900; letter-spacing: -0.02em;
+    }
+    .s1 .scenario-roi { color: #0891b2; }
+    .s2 .scenario-roi { color: #16a34a; }
+    .s3 .scenario-roi { color: #7c3aed; }
+    .s4 .scenario-roi { color: #ea580c; }
+
+    .scenario-body {
+      padding: 10px 16px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      background: #ffffff;
+    }
+
+    .metric { text-align: center; }
+    .metric-val { font-size: 20px; font-weight: 800; color: #06070b; }
+    .metric-val.red { color: #dc2626; }
+    .metric-val.blue { color: #2563eb; }
+    .metric-val.green { color: #16a34a; }
+    .metric-val.teal { color: #0891b2; }
+    .metric-label { font-size: 13px; color: #374151; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+
+    /* ── COMPARISON BAR ── */
+    .comparison { margin-bottom: 0.2in; }
+
+    .bar-section { margin-bottom: 10px; }
+    .bar-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .bar-label { font-size: 17px; font-weight: 700; color: #111827; }
+    .bar-amount { font-size: 17px; font-weight: 800; color: #06070b; }
+    .bar-track { height: 10px; background: #f3f4f6; border-radius: 20px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 20px; }
+    .bar-leakage .bar-fill { background: linear-gradient(90deg, #ef4444, #f97316); width: 100%; }
+    .bar-invest .bar-fill { background: linear-gradient(90deg, #06070b, #1c2540); width: 9.7%; }
+    .bar-gain .bar-fill { background: linear-gradient(90deg, #22d3ee, #06b6d4); width: 90.3%; }
+
+    /* ── BREAKEVEN ── */
+    .breakeven {
+      background: linear-gradient(135deg, #06070b, #0a1020);
+      border-radius: 14px;
+      padding: 18px 24px;
+      margin-bottom: 0.2in;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      border: 1.5px solid #22d3ee;
+    }
+    .breakeven-left { flex: 1; }
+    .breakeven-label { font-size: 13px; font-weight: 700; color: #22d3ee; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; }
+    .breakeven-number { font-size: 38px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; line-height: 1; margin-bottom: 5px; }
+    .breakeven-sub { font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.5; }
+    .breakeven-right { flex-shrink: 0; text-align: center; }
+    .invest-box { background: #11192c; border-radius: 10px; padding: 12px 18px; border: 1px solid #1c2540; }
+    .invest-label { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .invest-amount { font-size: 28px; font-weight: 900; color: #22d3ee; }
+    .invest-sub { font-size: 13px; color: rgba(255,255,255,0.70); margin-top: 2px; }
+
+    /* ── BOTTOM CTA ── */
+    .bottom-cta {
+      display: flex;
+      gap: 12px;
+      align-items: stretch;
+    }
+    .cta-box {
+      flex: 1;
+      border-radius: 12px;
+      padding: 14px 16px;
+      border: 1.5px solid #e5e7eb;
+    }
+    .cta-box.dark {
+      background: #06070b;
+      border-color: #22d3ee;
+    }
+    .cta-box-icon { font-size: 18px; margin-bottom: 6px; }
+    .cta-box-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .cta-box.light .cta-box-title { color: #06070b; }
+    .cta-box.dark .cta-box-title { color: #ffffff; }
+    .cta-box-desc { font-size: 16px; line-height: 1.55; }
+    .cta-box.light .cta-box-desc { color: #111827; }
+    .cta-box.dark .cta-box-desc { color: rgba(255,255,255,0.85); }
+    .cta-box-contact { font-size: 17px; font-weight: 700; margin-top: 8px; }
+    .cta-box.light .cta-box-contact { color: #0891b2; }
+    .cta-box.dark .cta-box-contact { color: #22d3ee; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #22d3ee;
+      padding: 8px 0.5in;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer p { font-size: 16px; font-weight: 700; color: #06070b; }
+    .footer span { opacity: 0.6; font-weight: 500; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-dot"><img src="public/Tech-Forward Logo for FlowLayer AI.png" alt="Flowlayer AI" /></div>
+        <div>
+          <div class="brand-name">Flowlayer <span>AI</span></div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4);font-weight:500;margin-top:1px;">AI Automation for Small Businesses</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <p><a href="https://flowlayerai.com">flowlayerai.com</a></p>
+        <p>(941) 284-1742</p>
+        <p>Sarasota, FL</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="accent-bar">
+    <p>📊 ROI Analysis — What Automation Is Worth To Your Business</p>
+    <span>Based on industry averages for service businesses</span>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- HERO -->
+    <div class="hero">
+      <h2>How Much Is Your Business <span>Bleeding</span> Without Automation?</h2>
+      <p>Every missed call, every manually typed receipt, every lead that slips through — it all adds up. Here's what businesses like yours are losing every year and what they gain by working with Flowlayer AI.</p>
+    </div>
+
+    <!-- FORMULA -->
+    <div class="formula-row">
+      <div class="formula-box">
+        <div class="val">Missed Leads</div>
+        <div class="desc">× Job Value × Close Rate × 12</div>
+      </div>
+      <div class="formula-op">+</div>
+      <div class="formula-box">
+        <div class="val">Admin Hours</div>
+        <div class="desc">× Hourly Rate × 12 months</div>
+      </div>
+      <div class="formula-op">=</div>
+      <div class="formula-box result">
+        <div class="val">Annual Revenue Lost</div>
+        <div class="desc">Before Flowlayer AI</div>
+      </div>
+    </div>
+
+    <!-- SCENARIOS -->
+    <div class="scenarios">
+      <div class="section-title">ROI by Business Type — Real Scenarios</div>
+
+      <!-- Roofing -->
+      <div class="scenario-card s1">
+        <div class="scenario-header">
+          <div>
+            <div class="scenario-title">🏠 Roofing Company</div>
+            <div class="scenario-sub">$15,000 avg job · 10% close rate · 15 missed leads/month · 40 admin hrs/month</div>
+          </div>
+          <div class="scenario-roi">926% ROI</div>
+        </div>
+        <div class="scenario-body">
+          <div class="metric"><div class="metric-val red">$270,000</div><div class="metric-label">Lost Revenue</div></div>
+          <div class="metric"><div class="metric-val blue">$12,000</div><div class="metric-label">Admin Cost</div></div>
+          <div class="metric"><div class="metric-val">$282,000</div><div class="metric-label">Total Leakage</div></div>
+          <div class="metric"><div class="metric-val">$27,500</div><div class="metric-label">Investment</div></div>
+          <div class="metric"><div class="metric-val green">$254,500</div><div class="metric-label">Net Annual Gain</div></div>
+        </div>
+      </div>
+
+      <!-- HVAC -->
+      <div class="scenario-card s2">
+        <div class="scenario-header">
+          <div>
+            <div class="scenario-title">❄️ HVAC Company</div>
+            <div class="scenario-sub">$3,500 avg job · 15% close rate · 20 missed leads/month · 30 admin hrs/month</div>
+          </div>
+          <div class="scenario-roi">323% ROI</div>
+        </div>
+        <div class="scenario-body">
+          <div class="metric"><div class="metric-val red">$126,000</div><div class="metric-label">Lost Revenue</div></div>
+          <div class="metric"><div class="metric-val blue">$7,200</div><div class="metric-label">Admin Cost</div></div>
+          <div class="metric"><div class="metric-val">$133,200</div><div class="metric-label">Total Leakage</div></div>
+          <div class="metric"><div class="metric-val">$27,500</div><div class="metric-label">Investment</div></div>
+          <div class="metric"><div class="metric-val green">$105,700</div><div class="metric-label">Net Annual Gain</div></div>
+        </div>
+      </div>
+
+      <!-- Plumbing / Pest Control -->
+      <div class="scenario-card s3">
+        <div class="scenario-header">
+          <div>
+            <div class="scenario-title">🔧 Plumbing / Pest Control</div>
+            <div class="scenario-sub">$1,200 avg job · 20% close rate · 25 missed leads/month · 25 admin hrs/month</div>
+          </div>
+          <div class="scenario-roi">195% ROI</div>
+        </div>
+        <div class="scenario-body">
+          <div class="metric"><div class="metric-val red">$72,000</div><div class="metric-label">Lost Revenue</div></div>
+          <div class="metric"><div class="metric-val blue">$7,500</div><div class="metric-label">Admin Cost</div></div>
+          <div class="metric"><div class="metric-val">$79,500</div><div class="metric-label">Total Leakage</div></div>
+          <div class="metric"><div class="metric-val">$27,500</div><div class="metric-label">Investment</div></div>
+          <div class="metric"><div class="metric-val green">$52,000</div><div class="metric-label">Net Annual Gain</div></div>
+        </div>
+      </div>
+
+      <!-- Restaurant -->
+      <div class="scenario-card s4">
+        <div class="scenario-header">
+          <div>
+            <div class="scenario-title">🍽️ Restaurant / Franchise</div>
+            <div class="scenario-sub">80 admin hrs/month saved · $15/hr labor · 4 locations · real-time expense visibility</div>
+          </div>
+          <div class="scenario-roi">40% ROI</div>
+        </div>
+        <div class="scenario-body">
+          <div class="metric"><div class="metric-val red">$14,400</div><div class="metric-label">Admin Labor Saved</div></div>
+          <div class="metric"><div class="metric-val blue">$24,000</div><div class="metric-label">Recovered Revenue</div></div>
+          <div class="metric"><div class="metric-val">$38,400</div><div class="metric-label">Total Value</div></div>
+          <div class="metric"><div class="metric-val">$27,500</div><div class="metric-label">Investment</div></div>
+          <div class="metric"><div class="metric-val green">$10,900</div><div class="metric-label">Net Annual Gain</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISUAL BAR (Roofing scenario) -->
+    <div class="comparison">
+      <div class="section-title">Visual Comparison — Roofing Scenario</div>
+      <div class="bar-section bar-leakage">
+        <div class="bar-label-row"><span class="bar-label">💸 Annual Revenue You're Losing Now</span><span class="bar-amount">$282,000</span></div>
+        <div class="bar-track"><div class="bar-fill"></div></div>
+      </div>
+      <div class="bar-section bar-invest">
+        <div class="bar-label-row"><span class="bar-label">💳 Flowlayer AI Annual Investment</span><span class="bar-amount">$27,500</span></div>
+        <div class="bar-track"><div class="bar-fill"></div></div>
+      </div>
+      <div class="bar-section bar-gain">
+        <div class="bar-label-row"><span class="bar-label">📈 Net Annual Gain With Flowlayer AI</span><span class="bar-amount">$254,500</span></div>
+        <div class="bar-track"><div class="bar-fill"></div></div>
+      </div>
+    </div>
+
+    <!-- BREAKEVEN -->
+    <div class="breakeven">
+      <div class="breakeven-left">
+        <div class="breakeven-label">⚡ Break-Even Point — Roofing</div>
+        <div class="breakeven-number">2 jobs saved per year</div>
+        <div class="breakeven-sub">At $15,000 per job and a 10% close rate, saving just 2 missed jobs per year covers your entire Flowlayer AI investment. Everything after that is pure profit.</div>
+      </div>
+      <div class="breakeven-right">
+        <div class="invest-box">
+          <div class="invest-label">Annual Investment</div>
+          <div class="invest-amount">$27,500</div>
+          <div class="invest-sub">$3,500 setup + $2,000/mo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM CTA -->
+    <div class="bottom-cta">
+      <div class="cta-box light">
+        <div class="cta-box-icon">📞</div>
+        <div class="cta-box-title">Try the Live AI Demo Right Now</div>
+        <div class="cta-box-desc">Call our demo line and hear the AI answer a real call, qualify a lead, and log it automatically — all in under 60 seconds.</div>
+        <div class="cta-box-contact">📲 (336) 388-8057</div>
+      </div>
+      <div class="cta-box light">
+        <div class="cta-box-icon">📅</div>
+        <div class="cta-box-title">Book a Free 15-Min Demo</div>
+        <div class="cta-box-desc">We come to you — in person or virtual. See your exact ROI numbers calculated live for your specific business and numbers.</div>
+        <div class="cta-box-contact">🌐 calendly.com/evankoenke/30min</div>
+      </div>
+      <div class="cta-box dark">
+        <div class="cta-box-icon">⚡</div>
+        <div class="cta-box-title">Get Set Up Today</div>
+        <div class="cta-box-desc">Most clients are fully live within 1 hour of signing up. No technical knowledge needed. We handle everything.</div>
+        <div class="cta-box-contact">flowlayerai.com &nbsp;·&nbsp; (941) 284-1742</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Flowlayer AI &nbsp;·&nbsp; <span>Sarasota, FL &nbsp;·&nbsp; flowlayerai.com &nbsp;·&nbsp; Founded by Evan Koenke</span></p>
+    <p><span>Numbers based on industry averages. Actual results vary by business.</span></p>
+  </div>
+
+</body>
+</html>
