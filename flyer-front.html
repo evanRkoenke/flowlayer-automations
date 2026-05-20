@@ -7,27 +7,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
     html, body { width: 8.5in; height: 11in; overflow: hidden; margin: 0 auto; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #ffffff;
-      color: #0a0c12;
-      display: flex;
-      flex-direction: column;
-    }
-
+    body { font-family: 'Inter', sans-serif; background: #ffffff; color: #0a0c12; display: flex; flex-direction: column; }
     @media print {
       @page { size: 8.5in 11in; margin: 0; }
       * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
 
-    .header {
-      background: linear-gradient(135deg, #06070b 0%, #0a1020 50%, #0d1a2e 100%);
-      padding: 8px 48px;
-      position: relative; overflow: hidden; flex-shrink: 0;
-    }
+    .header { background: linear-gradient(135deg, #06070b 0%, #0a1020 50%, #0d1a2e 100%); padding: 7px 48px; position: relative; overflow: hidden; flex-shrink: 0; }
     .header::before { content: ''; position: absolute; top: -60px; left: -60px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, transparent 70%); pointer-events: none; }
     .header::after { content: ''; position: absolute; bottom: -60px; right: -40px; width: 240px; height: 240px; background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%); pointer-events: none; }
     .header-inner { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
@@ -37,23 +24,23 @@
     .brand-name { font-size: 24px; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
     .brand-name span { color: #22d3ee; }
     .header-contact { text-align: right; }
-    .header-contact p { color: #ffffff; font-size: 12px; line-height: 1.6; }
+    .header-contact p { color: #ffffff; font-size: 13px; line-height: 1.65; }
     .header-contact a { color: #22d3ee; text-decoration: none; font-weight: 600; }
 
-    .tagline-bar { background: linear-gradient(90deg, #22d3ee, #06b6d4); padding: 5px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-    .tagline-bar p { font-size: 13.5px; font-weight: 700; color: #06070b; }
-    .tagline-bar .sub { font-size: 12px; font-weight: 500; color: rgba(6,7,11,0.85); }
+    .tagline-bar { background: linear-gradient(90deg, #22d3ee, #06b6d4); padding: 4px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .tagline-bar p { font-size: 14.5px; font-weight: 700; color: #06070b; }
+    .tagline-bar .sub { font-size: 13px; font-weight: 500; color: rgba(6,7,11,0.85); }
 
-    .body { padding: 6px 48px 4px; flex: 1; overflow: hidden; }
+    .body { padding: 5px 48px 3px; flex: 1; overflow: hidden; }
 
-    .intro { text-align: center; margin-bottom: 7px; }
-    .intro h2 { font-size: 20px; font-weight: 800; color: #06070b; letter-spacing: -0.02em; margin-bottom: 3px; }
-    .intro p { font-size: 12px; color: #111827; max-width: 5.5in; margin: 0 auto; line-height: 1.5; }
+    .intro { text-align: center; margin-bottom: 6px; }
+    .intro h2 { font-size: 22px; font-weight: 800; color: #06070b; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .intro p { font-size: 13px; color: #111827; max-width: 5.5in; margin: 0 auto; line-height: 1.45; }
 
-    .products { display: flex; flex-direction: column; gap: 4px; margin-bottom: 7px; }
-    .product-card { border: 1.5px solid #e5e7eb; border-radius: 10px; overflow: hidden; display: flex; box-shadow: 0 1px 6px rgba(0,0,0,0.05); }
-    .product-sidebar { width: 50px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 0; font-size: 18px; }
-    .product-sidebar .num { font-size: 8px; font-weight: 800; letter-spacing: 0.08em; margin-top: 3px; }
+    .products { display: flex; flex-direction: column; gap: 3px; margin-bottom: 6px; }
+    .product-card { border: 1.5px solid #e5e7eb; border-radius: 12px; overflow: hidden; display: flex; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+    .product-sidebar { width: 54px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 0; font-size: 22px; }
+    .product-sidebar .num { font-size: 9px; font-weight: 800; letter-spacing: 0.08em; margin-top: 4px; }
     .p1 .product-sidebar { background: linear-gradient(180deg, #ecfeff, #cffafe); color: #0891b2; }
     .p1 .product-sidebar .num { color: #0891b2; }
     .p1 { border-color: #a5f3fc; }
@@ -63,65 +50,52 @@
     .p3 .product-sidebar { background: linear-gradient(180deg, #faf5ff, #ede9fe); color: #7c3aed; }
     .p3 .product-sidebar .num { color: #7c3aed; }
     .p3 { border-color: #ddd6fe; }
-    .product-content { padding: 6px 14px; flex: 1; }
-    .product-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px; }
-    .product-title { font-size: 14.5px; font-weight: 800; color: #06070b; letter-spacing: -0.01em; }
-    .product-badge { font-size: 8.5px; font-weight: 700; padding: 2px 7px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .product-content { padding: 5px 13px; flex: 1; }
+    .product-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+    .product-title { font-size: 16px; font-weight: 800; color: #06070b; letter-spacing: -0.01em; }
+    .product-badge { font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; }
     .p1 .product-badge { background: #cffafe; color: #0891b2; }
     .p2 .product-badge { background: #dcfce7; color: #16a34a; }
     .p3 .product-badge { background: #ede9fe; color: #7c3aed; }
-    .product-desc { font-size: 12px; color: #111827; line-height: 1.45; margin-bottom: 4px; }
-    .steps { display: flex; gap: 5px; flex-wrap: wrap; }
-    .step { display: flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: #111827; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 20px; padding: 2px 8px; }
-    .step-arrow { color: #9ca3af; font-size: 8px; }
-    .demo-line { margin-top: 3px; display: flex; align-items: center; gap: 5px; }
-    .demo-pill { background: #06070b; color: #22d3ee; padding: 2px 9px; border-radius: 20px; font-size: 10px; font-weight: 700; }
+    .product-desc { font-size: 13.5px; color: #111827; line-height: 1.43; margin-bottom: 4px; }
+    .demo-line { margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+    .demo-pill { background: #06070b; color: #22d3ee; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; }
 
-    .divider { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
-    .divider-line { flex: 1; height: 1px; background: #e5e7eb; }
-    .divider-text { font-size: 8.5px; font-weight: 700; color: #6b7280; letter-spacing: 0.1em; text-transform: uppercase; }
-
-    .why-section { display: flex; gap: 8px; margin-bottom: 7px; }
-    .why-card { flex: 1; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 7px 12px; display: flex; flex-direction: column; gap: 3px; }
-    .why-icon { font-size: 16px; }
-    .why-title { font-size: 13px; font-weight: 800; color: #06070b; }
-    .why-desc { font-size: 12px; color: #111827; line-height: 1.45; }
-
-    .cta-block { background: linear-gradient(135deg, #06070b 0%, #0a1020 60%, #0d1a2e 100%); border-radius: 12px; padding: 10px 18px; margin-bottom: 7px; border: 1.5px solid #22d3ee; display: flex; align-items: center; gap: 18px; position: relative; overflow: hidden; }
+    .cta-block { background: linear-gradient(135deg, #06070b 0%, #0a1020 60%, #0d1a2e 100%); border-radius: 14px; padding: 9px 17px; margin-bottom: 5px; border: 1.5px solid #22d3ee; display: flex; align-items: center; gap: 18px; position: relative; overflow: hidden; }
     .cta-block::before { content: ''; position: absolute; top: -30px; right: -30px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(34,211,238,0.12) 0%, transparent 70%); pointer-events: none; }
     .cta-left { flex: 1; position: relative; z-index: 2; }
-    .cta-left h3 { font-size: 18px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; margin-bottom: 5px; line-height: 1.2; }
+    .cta-left h3 { font-size: 20px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; margin-bottom: 6px; line-height: 1.2; }
     .cta-left h3 span { color: #22d3ee; }
-    .cta-left p { font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.5; margin-bottom: 4px; }
-    .cta-bullets { display: flex; flex-direction: column; gap: 2px; }
-    .cta-bullet { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #ffffff; }
+    .cta-left p { font-size: 12.5px; color: rgba(255,255,255,0.85); line-height: 1.5; margin-bottom: 3px; }
+    .cta-bullets { display: flex; flex-direction: column; gap: 1px; }
+    .cta-bullet { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: #ffffff; }
     .cta-bullet-dot { width: 5px; height: 5px; background: #22d3ee; border-radius: 50%; flex-shrink: 0; }
-    .cta-divider-v { width: 1px; height: 70px; background: rgba(34,211,238,0.2); flex-shrink: 0; }
+    .cta-divider-v { width: 1px; height: 78px; background: rgba(34,211,238,0.2); flex-shrink: 0; }
     .cta-right { flex-shrink: 0; text-align: center; position: relative; z-index: 2; }
-    .cta-right .free-badge { background: #22d3ee; color: #06070b; font-size: 8.5px; font-weight: 800; padding: 2px 10px; border-radius: 20px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; display: inline-block; }
-    .cta-right .cta-number { font-size: 22px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; display: block; margin-bottom: 2px; }
-    .cta-right .cta-number-label { font-size: 8.5px; color: rgba(255,255,255,0.5); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
-    .cta-right .or-text { font-size: 8.5px; color: rgba(255,255,255,0.35); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin: 5px 0; }
-    .cta-right .cta-web { font-size: 13px; font-weight: 800; color: #22d3ee; }
+    .free-badge { background: #22d3ee; color: #06070b; font-size: 9px; font-weight: 800; padding: 3px 12px; border-radius: 20px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 7px; display: inline-block; }
+    .cta-number { font-size: 22px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; display: block; margin-bottom: 3px; }
+    .cta-number-label { font-size: 9px; color: rgba(255,255,255,0.5); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+    .or-text { font-size: 9px; color: rgba(255,255,255,0.35); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin: 5px 0; }
+    .cta-web { font-size: 14px; font-weight: 800; color: #22d3ee; }
 
-    .bottom-row { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #06070b 0%, #0a1020 100%); border-radius: 10px; padding: 9px 16px; border: 1.5px solid #1c2540; }
+    .bottom-row { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #06070b 0%, #0a1020 100%); border-radius: 12px; padding: 8px 16px; border: 1.5px solid #1c2540; }
     .qr-block { flex-shrink: 0; text-align: center; }
-    .qr-block img { width: 72px; height: 72px; border-radius: 6px; background: white; padding: 4px; display: block; }
-    .qr-label { font-size: 7.5px; font-weight: 700; color: #22d3ee; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.06em; }
-    .bottom-divider { width: 1px; height: 64px; background: #1c2540; flex-shrink: 0; }
+    .qr-block img { width: 72px; height: 72px; border-radius: 6px; background: white; padding: 5px; display: block; }
+    .qr-label { font-size: 8px; font-weight: 700; color: #22d3ee; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .bottom-divider { width: 1px; height: 65px; background: #1c2540; flex-shrink: 0; }
     .bottom-cta { flex: 1; }
-    .bottom-cta h3 { font-size: 15px; font-weight: 800; color: #ffffff; letter-spacing: -0.01em; margin-bottom: 3px; }
-    .bottom-cta p { font-size: 11px; color: rgba(255,255,255,0.85); line-height: 1.45; margin-bottom: 5px; }
-    .contact-pills { display: flex; flex-wrap: wrap; gap: 4px; }
-    .contact-pill { display: flex; align-items: center; gap: 3px; background: #11192c; border: 1px solid #2a3555; border-radius: 20px; padding: 3px 8px; font-size: 11px; font-weight: 600; color: #ffffff; }
-    .contact-pill .icon { font-size: 9px; }
+    .bottom-cta h3 { font-size: 17px; font-weight: 800; color: #ffffff; letter-spacing: -0.01em; margin-bottom: 4px; }
+    .bottom-cta p { font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.45; margin-bottom: 7px; }
+    .contact-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+    .contact-pill { display: flex; align-items: center; gap: 4px; background: #11192c; border: 1px solid #2a3555; border-radius: 20px; padding: 4px 10px; font-size: 12px; font-weight: 600; color: #ffffff; }
+    .contact-pill .icon { font-size: 10px; }
     .demo-number-block { flex-shrink: 0; text-align: center; }
-    .demo-number-block .label { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
-    .demo-number-block .number { font-size: 20px; font-weight: 900; color: #22d3ee; letter-spacing: -0.01em; }
-    .demo-number-block .sub { font-size: 9px; color: rgba(255,255,255,0.75); margin-top: 1px; }
+    .demo-number-block .label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
+    .demo-number-block .number { font-size: 22px; font-weight: 900; color: #22d3ee; letter-spacing: -0.01em; }
+    .demo-number-block .sub { font-size: 10px; color: rgba(255,255,255,0.75); margin-top: 2px; }
 
-    .footer { background: #22d3ee; padding: 4px 48px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
-    .footer p { font-size: 12px; font-weight: 700; color: #06070b; }
+    .footer { background: #22d3ee; padding: 3px 48px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+    .footer p { font-size: 12.5px; font-weight: 700; color: #06070b; }
     .footer span { opacity: 0.65; font-weight: 500; }
   </style>
 </head>
@@ -162,40 +136,29 @@
         <div class="product-content">
           <div class="product-header"><div class="product-title">AI Voice Agent — Never Miss a Call Again</div><div class="product-badge">24/7 Live</div></div>
           <div class="product-desc">A customer calls your number. Instead of voicemail, an AI receptionist answers instantly — collects their name, need, and urgency. The owner gets a full lead alert in under 60 seconds, automatically logged to your CRM.</div>
-          <div class="steps"><div class="step">📲 Customer Calls</div><span class="step-arrow">→</span><div class="step">🤖 AI Answers & Qualifies</div><span class="step-arrow">→</span><div class="step">📧 Owner Gets Instant Alert</div><span class="step-arrow">→</span><div class="step">📋 Lead Logged to CRM</div></div>
-          <div class="demo-line"><span style="font-size:10px;color:#4b5563;">Try it live:</span><div class="demo-pill">📞 Call (336) 388-8057</div></div>
+          <div class="demo-line"><span style="font-size:11px;color:#4b5563;">Try it live:</span><div class="demo-pill">📞 Call (336) 388-8057</div></div>
         </div>
       </div>
       <div class="product-card p2">
         <div class="product-sidebar">🧾<span class="num">BUILD 2</span></div>
         <div class="product-content">
           <div class="product-header"><div class="product-title">Automated Expense Tracker — Receipts Log Themselves</div><div class="product-badge">Instant</div></div>
-          <div class="product-desc">Snap a photo of any receipt and send it to Telegram. AI extracts vendor, total, date, and category — then logs it to Google Sheets automatically. Dashboard shows food cost %, labor %, and profit margin live. Zero manual entry.</div>
-          <div class="steps"><div class="step">📸 Photo of Receipt</div><span class="step-arrow">→</span><div class="step">💬 Send to Telegram</div><span class="step-arrow">→</span><div class="step">🤖 AI Reads & Logs It</div><span class="step-arrow">→</span><div class="step">📊 Dashboard Updates Live</div></div>
+          <div class="product-desc">Snap a photo of any receipt and send it to Telegram. AI reads the vendor, total, date, and category — then logs it to Google Sheets instantly. Dashboard shows food cost %, labor %, and profit margin live. Zero manual entry.</div>
         </div>
       </div>
       <div class="product-card p3">
         <div class="product-sidebar">🌐<span class="num">BUILD 3</span></div>
         <div class="product-content">
           <div class="product-header"><div class="product-title">Website Lead Capture — Turn Visitors Into Logged Leads</div><div class="product-badge">Automated</div></div>
-          <div class="product-desc">A visitor submits your website form. Their info is instantly logged to Google Sheets and the owner gets an email notification within seconds. Zero leads go unnoticed. Every potential customer captured and tracked automatically.</div>
-          <div class="steps"><div class="step">🌐 Visitor Fills Form</div><span class="step-arrow">→</span><div class="step">📋 Logged to Sheet</div><span class="step-arrow">→</span><div class="step">📧 Owner Notified Instantly</div><span class="step-arrow">→</span><div class="step">✅ Lead Captured</div></div>
+          <div class="product-desc">A visitor submits your website form. Their info is instantly logged to Google Sheets and the owner gets a notification within seconds. Zero leads go unnoticed. Every customer captured and tracked automatically.</div>
         </div>
       </div>
-    </div>
-
-    <div class="divider"><div class="divider-line"></div><div class="divider-text">Why Businesses Choose Flowlayer AI</div><div class="divider-line"></div></div>
-
-    <div class="why-section">
-      <div class="why-card"><div class="why-icon">⚡</div><div class="why-title">Live in Under 1 Hour</div><div class="why-desc">We handle the entire setup. No technical knowledge needed. Your system is fully running the same day.</div></div>
-      <div class="why-card"><div class="why-icon">💰</div><div class="why-title">Pays For Itself Immediately</div><div class="why-desc">One saved lead or one week of eliminated manual entry covers the cost. Most clients see ROI within 30 days.</div></div>
-      <div class="why-card"><div class="why-icon">🔒</div><div class="why-title">Built For Your Business</div><div class="why-desc">Every system is custom configured for your specific business. Not a generic app — built by a dedicated AI specialist.</div></div>
     </div>
 
     <div class="cta-block">
       <div class="cta-left">
         <h3>See It Work In Your Business — <span>For Free</span></h3>
-        <p>Book a free 15-minute live demo. Watch the AI answer a real call, log a real receipt, and capture a real lead — all in front of you.</p>
+        <p>Book a free 15-minute live demo. Watch the AI answer a real call, log a receipt, and capture a lead — all in front of you. No commitment. No pressure.</p>
         <div class="cta-bullets">
           <div class="cta-bullet"><div class="cta-bullet-dot"></div>We come to you — in person or virtual</div>
           <div class="cta-bullet"><div class="cta-bullet-dot"></div>Live demo using your actual business number</div>
@@ -210,7 +173,7 @@
         <div class="or-text">— or —</div>
         <div class="cta-web">flowlayerai.com</div>
         <div class="or-text">— book a demo —</div>
-        <div style="font-size:10px;font-weight:700;color:#22d3ee;">calendly.com/evankoenke/30min</div>
+        <div style="font-size:11px;font-weight:700;color:#22d3ee;">calendly.com/evankoenke/30min</div>
       </div>
     </div>
 
