@@ -6,114 +6,74 @@
   <title>Flowlayer AI — Business Flyer</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html, body {
-      width: 8.5in;
-      height: 11in;
-      overflow: hidden;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #ffffff;
-      color: #0a0c12;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-    }
+    html, body { width: 8.5in; margin: 0 auto; background: #ffffff; font-family: 'Inter', sans-serif; }
 
     @media print {
       @page { size: 8.5in 11in; margin: 0; }
       * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page { page-break-after: always; }
+      .page:last-child { page-break-after: auto; }
     }
 
-    /* ── HEADER ── */
-    .header {
+    .page { width: 8.5in; height: 11in; overflow: hidden; display: flex; flex-direction: column; }
+
+    /* ════════════════════════════════
+       SHARED STYLES
+    ════════════════════════════════ */
+    .hdr {
       background: linear-gradient(135deg, #06070b 0%, #0a1020 50%, #0d1a2e 100%);
       padding: 0.17in 0.5in;
-      position: relative;
-      overflow: hidden;
-      flex-shrink: 0;
+      position: relative; overflow: hidden; flex-shrink: 0;
     }
-    .header::before {
-      content: '';
-      position: absolute;
-      top: -60px; left: -60px;
+    .hdr::before {
+      content: ''; position: absolute; top: -60px; left: -60px;
       width: 260px; height: 260px;
       background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, transparent 70%);
-      pointer-events: none;
     }
-    .header::after {
-      content: '';
-      position: absolute;
-      bottom: -70px; right: -40px;
+    .hdr::after {
+      content: ''; position: absolute; bottom: -70px; right: -40px;
       width: 280px; height: 280px;
       background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
-      pointer-events: none;
     }
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      z-index: 2;
-    }
+    .hdr-inner { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
     .brand { display: flex; align-items: center; gap: 12px; }
-    .brand-dot {
-      width: 72px; height: 72px;
-      border-radius: 12px;
-      overflow: hidden;
-      flex-shrink: 0;
-      box-shadow: 0 0 18px rgba(34,211,238,0.5);
-    }
+    .brand-dot { width: 72px; height: 72px; border-radius: 12px; overflow: hidden; flex-shrink: 0; box-shadow: 0 0 18px rgba(34,211,238,0.5); }
     .brand-dot img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .brand-name { font-size: 28px; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
     .brand-name span { color: #22d3ee; }
-    .header-contact { text-align: right; }
-    .header-contact p { color: #ffffff; font-size: 13px; line-height: 1.65; }
-    .header-contact a { color: #22d3ee; text-decoration: none; font-weight: 600; }
+    .hdr-contact { text-align: right; }
+    .hdr-contact p { color: #ffffff; font-size: 13px; line-height: 1.65; }
+    .hdr-contact a { color: #22d3ee; text-decoration: none; font-weight: 600; }
 
-    /* ── TAGLINE BAR ── */
-    .tagline-bar {
+    .cyan-bar {
       background: linear-gradient(90deg, #22d3ee, #06b6d4);
-      padding: 7px 0.5in;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
+      padding: 7px 0.5in; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
     }
-    .tagline-bar p { font-size: 15px; font-weight: 700; color: #06070b; letter-spacing: 0.01em; }
-    .tagline-bar .sub { font-size: 13px; font-weight: 500; color: rgba(6,7,11,0.85); }
+    .cyan-bar p { font-size: 15px; font-weight: 700; color: #06070b; letter-spacing: 0.01em; }
+    .cyan-bar .sub { font-size: 13px; font-weight: 500; color: rgba(6,7,11,0.85); }
 
-    /* ── BODY ── */
+    .page-footer {
+      background: #22d3ee; padding: 7px 0.5in;
+      display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
+    }
+    .page-footer p { font-size: 13px; font-weight: 700; color: #06070b; }
+    .page-footer span { opacity: 0.65; font-weight: 500; }
+
+    /* ════════════════════════════════
+       FRONT PAGE
+    ════════════════════════════════ */
     .body { padding: 0.14in 0.5in 0.1in; flex: 1; overflow: hidden; }
 
     .intro { text-align: center; margin-bottom: 0.1in; }
     .intro h2 { font-size: 24px; font-weight: 800; color: #06070b; letter-spacing: -0.02em; margin-bottom: 4px; }
     .intro p { font-size: 14px; color: #111827; max-width: 5.5in; margin: 0 auto; line-height: 1.55; }
 
-    /* ── PRODUCTS ── */
     .products { display: flex; flex-direction: column; gap: 0.08in; margin-bottom: 0.1in; }
-    .product-card {
-      border: 1.5px solid #e5e7eb;
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
-    }
-    .product-sidebar {
-      width: 54px;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 0;
-      font-size: 22px;
-    }
+    .product-card { border: 1.5px solid #e5e7eb; border-radius: 12px; overflow: hidden; display: flex; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+    .product-sidebar { width: 54px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 0; font-size: 22px; }
     .product-sidebar .num { font-size: 9px; font-weight: 800; letter-spacing: 0.08em; margin-top: 4px; }
-
     .p1 .product-sidebar { background: linear-gradient(180deg, #ecfeff, #cffafe); color: #0891b2; }
     .p1 .product-sidebar .num { color: #0891b2; }
     .p1 { border-color: #a5f3fc; }
@@ -123,7 +83,6 @@
     .p3 .product-sidebar { background: linear-gradient(180deg, #faf5ff, #ede9fe); color: #7c3aed; }
     .p3 .product-sidebar .num { color: #7c3aed; }
     .p3 { border-color: #ddd6fe; }
-
     .product-content { padding: 10px 16px; flex: 1; }
     .product-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
     .product-title { font-size: 17px; font-weight: 800; color: #06070b; letter-spacing: -0.01em; }
@@ -131,59 +90,30 @@
     .p1 .product-badge { background: #cffafe; color: #0891b2; }
     .p2 .product-badge { background: #dcfce7; color: #16a34a; }
     .p3 .product-badge { background: #ede9fe; color: #7c3aed; }
-
     .product-desc { font-size: 13px; color: #111827; line-height: 1.5; margin-bottom: 7px; }
-
     .steps { display: flex; gap: 6px; flex-wrap: wrap; }
-    .step {
-      display: flex; align-items: center; gap: 4px;
-      font-size: 12px; font-weight: 600; color: #111827;
-      background: #f3f4f6; border: 1px solid #d1d5db;
-      border-radius: 20px; padding: 3px 9px;
-    }
+    .step { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: #111827; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 20px; padding: 3px 9px; }
     .step-arrow { color: #9ca3af; font-size: 9px; }
-
     .demo-line { margin-top: 7px; display: flex; align-items: center; gap: 6px; }
-    .demo-pill {
-      background: #06070b; color: #22d3ee;
-      padding: 3px 10px; border-radius: 20px;
-      font-size: 10px; font-weight: 700; letter-spacing: 0.02em;
-    }
+    .demo-pill { background: #06070b; color: #22d3ee; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; letter-spacing: 0.02em; }
 
-    /* ── DIVIDER ── */
     .divider { display: flex; align-items: center; gap: 10px; margin: 0.08in 0; }
     .divider-line { flex: 1; height: 1px; background: #e5e7eb; }
     .divider-text { font-size: 9px; font-weight: 700; color: #6b7280; letter-spacing: 0.1em; text-transform: uppercase; }
 
-    /* ── WHY SECTION ── */
     .why-section { display: flex; gap: 10px; margin-bottom: 0.1in; }
-    .why-card {
-      flex: 1; background: #f9fafb;
-      border: 1.5px solid #e5e7eb; border-radius: 12px;
-      padding: 10px 14px; display: flex; flex-direction: column; gap: 4px;
-    }
+    .why-card { flex: 1; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 12px; padding: 10px 14px; display: flex; flex-direction: column; gap: 4px; }
     .why-icon { font-size: 18px; }
     .why-title { font-size: 15px; font-weight: 800; color: #06070b; letter-spacing: -0.01em; }
     .why-desc { font-size: 13px; color: #111827; line-height: 1.5; }
 
-    /* ── CTA BLOCK ── */
     .cta-block {
       background: linear-gradient(135deg, #06070b 0%, #0a1020 60%, #0d1a2e 100%);
-      border-radius: 14px;
-      padding: 14px 20px;
-      margin-bottom: 0.1in;
-      border: 1.5px solid #22d3ee;
-      box-shadow: 0 0 30px rgba(34,211,238,0.12);
-      display: flex; align-items: center; gap: 20px;
-      position: relative; overflow: hidden;
+      border-radius: 14px; padding: 14px 20px; margin-bottom: 0.1in;
+      border: 1.5px solid #22d3ee; box-shadow: 0 0 30px rgba(34,211,238,0.12);
+      display: flex; align-items: center; gap: 20px; position: relative; overflow: hidden;
     }
-    .cta-block::before {
-      content: '';
-      position: absolute; top: -40px; right: -40px;
-      width: 180px; height: 180px;
-      background: radial-gradient(circle, rgba(34,211,238,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
+    .cta-block::before { content: ''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(34,211,238,0.12) 0%, transparent 70%); pointer-events: none; }
     .cta-left { flex: 1; position: relative; z-index: 2; }
     .cta-left h3 { font-size: 22px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; margin-bottom: 6px; line-height: 1.2; }
     .cta-left h3 span { color: #22d3ee; }
@@ -193,24 +123,13 @@
     .cta-bullet-dot { width: 5px; height: 5px; background: #22d3ee; border-radius: 50%; flex-shrink: 0; }
     .cta-divider-v { width: 1px; height: 80px; background: rgba(34,211,238,0.2); flex-shrink: 0; }
     .cta-right { flex-shrink: 0; text-align: center; position: relative; z-index: 2; }
-    .cta-right .free-badge {
-      background: #22d3ee; color: #06070b;
-      font-size: 9px; font-weight: 800; padding: 3px 12px;
-      border-radius: 20px; letter-spacing: 0.06em; text-transform: uppercase;
-      margin-bottom: 8px; display: inline-block;
-    }
+    .cta-right .free-badge { background: #22d3ee; color: #06070b; font-size: 9px; font-weight: 800; padding: 3px 12px; border-radius: 20px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; display: inline-block; }
     .cta-right .cta-number { font-size: 24px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; display: block; margin-bottom: 3px; }
     .cta-right .cta-number-label { font-size: 9px; color: rgba(255,255,255,0.5); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
     .cta-right .or-text { font-size: 9px; color: rgba(255,255,255,0.35); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin: 6px 0; }
     .cta-right .cta-web { font-size: 14px; font-weight: 800; color: #22d3ee; }
 
-    /* ── BOTTOM ROW ── */
-    .bottom-row {
-      display: flex; align-items: center; gap: 0.18in;
-      background: linear-gradient(135deg, #06070b 0%, #0a1020 100%);
-      border-radius: 12px; padding: 12px 18px;
-      border: 1.5px solid #1c2540;
-    }
+    .bottom-row { display: flex; align-items: center; gap: 0.18in; background: linear-gradient(135deg, #06070b 0%, #0a1020 100%); border-radius: 12px; padding: 12px 18px; border: 1.5px solid #1c2540; }
     .qr-block { flex-shrink: 0; text-align: center; }
     .qr-block img { width: 80px; height: 80px; border-radius: 7px; background: white; padding: 5px; display: block; }
     .qr-label { font-size: 8px; font-weight: 700; color: #22d3ee; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
@@ -219,231 +138,362 @@
     .bottom-cta h3 { font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -0.01em; margin-bottom: 4px; }
     .bottom-cta p { font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.5; margin-bottom: 7px; }
     .contact-pills { display: flex; flex-wrap: wrap; gap: 5px; }
-    .contact-pill {
-      display: flex; align-items: center; gap: 4px;
-      background: #11192c; border: 1px solid #2a3555;
-      border-radius: 20px; padding: 4px 10px;
-      font-size: 12px; font-weight: 600; color: #ffffff;
-    }
+    .contact-pill { display: flex; align-items: center; gap: 4px; background: #11192c; border: 1px solid #2a3555; border-radius: 20px; padding: 4px 10px; font-size: 12px; font-weight: 600; color: #ffffff; }
     .contact-pill .icon { font-size: 10px; }
     .demo-number-block { flex-shrink: 0; text-align: center; }
     .demo-number-block .label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
     .demo-number-block .number { font-size: 22px; font-weight: 900; color: #22d3ee; letter-spacing: -0.01em; }
     .demo-number-block .sub { font-size: 10px; color: rgba(255,255,255,0.75); margin-top: 2px; }
 
-    /* ── FOOTER ── */
-    .footer {
-      background: #22d3ee;
-      padding: 7px 0.5in;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-shrink: 0;
+    /* ════════════════════════════════
+       BACK PAGE
+    ════════════════════════════════ */
+    .back-body {
+      flex: 1; overflow: hidden;
+      background: linear-gradient(160deg, #06070b 0%, #0a1020 55%, #0d1a2e 100%);
+      padding: 0.2in 0.5in 0.18in;
+      display: flex; flex-direction: column;
     }
-    .footer p { font-size: 13px; font-weight: 700; color: #06070b; }
-    .footer span { opacity: 0.65; font-weight: 500; }
+
+    .back-intro { text-align: center; margin-bottom: 0.16in; }
+    .back-intro h2 { font-size: 26px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 6px; }
+    .back-intro h2 span { color: #22d3ee; }
+    .back-intro p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.55; }
+
+    .compare-grid { display: flex; gap: 14px; margin-bottom: 0.16in; }
+    .compare-card {
+      flex: 1; border-radius: 14px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+    .compare-card-header {
+      padding: 10px 16px; display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .compare-card-icon { font-size: 20px; }
+    .compare-card-title { font-size: 15px; font-weight: 800; color: #ffffff; }
+    .compare-card-num { font-size: 9px; font-weight: 700; color: #22d3ee; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 1px; }
+    .compare-card-body { padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .compare-row { display: flex; flex-direction: column; gap: 4px; }
+    .compare-label { font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+    .compare-label.before { color: #f87171; }
+    .compare-label.after { color: #22d3ee; }
+    .compare-text { font-size: 13px; line-height: 1.5; padding: 8px 12px; border-radius: 8px; }
+    .compare-text.before { background: rgba(239,68,68,0.08); color: rgba(255,255,255,0.75); border-left: 3px solid #ef4444; }
+    .compare-text.after { background: rgba(34,211,238,0.08); color: #ffffff; border-left: 3px solid #22d3ee; }
+
+    .stats-row { display: flex; gap: 14px; margin-bottom: 0.16in; }
+    .stat-box {
+      flex: 1; text-align: center; padding: 14px 10px;
+      background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.2); border-radius: 12px;
+    }
+    .stat-val { font-size: 28px; font-weight: 900; color: #22d3ee; letter-spacing: -0.02em; }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; line-height: 1.4; }
+
+    .back-cta {
+      border: 1.5px solid #22d3ee; border-radius: 14px;
+      padding: 16px 24px; display: flex; align-items: center; gap: 24px;
+      background: rgba(34,211,238,0.05);
+    }
+    .back-cta-left { flex: 1; }
+    .back-cta-left h3 { font-size: 20px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .back-cta-left h3 span { color: #22d3ee; }
+    .back-cta-left p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+    .back-cta-divider { width: 1px; height: 70px; background: rgba(34,211,238,0.2); flex-shrink: 0; }
+    .back-cta-right { flex-shrink: 0; text-align: center; }
+    .back-cta-number { font-size: 26px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; display: block; margin-bottom: 4px; }
+    .back-cta-links { display: flex; flex-direction: column; gap: 3px; }
+    .back-cta-link { font-size: 13px; font-weight: 700; color: #22d3ee; }
+    .back-qr-block { flex-shrink: 0; text-align: center; }
+    .back-qr-block img { width: 72px; height: 72px; border-radius: 7px; background: white; padding: 5px; display: block; }
+    .back-qr-label { font-size: 8px; font-weight: 700; color: #22d3ee; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-inner">
-      <div class="brand">
-        <div class="brand-dot"><img src="public/Tech-Forward Logo for FlowLayer AI.png" alt="Flowlayer AI" /></div>
-        <div>
-          <div class="brand-name">Flowlayer <span>AI</span></div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.45);font-weight:500;margin-top:1px;">AI Automation for Small Businesses</div>
+  <!-- ══════════ PAGE 1 — FRONT ══════════ -->
+  <div class="page">
+
+    <div class="hdr">
+      <div class="hdr-inner">
+        <div class="brand">
+          <div class="brand-dot"><img src="public/Tech-Forward Logo for FlowLayer AI.png" alt="Flowlayer AI" /></div>
+          <div>
+            <div class="brand-name">Flowlayer <span>AI</span></div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.45);font-weight:500;margin-top:1px;">AI Automation for Small Businesses</div>
+          </div>
+        </div>
+        <div class="hdr-contact">
+          <p><a href="https://flowlayerai.com">flowlayerai.com</a></p>
+          <p>(941) 284-1742</p>
+          <p>evankoenke@gmail.com</p>
+          <p>Sarasota, FL</p>
         </div>
       </div>
-      <div class="header-contact">
-        <p><a href="https://flowlayerai.com">flowlayerai.com</a></p>
-        <p>(941) 284-1742</p>
-        <p>evankoenke@gmail.com</p>
-        <p>Sarasota, FL</p>
+    </div>
+
+    <div class="cyan-bar">
+      <p>⚡ AI That Works For Your Business 24/7 — While You Focus On Growing It</p>
+      <p class="sub">Setup in under 1 hour &nbsp;·&nbsp; No technical knowledge required</p>
+    </div>
+
+    <div class="body">
+      <div class="intro">
+        <h2>3 AI Systems That Eliminate Your Biggest Daily Time Wasters</h2>
+        <p>Most small businesses lose thousands every month to missed calls, manual data entry, and leads that fall through the cracks. Flowlayer AI automates all three — completely hands-free.</p>
       </div>
+
+      <div class="products">
+        <div class="product-card p1">
+          <div class="product-sidebar">📞<span class="num">BUILD 1</span></div>
+          <div class="product-content">
+            <div class="product-header">
+              <div class="product-title">AI Voice Agent — Never Miss a Call Again</div>
+              <div class="product-badge">24/7 Live</div>
+            </div>
+            <div class="product-desc">A customer calls your business number. Instead of voicemail, an AI receptionist answers instantly — collects their name, phone number, what they need, and how urgent it is. The owner gets an email alert within seconds with the full lead profile. Every call logged automatically to your CRM.</div>
+            <div class="steps">
+              <div class="step">📲 Customer Calls</div><span class="step-arrow">→</span>
+              <div class="step">🤖 AI Answers & Qualifies</div><span class="step-arrow">→</span>
+              <div class="step">📧 Owner Gets Instant Alert</div><span class="step-arrow">→</span>
+              <div class="step">📋 Lead Logged to CRM</div>
+            </div>
+            <div class="demo-line">
+              <span style="font-size:11px;color:#4b5563;">Try it live right now:</span>
+              <div class="demo-pill">📞 Call (336) 388-8057</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card p2">
+          <div class="product-sidebar">🧾<span class="num">BUILD 2</span></div>
+          <div class="product-content">
+            <div class="product-header">
+              <div class="product-title">Automated Expense Tracker — Receipts Log Themselves</div>
+              <div class="product-badge">Instant</div>
+            </div>
+            <div class="product-desc">Your team takes a photo of any receipt and sends it to a Telegram chat. AI reads the receipt, extracts the vendor, total, date, and category — then logs it to your Google Sheet automatically. The Dashboard shows food cost %, labor cost %, and profit margin live in real time. No more manual data entry. Ever.</div>
+            <div class="steps">
+              <div class="step">📸 Photo of Receipt</div><span class="step-arrow">→</span>
+              <div class="step">💬 Send to Telegram</div><span class="step-arrow">→</span>
+              <div class="step">🤖 AI Reads & Logs It</div><span class="step-arrow">→</span>
+              <div class="step">📊 Dashboard Updates Live</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card p3">
+          <div class="product-sidebar">🌐<span class="num">BUILD 3</span></div>
+          <div class="product-content">
+            <div class="product-header">
+              <div class="product-title">Website Lead Capture — Turn Visitors Into Logged Leads</div>
+              <div class="product-badge">Automated</div>
+            </div>
+            <div class="product-desc">A visitor fills out the contact form on your website. Their information is instantly logged to a Google Sheet and the owner receives an email notification within seconds. No lead ever goes unnoticed. No form submission ever gets lost in an inbox. Every potential customer captured and tracked automatically.</div>
+            <div class="steps">
+              <div class="step">🌐 Visitor Fills Form</div><span class="step-arrow">→</span>
+              <div class="step">📋 Logged to Sheet</div><span class="step-arrow">→</span>
+              <div class="step">📧 Owner Notified Instantly</div><span class="step-arrow">→</span>
+              <div class="step">✅ Lead Captured</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"><div class="divider-line"></div><div class="divider-text">Why Businesses Choose Flowlayer AI</div><div class="divider-line"></div></div>
+
+      <div class="why-section">
+        <div class="why-card"><div class="why-icon">⚡</div><div class="why-title">Live in Under 1 Hour</div><div class="why-desc">We handle the entire setup for you. No technical knowledge needed. Your system is fully running the same day.</div></div>
+        <div class="why-card"><div class="why-icon">💰</div><div class="why-title">Pays For Itself Immediately</div><div class="why-desc">One saved lead or one week of eliminated manual data entry covers the cost. Most clients see ROI within the first 30 days.</div></div>
+        <div class="why-card"><div class="why-icon">🔒</div><div class="why-title">Built For Your Business</div><div class="why-desc">Every system is custom configured for your specific business. Not a generic app. Built and maintained by a dedicated AI specialist.</div></div>
+      </div>
+
+      <div class="cta-block">
+        <div class="cta-left">
+          <h3>See It Work In Your Business — <span>For Free</span></h3>
+          <p>Book a free 15-minute live demo and watch the AI answer a real call, log a real receipt, and capture a real lead — all in front of you. No commitment. No pressure. Just results.</p>
+          <div class="cta-bullets">
+            <div class="cta-bullet"><div class="cta-bullet-dot"></div>We come to you — in person or virtual</div>
+            <div class="cta-bullet"><div class="cta-bullet-dot"></div>Live demo using your actual business number</div>
+            <div class="cta-bullet"><div class="cta-bullet-dot"></div>Fully set up and live the same day you say yes</div>
+          </div>
+        </div>
+        <div class="cta-divider-v"></div>
+        <div class="cta-right">
+          <div class="free-badge">✦ Free Demo</div>
+          <span class="cta-number">(941) 284-1742</span>
+          <div class="cta-number-label">Call or Text Evan</div>
+          <div class="or-text">— or —</div>
+          <div class="cta-web">flowlayerai.com</div>
+          <div class="or-text">— book a demo —</div>
+          <div style="font-size:11px;font-weight:700;color:#22d3ee;">calendly.com/evankoenke/30min</div>
+        </div>
+      </div>
+
+      <div class="bottom-row">
+        <div class="qr-block">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://flowlayerai.com&bgcolor=ffffff&color=000000&margin=4" alt="QR Code" />
+          <div class="qr-label">Scan to Visit</div>
+        </div>
+        <div class="bottom-divider"></div>
+        <div class="bottom-cta">
+          <h3>Get in touch today</h3>
+          <p>Call, text, or visit the website. A real person responds within the hour.</p>
+          <div class="contact-pills">
+            <div class="contact-pill"><span class="icon">🌐</span> flowlayerai.com</div>
+            <div class="contact-pill"><span class="icon">📧</span> evankoenke@gmail.com</div>
+            <div class="contact-pill"><span class="icon">📱</span> (941) 284-1742</div>
+            <div class="contact-pill"><span class="icon">📅</span> calendly.com/evankoenke/30min</div>
+          </div>
+        </div>
+        <div class="bottom-divider"></div>
+        <div class="demo-number-block">
+          <div class="label">Try Live AI Demo</div>
+          <div class="number">(336) 388-8057</div>
+          <div class="sub">Call & hear it yourself</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <p>Flowlayer AI &nbsp;·&nbsp; <span>Sarasota, FL &nbsp;·&nbsp; flowlayerai.com &nbsp;·&nbsp; Founded by Evan Koenke</span></p>
+      <p><span>AI Automation &nbsp;·&nbsp; Voice Agents &nbsp;·&nbsp; Expense Tracking &nbsp;·&nbsp; Lead Management</span></p>
     </div>
   </div>
 
-  <!-- TAGLINE BAR -->
-  <div class="tagline-bar">
-    <p>⚡ AI That Works For Your Business 24/7 — While You Focus On Growing It</p>
-    <p class="sub">Setup in under 1 hour &nbsp;·&nbsp; No technical knowledge required</p>
-  </div>
+  <!-- ══════════ PAGE 2 — BACK ══════════ -->
+  <div class="page">
 
-  <!-- BODY -->
-  <div class="body">
-
-    <div class="intro">
-      <h2>3 AI Systems That Eliminate Your Biggest Daily Time Wasters</h2>
-      <p>Most small businesses lose thousands every month to missed calls, manual data entry, and leads that fall through the cracks. Flowlayer AI automates all three — completely hands-free.</p>
-    </div>
-
-    <!-- PRODUCTS -->
-    <div class="products">
-
-      <!-- PRODUCT 1 -->
-      <div class="product-card p1">
-        <div class="product-sidebar">
-          📞
-          <span class="num">BUILD 1</span>
-        </div>
-        <div class="product-content">
-          <div class="product-header">
-            <div class="product-title">AI Voice Agent — Never Miss a Call Again</div>
-            <div class="product-badge">24/7 Live</div>
-          </div>
-          <div class="product-desc">
-            A customer calls your business number. Instead of voicemail, an AI receptionist answers instantly — collects their name, phone number, what they need, and how urgent it is. The owner gets an email alert within seconds with the full lead profile. Every call logged automatically to your CRM.
-          </div>
-          <div class="steps">
-            <div class="step">📲 Customer Calls</div>
-            <span class="step-arrow">→</span>
-            <div class="step">🤖 AI Answers & Qualifies</div>
-            <span class="step-arrow">→</span>
-            <div class="step">📧 Owner Gets Instant Alert</div>
-            <span class="step-arrow">→</span>
-            <div class="step">📋 Lead Logged to CRM</div>
-          </div>
-          <div class="demo-line">
-            <span style="font-size:11px;color:#4b5563;">Try it live right now:</span>
-            <div class="demo-pill">📞 Call (336) 388-8057</div>
+    <div class="hdr">
+      <div class="hdr-inner">
+        <div class="brand">
+          <div class="brand-dot"><img src="public/Tech-Forward Logo for FlowLayer AI.png" alt="Flowlayer AI" /></div>
+          <div>
+            <div class="brand-name">Flowlayer <span>AI</span></div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.45);font-weight:500;margin-top:1px;">AI Automation for Small Businesses</div>
           </div>
         </div>
-      </div>
-
-      <!-- PRODUCT 2 -->
-      <div class="product-card p2">
-        <div class="product-sidebar">
-          🧾
-          <span class="num">BUILD 2</span>
+        <div class="hdr-contact">
+          <p><a href="https://flowlayerai.com">flowlayerai.com</a></p>
+          <p>(941) 284-1742</p>
+          <p>evankoenke@gmail.com</p>
+          <p>Sarasota, FL</p>
         </div>
-        <div class="product-content">
-          <div class="product-header">
-            <div class="product-title">Automated Expense Tracker — Receipts Log Themselves</div>
-            <div class="product-badge">Instant</div>
-          </div>
-          <div class="product-desc">
-            Your team takes a photo of any receipt and sends it to a Telegram chat. AI reads the receipt, extracts the vendor, total, date, and category — then logs it to your Google Sheet automatically. The Dashboard shows food cost %, labor cost %, and profit margin live in real time. No more manual data entry. Ever.
-          </div>
-          <div class="steps">
-            <div class="step">📸 Photo of Receipt</div>
-            <span class="step-arrow">→</span>
-            <div class="step">💬 Send to Telegram</div>
-            <span class="step-arrow">→</span>
-            <div class="step">🤖 AI Reads & Logs It</div>
-            <span class="step-arrow">→</span>
-            <div class="step">📊 Dashboard Updates Live</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PRODUCT 3 -->
-      <div class="product-card p3">
-        <div class="product-sidebar">
-          🌐
-          <span class="num">BUILD 3</span>
-        </div>
-        <div class="product-content">
-          <div class="product-header">
-            <div class="product-title">Website Lead Capture — Turn Visitors Into Logged Leads</div>
-            <div class="product-badge">Automated</div>
-          </div>
-          <div class="product-desc">
-            A visitor fills out the contact form on your website. Their information is instantly logged to a Google Sheet and the owner receives an email notification within seconds. No lead ever goes unnoticed. No form submission ever gets lost in an inbox. Every potential customer captured and tracked automatically.
-          </div>
-          <div class="steps">
-            <div class="step">🌐 Visitor Fills Form</div>
-            <span class="step-arrow">→</span>
-            <div class="step">📋 Logged to Sheet</div>
-            <span class="step-arrow">→</span>
-            <div class="step">📧 Owner Notified Instantly</div>
-            <span class="step-arrow">→</span>
-            <div class="step">✅ Lead Captured</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- DIVIDER -->
-    <div class="divider">
-      <div class="divider-line"></div>
-      <div class="divider-text">Why Businesses Choose Flowlayer AI</div>
-      <div class="divider-line"></div>
-    </div>
-
-    <!-- WHY SECTION -->
-    <div class="why-section">
-      <div class="why-card">
-        <div class="why-icon">⚡</div>
-        <div class="why-title">Live in Under 1 Hour</div>
-        <div class="why-desc">We handle the entire setup for you. No technical knowledge needed. Your system is fully running the same day.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">💰</div>
-        <div class="why-title">Pays For Itself Immediately</div>
-        <div class="why-desc">One saved lead or one week of eliminated manual data entry covers the cost. Most clients see ROI within the first 30 days.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🔒</div>
-        <div class="why-title">Built For Your Business</div>
-        <div class="why-desc">Every system is custom configured for your specific business. Not a generic app. Built and maintained by a dedicated AI specialist.</div>
       </div>
     </div>
 
-    <!-- CTA BLOCK -->
-    <div class="cta-block">
-      <div class="cta-left">
-        <h3>See It Work In Your Business — <span>For Free</span></h3>
-        <p>Book a free 15-minute live demo and watch the AI answer a real call, log a real receipt, and capture a real lead — all in front of you. No commitment. No pressure. Just results.</p>
-        <div class="cta-bullets">
-          <div class="cta-bullet"><div class="cta-bullet-dot"></div>We come to you — in person or virtual</div>
-          <div class="cta-bullet"><div class="cta-bullet-dot"></div>Live demo using your actual business number</div>
-          <div class="cta-bullet"><div class="cta-bullet-dot"></div>Fully set up and live the same day you say yes</div>
-        </div>
-      </div>
-      <div class="cta-divider-v"></div>
-      <div class="cta-right">
-        <div class="free-badge">✦ Free Demo</div>
-        <span class="cta-number">(941) 284-1742</span>
-        <div class="cta-number-label">Call or Text Evan</div>
-        <div class="or-text">— or —</div>
-        <div class="cta-web">flowlayerai.com</div>
-        <div class="or-text">— book a demo —</div>
-        <div style="font-size:11px;font-weight:700;color:#22d3ee;letter-spacing:0.01em;">calendly.com/evankoenke/30min</div>
-      </div>
+    <div class="cyan-bar">
+      <p>🔄 Before Flowlayer AI vs. After Flowlayer AI</p>
+      <p class="sub">Real results. Real businesses. No fluff.</p>
     </div>
 
-    <!-- BOTTOM ROW -->
-    <div class="bottom-row">
-      <div class="qr-block">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://flowlayerai.com&bgcolor=ffffff&color=000000&margin=4" alt="QR Code" />
-        <div class="qr-label">Scan to Visit</div>
+    <div class="back-body">
+
+      <div class="back-intro">
+        <h2>Most Businesses Are <span>Bleeding Money</span> Right Now</h2>
+        <p>Here's exactly what stops — and what starts — the day you go live with Flowlayer AI.</p>
       </div>
-      <div class="bottom-divider"></div>
-      <div class="bottom-cta">
-        <h3>Get in touch today</h3>
-        <p>Call, text, or visit the website. A real person responds within the hour.</p>
-        <div class="contact-pills">
-          <div class="contact-pill"><span class="icon">🌐</span> flowlayerai.com</div>
-          <div class="contact-pill"><span class="icon">📧</span> evankoenke@gmail.com</div>
-          <div class="contact-pill"><span class="icon">📱</span> (941) 284-1742</div>
-          <div class="contact-pill"><span class="icon">📅</span> calendly.com/evankoenke/30min</div>
+
+      <div class="compare-grid">
+
+        <div class="compare-card">
+          <div class="compare-card-header">
+            <div class="compare-card-icon">📞</div>
+            <div><div class="compare-card-title">AI Voice Agent</div><div class="compare-card-num">Build 1</div></div>
+          </div>
+          <div class="compare-card-body">
+            <div class="compare-row">
+              <div class="compare-label before">✕ Before</div>
+              <div class="compare-text before">Calls go to voicemail. You miss the lead. They call your competitor and book with them instead.</div>
+            </div>
+            <div class="compare-row">
+              <div class="compare-label after">✓ After</div>
+              <div class="compare-text after">AI answers in 1 ring, 24/7. Qualifies the lead and emails you a full profile in under 60 seconds.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare-card">
+          <div class="compare-card-header">
+            <div class="compare-card-icon">🧾</div>
+            <div><div class="compare-card-title">Expense Tracker</div><div class="compare-card-num">Build 2</div></div>
+          </div>
+          <div class="compare-card-body">
+            <div class="compare-row">
+              <div class="compare-label before">✕ Before</div>
+              <div class="compare-text before">Staff spends hours manually typing receipts. Errors pile up. No visibility into real-time costs.</div>
+            </div>
+            <div class="compare-row">
+              <div class="compare-label after">✓ After</div>
+              <div class="compare-text after">Snap a photo. AI reads, categorizes, and logs it in under 10 seconds. Dashboard updates live.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare-card">
+          <div class="compare-card-header">
+            <div class="compare-card-icon">🌐</div>
+            <div><div class="compare-card-title">Lead Capture</div><div class="compare-card-num">Build 3</div></div>
+          </div>
+          <div class="compare-card-body">
+            <div class="compare-row">
+              <div class="compare-label before">✕ Before</div>
+              <div class="compare-text before">Web form fills pile up in your inbox. You respond hours later — or forget entirely. Lead is gone.</div>
+            </div>
+            <div class="compare-row">
+              <div class="compare-label after">✓ After</div>
+              <div class="compare-text after">Every submission auto-logged to Google Sheets and an email alert fires to you within seconds.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-val">&lt; 60s</div>
+          <div class="stat-label">From call to owner<br>notification</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">0</div>
+          <div class="stat-label">Hours of manual<br>data entry needed</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">Same Day</div>
+          <div class="stat-label">Setup time — fully<br>live when you say yes</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">100%</div>
+          <div class="stat-label">Of leads captured<br>through your website</div>
         </div>
       </div>
-      <div class="bottom-divider"></div>
-      <div class="demo-number-block">
-        <div class="label">Try Live AI Demo</div>
-        <div class="number">(336) 388-8057</div>
-        <div class="sub">Call & hear it yourself</div>
+
+      <div class="back-cta">
+        <div class="back-cta-left">
+          <h3>Ready to See It <span>Live in Your Business?</span></h3>
+          <p>Book a free 15-minute demo. We demo live using your actual business number — you'll see it work in real time before you commit to anything.</p>
+        </div>
+        <div class="back-cta-divider"></div>
+        <div class="back-cta-right">
+          <span class="back-cta-number">(941) 284-1742</span>
+          <div class="back-cta-links">
+            <span class="back-cta-link">flowlayerai.com</span>
+            <span class="back-cta-link">calendly.com/evankoenke/30min</span>
+          </div>
+        </div>
+        <div class="back-cta-divider"></div>
+        <div class="back-qr-block">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://flowlayerai.com&bgcolor=ffffff&color=000000&margin=4" alt="QR" />
+          <div class="back-qr-label">Scan to Book</div>
+        </div>
       </div>
+
     </div>
 
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <p>Flowlayer AI &nbsp;·&nbsp; <span>Sarasota, FL &nbsp;·&nbsp; flowlayerai.com &nbsp;·&nbsp; Founded by Evan Koenke</span></p>
-    <p><span>AI Automation &nbsp;·&nbsp; Voice Agents &nbsp;·&nbsp; Expense Tracking &nbsp;·&nbsp; Lead Management</span></p>
+    <div class="page-footer">
+      <p>Flowlayer AI &nbsp;·&nbsp; <span>Sarasota, FL &nbsp;·&nbsp; flowlayerai.com &nbsp;·&nbsp; Founded by Evan Koenke</span></p>
+      <p><span>AI Automation &nbsp;·&nbsp; Voice Agents &nbsp;·&nbsp; Expense Tracking &nbsp;·&nbsp; Lead Management</span></p>
+    </div>
   </div>
 
 </body>
