@@ -126,14 +126,31 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href="tel:+19412841742" 
+                  <a
+                    href="tel:+19412841742"
                     className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group"
                   >
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                       <Phone size={16} className="text-primary" />
                     </div>
-                    <span>(941) 284-1742</span>
+                    <div>
+                      <div className="text-xs text-primary font-semibold">Evan · Founder</div>
+                      <span>(941) 284-1742</span>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="tel:+19418092893"
+                    className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <Phone size={16} className="text-primary" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-primary font-semibold">Laura · Consultant</div>
+                      <span>(941) 809-2893</span>
+                    </div>
                   </a>
                 </li>
                 <li className="flex items-center gap-3 text-muted-foreground">
