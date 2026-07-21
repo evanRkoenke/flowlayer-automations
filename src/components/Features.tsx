@@ -76,7 +76,7 @@ const Features = () => {
             Powerful <span className="text-gradient-premium">Features</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to automate your lead follow-up and scale your business efficiently.
+            We build virtually any AI automation your business needs — lead follow-up, content creation, client onboarding, AI voice agents, and more. If you can describe it, we can build it.
           </p>
         </motion.div>
 

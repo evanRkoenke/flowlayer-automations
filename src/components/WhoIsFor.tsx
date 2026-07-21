@@ -4,27 +4,27 @@ import { Briefcase, Users, MapPin, TrendingUp, ArrowUpRight } from "lucide-react
 const audiences = [
   {
     icon: Briefcase,
-    title: "Service-Based Businesses",
-    description: "Contractors, consultants, and professional service providers who need consistent lead follow-up.",
+    title: "You're Doing Too Much Manually",
+    description: "If your week is full of repetitive tasks — sending the same emails, answering the same questions, chasing the same leads — we eliminate all of it with custom AI.",
+    stat: "10+ hrs saved/week",
+  },
+  {
+    icon: MapPin,
+    title: "Your Leads Aren't Converting",
+    description: "If people are reaching out but not hearing back fast enough, or falling through the cracks entirely, we build systems that follow up instantly and consistently — 24/7.",
     stat: "3x faster response",
   },
   {
     icon: Users,
-    title: "Agencies & Consultants",
-    description: "Marketing agencies, business consultants, and B2B service firms managing multiple client relationships.",
-    stat: "50% more demos",
-  },
-  {
-    icon: MapPin,
-    title: "Local Businesses",
-    description: "Home services, medical practices, and local retailers with steady inbound lead flow.",
-    stat: "40% less no-shows",
+    title: "Your Client Experience Is Inconsistent",
+    description: "If new clients aren't being onboarded smoothly or your process feels different every time, we automate the entire journey so every client gets a five-star experience.",
+    stat: "40% less churn",
   },
   {
     icon: TrendingUp,
-    title: "Growing Teams",
-    description: "Scaling companies that need consistent, automated follow-up without hiring more staff.",
-    stat: "10hrs saved/week",
+    title: "You're Ready to Scale Without Hiring",
+    description: "If you want to grow your business but can't afford to add staff for every task, AI automation lets you handle more volume with the same team — or less.",
+    stat: "Custom built for you",
   },
 ];
 
@@ -47,11 +47,11 @@ const WhoIsFor = () => {
             Perfect Fit
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Built For Businesses That{" "}
-            <span className="text-gradient-premium">Can't Afford</span> To Lose Leads
+            We Build AI Systems For{" "}
+            <span className="text-gradient-premium">Any Business</span> In Any Industry
           </h2>
           <p className="text-lg text-muted-foreground">
-            Our AI automation system is designed for businesses where every lead counts.
+            Whether you're a coach, contractor, retailer, or consultant — if you're doing repetitive work manually, we can automate it.
           </p>
         </motion.div>
 

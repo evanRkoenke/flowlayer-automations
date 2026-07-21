@@ -87,7 +87,7 @@ const Hero = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
               </span>
-              AI-Powered Lead Automation
+              Custom AI Automation — Any Business, Any Industry
             </motion.div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[1.1] mb-6">
@@ -96,8 +96,12 @@ const Hero = () => {
               Again
             </h1>
 
+            <p className="text-xl sm:text-2xl font-semibold text-primary mb-4 max-w-xl mx-auto lg:mx-0">
+              Stop running your business manually. Let custom AI do the heavy lifting.
+            </p>
+
             <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              Transform your sales pipeline with intelligent AI workflows that respond instantly, nurture persistently, and convert consistently—24/7.
+              From lead follow-up to content creation, client onboarding to AI voice agents — we build custom automation for any business that's ready to stop doing everything manually.
             </p>
 
             {/* Trust indicators */}
